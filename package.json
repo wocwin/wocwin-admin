@@ -11,6 +11,7 @@
     "sit": "vue-tsc --noEmit && vite build --mode sit",
     "uat": "vue-tsc --noEmit && vite build --mode uat",
     "prod": "vue-tsc --noEmit && vite build --mode prod",
+    "deploy": "deploy.sh",
     "preview": "vite preview"
   },
   "dependencies": {
