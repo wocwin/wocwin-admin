@@ -1,0 +1,46 @@
+{
+  "name": "vite-vue3-ts-qiankun-demo",
+  "private": false,
+  "version": "0.0.1",
+  "description": "vue3vite模板",
+  "author": "wocwin",
+  "type": "module",
+  "scripts": {
+    "serve": "vite --mode dev",
+    "dev": "vue-tsc --noEmit && vite build --mode dev",
+    "sit": "vue-tsc --noEmit && vite build --mode sit",
+    "uat": "vue-tsc --noEmit && vite build --mode uat",
+    "prod": "vue-tsc --noEmit && vite build --mode prod",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
+    "axios": "^1.1.2",
+    "element-plus": "^2.2.18",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
+    "@types/node": "18.7.18",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-vue-jsx": "^2.0.1",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.6.0",
+    "js-cookie": "^3.0.1",
+    "prettier": "^2.7.1",
+    "rollup-plugin-visualizer": "^5.8.2",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "typescript": "^4.6.4",
+    "unplugin-auto-import": "^0.11.2",
+    "vite": "^3.1.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue-tsc": "^0.40.4"
+  }
+}
