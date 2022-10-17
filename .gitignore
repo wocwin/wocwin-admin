@@ -13,6 +13,7 @@ dist-ssr
 *.local
 stats.html
 deploy.sh
+package-lock
 package-lock.json
 
 # Editor directories and files
