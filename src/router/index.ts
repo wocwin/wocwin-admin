@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/index.vue'
 import Login from '@/views/login.vue'
-const constantRoutes: any = [
+export const constantRoutes: any = [
     {
         path: '/',
         name: 'Home页面',

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 // import piniaPersistConfig from '../piniaPersist'
 import { removeToken } from '@/utils/cookies'
 import { getRouters, getRouterPrefix } from '@/api/menu'
-import constantRoutes from '@/router'
+import {constantRoutes} from '@/router'
 import Message from '@/utils/message'
 // import Blank from '@/components/Blank.vue'
 // import Layout from '@/layout/index.vue'
@@ -117,11 +117,11 @@ function filterAsyncRouter(asyncRouterMap: any[], hier: number, _that: any) {
       } else {
         route.component = 'Blank'
       }
-      if (route.component == 'Layout') {
-        route.component = Layout
-      } else if (route.component == 'Blank') {
-        route.component = Blank
-      }
+      // if (route.component == 'Layout') {
+      //   route.component = Layout
+      // } else if (route.component == 'Blank') {
+      //   route.component = Blank
+      // }
     } else {
       // console.log(7111, route.component)
       // route.component = loadView(route.component)
