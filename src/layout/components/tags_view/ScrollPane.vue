@@ -24,7 +24,7 @@ onBeforeUnmount(() => {
   scrollWrapper.value.removeEventListener('scroll', emitScroll)
 })
 
-function handleScroll (e) {
+function handleScroll (e: any) {
   const eventDelta = e.wheelDelta || -e.deltaY * 40
   const $scrollWrapper = scrollWrapper.value;
   $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4
@@ -37,7 +37,7 @@ const emitScroll = () => {
 const tagsViewStore = useTagViewsStore()
 const visitedViews = computed(() => tagsViewStore.visitedViews);
 
-function moveToTarget (currentTag) {
+function moveToTarget (currentTag: any) {
   const $container = proxy.$refs.scrollContainer.$el
   const $containerWidth = $container.offsetWidth
   const $scrollWrapper = scrollWrapper.value;

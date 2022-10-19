@@ -23,25 +23,25 @@
 import data from './data.json'
 import data2 from './data2.json'
 import { toRefs, reactive, onBeforeMount } from 'vue'
-const viewDetail = val => {
+const viewDetail = (val: any) => {
   console.log('查看', val)
 }
-const edit = val => {
+const edit = (val: any) => {
   console.log('编辑', val)
 }
-const nullify = val => {
+const nullify = (val: any) => {
   console.log('作废', val)
 }
-const furnaceCharging = val => {
+const furnaceCharging = (val: any) => {
   console.log('装炉', val)
 }
-const comeOut = val => {
+const comeOut = (val: any) => {
   console.log('去出炉', val)
 }
-const alteration = val => {
+const alteration = (val: any) => {
   console.log('变更', val)
 }
-const rollback = val => {
+const rollback = (val: any) => {
   console.log('回退', val)
 }
 let state = reactive<any>({
@@ -127,12 +127,12 @@ const getList = () => {
   }
 }
 // 选择当前展示的总页码
-const handlesSizeChange = val => {
+const handlesSizeChange = (val: any) => {
   state.table.pageSize = val
   getList()
 }
 // 选择当前页码
-const handlesCurrentChange = val => {
+const handlesCurrentChange = (val: any) => {
   state.table.currentPage = val
   getList()
 }

@@ -20,7 +20,7 @@
           <template v-if="val.canEdit">
             <single-edit-cell :canEdit="val.canEdit" :configEdit="val.configEdit"
               v-model="scope.row[scope.column.property]" :prop="val.prop" :record="scope"
-              @handleEvent="(event,model) => $emit('handleEvent',event,model,scope.$index)" v-bind="$attrs"
+              @handleEvent="(event:any,model:any) => $emit('handleEvent',event,model,scope.$index)" v-bind="$attrs"
               ref="editCell">
               <slot v-if="val.configEdit&&val.configEdit.editSlotName" :name="val.configEdit.editSlotName"
                 :scope="scope" />

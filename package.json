@@ -29,6 +29,7 @@
     "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.18",
     "@types/nprogress": "^0.2.0",
+    "@types/path-browserify": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "@vitejs/plugin-vue": "^3.1.0",
