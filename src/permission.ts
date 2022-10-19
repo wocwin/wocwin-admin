@@ -14,7 +14,6 @@ const whiteList = ['/login']
 router.beforeEach((to: any, from: any, next: Function) => {
   NProgress.start()
   if (getToken()) {
-    console.log(11111,getToken())
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
@@ -32,10 +31,9 @@ router.beforeEach((to: any, from: any, next: Function) => {
             next({ ...to, replace: true })
           })
           .catch((err: { message: any; msg: any }) => {
-            useUserStore().LogOut().then(() => {
+              useUserStore().FedLogOut()
               ElMessage.error(err.message || err.msg || '出现错误，请稍后再试')
               next({ path: '/' })
-            })
           })
       } else {
         // 进入页面前设置菜单
@@ -65,7 +63,6 @@ router.beforeEach((to: any, from: any, next: Function) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      console.log(2222)
       next(`/login`)
       NProgress.done()
     }

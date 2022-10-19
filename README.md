@@ -46,7 +46,7 @@ npm run serve
 > ##### [部分vite实用插件介绍](https://blog.csdn.net/cwin8951/article/details/127323394)
 
 #### 第三步、[以Pinia代替vuex及Pinia持久化处理](https://blog.csdn.net/cwin8951/article/details/127365114)
-#### 第四步、[Layout组件搭建、如何全局自动注册基础组件、缓存页面]()——待完善
+#### 第四步、[Layout组件搭建、如何全局自动注册基础组件、缓存页面](https://blog.csdn.net/cwin8951/article/details/127413956)
 #### 第五步、[qiankun引入并让其主子应用之间切换]()——待完善
 #### 第六步、[条件查询基础组件讲解](https://blog.csdn.net/cwin8951/article/details/126894087)
 #### 第七步、[TTable基础组件讲解](https://blog.csdn.net/cwin8951/article/details/126939128)

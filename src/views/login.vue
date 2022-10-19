@@ -42,10 +42,10 @@ import Cookies from 'js-cookie'
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import type { FormInstance } from 'element-plus'
 import useUserStore from '@/store/modules/user'
-console.log('userStore', useUserStore())
+// console.log('userStore', useUserStore())
 const loginForm = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
   rememberMe: false
 })
 const loginRules = reactive({

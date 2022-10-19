@@ -18,6 +18,9 @@ import '@/assets/styles/index.scss'
 // 初始化样式
 import 'normalize.css'
 
+import SvgIcon from '@/components/SvgIcon/index.vue'
+// 统一注册 baseComponents
+import baseComponentsInstall from '@/components/baseComponents/install'
 
 const app = createApp(App)
 
@@ -33,6 +36,14 @@ app.use(ElementPlus, {
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+  // 全局组件祖册
+app.component(
+  'SvgIcon',
+  // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
+  SvgIcon.default || SvgIcon
+)
+// 自动注册全部本地组件
+app.use(baseComponentsInstall)
 // 注册路由
 app.use(router)
 

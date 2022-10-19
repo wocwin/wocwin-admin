@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="env_tag" v-if="ENV !== 'production'">{{ ENV }}</div>
-    <router-view />
+    <router-view v-if="isRouterAlive" />
   </div>
 </template>
 <script setup lang="ts">
@@ -9,12 +9,21 @@ import { computed } from 'vue'
 const ENV = computed(() => {
   return import.meta.env.VITE_APP_ENV
 })
+const isRouterAlive = ref(true)
+const reload = () => {
+  isRouterAlive.value = false
+  nextTick(() => {
+    isRouterAlive.value = true
+  })
+}
+provide('reload', reload)
 </script>
 <style lang="scss">
 body {
   background-color: #f6f6f6 !important;
   overflow: hidden;
 }
+
 #app {
   display: flex;
   flex-direction: column;
@@ -25,6 +34,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   overflow: hidden;
+
   .env_tag {
     position: absolute;
     z-index: 901;

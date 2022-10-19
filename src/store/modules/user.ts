@@ -1,6 +1,9 @@
 import piniaPersistConfig from '../piniaPersist'
 import { removeToken, setToken, getToken } from '@/utils/cookies'
-import { login, logout, getInfo, getPermBtm } from '@/api/login'
+// import { login, logout, getInfo, getPermBtm } from '@/api/login'
+import UserInfoData from './getData/userInfo.json'
+import PermBtmData from './getData/permBtmData.json'
+import GetTokenData from './getData/token.json'
 import { ElMessage } from 'element-plus'
 const useUserStore = defineStore('user',{
   state: () => {
@@ -21,8 +24,9 @@ const useUserStore = defineStore('user',{
     // 登录
     Login(userInfo: any) {
       return new Promise((resolve: any, reject: any) => {
-        login(userInfo)
-          .then((res: any) => {
+        const res:any = GetTokenData
+        // login(userInfo)
+        //   .then((res: any) => {
             if (res.success) {
               setToken(res.data)
               this.token = res.data
@@ -31,17 +35,18 @@ const useUserStore = defineStore('user',{
             }
             resolve()
           })
-          .catch((error: any) => {
-            reject(error)
-          })
-      })
+          // .catch((error: any) => {
+          //   reject(error)
+          // })
+      // })
     },
     // 获取用户信息
     GetInfo() {
       if (this.token === '') {
         throw Error('token is undefined!')
       }
-      getInfo().then(async (res: any) => {
+      // getInfo().then(async (res: any) => {
+        const res:any = UserInfoData
         if (res?.success) {
           const user = res.data
           const avatar =
@@ -60,7 +65,8 @@ const useUserStore = defineStore('user',{
           this.userId = user.userId
           this.dept = user.dept
           //获取按钮权限
-          await getPermBtm().then((btmRes: any) => {
+          // await getPermBtm().then((btmRes: any) => {
+            const btmRes:any = PermBtmData
             console.log('获取的按钮权限', btmRes)
             if (btmRes?.success && btmRes.data.length > 0) {
               const permBtn = btmRes.data.map((item: { menuId: any }) => item.menuId)
@@ -69,29 +75,29 @@ const useUserStore = defineStore('user',{
               this.permCode = permCode
               this.permissions = permCode
             }
-          })
+          // })
           return res
         } else {
           throw Error('Verification failed, please Login again.')
         }
-      })
+      // })
     },
-    // 退出系统
-    LogOut() {
-      return new Promise((resolve: any, reject: any) => {
-        logout()
-          .then(() => {
-            this.token = ''
-            this.roles = []
-            this.permissions = []
-            removeToken()
-            resolve()
-          })
-          .catch((error: any) => {
-            reject(error)
-          })
-      })
-    },
+    // // 退出系统
+    // LogOut() {
+    //   return new Promise((resolve: any, reject: any) => {
+    //     logout()
+    //       .then(() => {
+    //         this.token = ''
+    //         this.roles = []
+    //         this.permissions = []
+    //         removeToken()
+    //         resolve()
+    //       })
+    //       .catch((error: any) => {
+    //         reject(error)
+    //       })
+    //   })
+    // },
     // 前端退出
     FedLogOut() {
       removeToken()
