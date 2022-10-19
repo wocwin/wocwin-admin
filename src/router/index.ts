@@ -48,7 +48,7 @@ export const constantRoutes: any = [
     }
 ]
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/wocwin-admin/'),
     routes:constantRoutes
 })
 

@@ -9,6 +9,7 @@ import viteCompression from 'vite-plugin-compression' // 静态资源压缩
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:'/wocwin-admin/',
   plugins: [
     vue(),
     vueJsx(),
