@@ -34,7 +34,9 @@ npm install --registry=https://registry.npm.taobao.org
 # 启动服务
 npm run serve
 ```
+### 在线预览地址
 
+- Link：https://wocwin.github.io/wocwin-admin/
 
 
 ### 搭建教程
