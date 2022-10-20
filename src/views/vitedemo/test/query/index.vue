@@ -5,7 +5,7 @@
     </t-layout-page-item>
     <t-layout-page-item>
       <t-table ref="selectionTable" title="Query TTable组件使用" :table="state.table" :columns="state.table.columns"
-        @selection-change="selectionChange" @radioChange="radioChange">
+        @selection-change="selectionChange" :isShowPagination="false" @radioChange="radioChange">
         <!-- 插槽渲染 -->
         <template #dateSlot="{scope}">
           <div>{{scope.row.date}}</div>

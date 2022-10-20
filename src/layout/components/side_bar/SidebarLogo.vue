@@ -20,7 +20,7 @@ import titleDescription from '../../../../package.json'
 const title =titleDescription.description
 // const logo = require('@/assets/logo/logo.png')
 const logo = new URL('../../../assets/logo/logo.png', import.meta.url).href
-// import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
+import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
 export default defineComponent({
   props: {
     collapse: {
@@ -32,8 +32,7 @@ export default defineComponent({
     // const title = settings.title
     const state = reactive({
       goIndex: () => {
-        // window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/' : '/vitedemo/'
-        window.location.href = '/'
+        window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/' : '/wocwin-admin/'
       }
     })
     return {

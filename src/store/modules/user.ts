@@ -8,7 +8,7 @@ import { ElMessage } from 'element-plus'
 const useUserStore = defineStore('user',{
   state: () => {
     return {
-      token: getToken() || '',
+      token: 'PC:179_bb5c02174b084e04a16b1d7f3c0ca5bf',
       name: '',
       avatar: '',
       roles: [] as any,
@@ -42,9 +42,9 @@ const useUserStore = defineStore('user',{
     },
     // 获取用户信息
     GetInfo() {
-      if (this.token === '') {
-        throw Error('token is undefined!')
-      }
+      // if (this.token === '') {
+      //   throw Error('token is undefined!')
+      // }
       // getInfo().then(async (res: any) => {
         const res:any = UserInfoData
         if (res?.success) {

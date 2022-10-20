@@ -99,7 +99,7 @@ const useTagViewsStore = defineStore('tagViews',{
         resolve([...this.cachedViews])
       })
     },
-    delAllViews(view: any) {
+    delAllViews(view: any={}) {
       return new Promise(resolve => {
         this.delAllVisitedViews(view)
         this.delAllCachedViews(view)

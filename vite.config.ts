@@ -6,10 +6,13 @@ import vueSetupExtend from 'vite-plugin-vue-setup-extend' // 设置neme属性
 import AutoImport from 'unplugin-auto-import/vite' // 自动导入
 import viteCompression from 'vite-plugin-compression' // 静态资源压缩
 // import {visualizer} from 'rollup-plugin-visualizer' // 打包后的视图文件
-
+// 配置qiankun
+import qiankun from 'vite-plugin-qiankun'
+const packName = require('./package').name
 // https://vitejs.dev/config/
 export default defineConfig({
-  base:'/wocwin-admin/',
+  // 配置NG——这个是与后台、运维约定好的，做NG转发；即主应用地址+子应用base就会直接NG转发
+  base: '/wocwin-admin/',
   plugins: [
     vue(),
     vueJsx(),
@@ -17,6 +20,10 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router','pinia'], // 自动导入vue、vue-router、pinia相关API
       dts: 'src/auto-import.d.ts' // 生成 `auto-import.d.ts` 全局声明
+    }),
+    // 配置qiankun
+    qiankun(`${packName}`, {
+      useDevMode: true
     }),
     viteCompression({
       verbose: true,
@@ -33,6 +40,9 @@ export default defineConfig({
     // })
   ],
   server: {
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
     host: '0.0.0.0',
     port: 3300,
     open: true,

@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { RouteLocationMatched, useRoute, useRouter } from 'vue-router'
-// import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
+import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
 
 export default defineComponent({
   setup() {
@@ -39,8 +39,7 @@ export default defineComponent({
         router.push(redirect)
         return
       }
-      // window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/' : '/vitedemo'
-      window.location.href = '/'
+      window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/' : '/wocwin-admin'
     }
     // 在挂载阶段执行获取面包屑数组
     onMounted(() => {

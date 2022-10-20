@@ -36,7 +36,7 @@ import {
   inject
 } from 'vue'
 import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
-// import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
+import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
 import ScrollPane from './ScrollPane.vue'
 export default defineComponent({
   components: {
@@ -63,16 +63,14 @@ export default defineComponent({
         //     console.warn(err)
         //   })
         // } else {
-        // window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/' : '/vitedemo/'
-        window.location.href = '/'
+        window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? '/' : '/wocwin-admin/'
         // }
       }
     }
     const visitedViews = computed(() => {
-      return useTagViewsStore().visitedViews
-      // .filter(v => {
-      //   return v?.title !== '首页'
-      // })
+      return useTagViewsStore().visitedViews.filter(v => {
+        return v?.title !== '首页'
+      })
     })
     const routes = computed(() => usePermissionStore().routes)
     const state = reactive({

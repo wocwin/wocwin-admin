@@ -47,15 +47,12 @@ npm run serve
 
 #### 第三步、[以Pinia代替vuex及Pinia持久化处理](https://blog.csdn.net/cwin8951/article/details/127365114)
 #### 第四步、[Layout组件搭建、如何全局自动注册基础组件、缓存页面](https://blog.csdn.net/cwin8951/article/details/127413956)
-#### 第五步、[qiankun引入并让其主子应用之间切换]()——待完善
+#### 第五步、[qiankun引入并让其主子应用之间切换](https://blog.csdn.net/cwin8951/article/details/127431084)
 #### 第六步、[条件查询基础组件讲解](https://blog.csdn.net/cwin8951/article/details/126894087)
 #### 第七步、[TTable基础组件讲解](https://blog.csdn.net/cwin8951/article/details/126939128)
 
 #### 最终效果
-##### 主应用
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3cef5513227446e3b57eb7839aeefd69.png)
-##### vite+vue3+ts+pinia+element-plus+qiankun  子应用
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c967aa066de24343b0ba8e98119f5019.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fb942d11225f45439cae39acedb65440.gif)
 
 #### 相关文章
 [基于ElementUi再次封装基础组件文档](https://wocwin.github.io/t-ui/)

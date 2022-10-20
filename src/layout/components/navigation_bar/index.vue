@@ -38,10 +38,11 @@ import BreadCrumb from './BreadCrumb.vue'
 import Hamburger from './Hamburger.vue'
 import Screenfull from './Screenfull.vue'
 import Settings from '../settings/index.vue'
-// import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
+import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
 import useAppStore from '@/store/modules/app'
 import useUserStore from '@/store/modules/user'
 import useSettingsStore from '@/store/modules/settings'
+import useTagViewsStore from '@/store/modules/tagViews'
 import { ElMessageBox } from 'element-plus'
 
 const appStore = useAppStore()
@@ -74,10 +75,10 @@ function logout() {
     type: 'warning'
   }).then(() => {
     userStore.FedLogOut()
-    // window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__
-    //   ? '/'
-    //   : '/vitedemo/'
-    window.location.href = '/'
+    useTagViewsStore().delAllViews()
+    window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__
+      ? '/'
+      : '/wocwin-admin/'
   })
 }
 </script>
