@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/wocwin-admin/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vite+vue3+ts+pinia+element-plus+qiankun</title>
+  <script crossorigin="">import('/wocwin-admin/assets/index.dba7a505.js').finally(() => {
+            
+    const qiankunLifeCycle = window.moudleQiankunAppLifeCycles && window.moudleQiankunAppLifeCycles['vite-vue3-ts-qiankun-demo'];
+    if (qiankunLifeCycle) {
+      window.proxy.vitemount((props) => qiankunLifeCycle.mount(props));
+      window.proxy.viteunmount((props) => qiankunLifeCycle.unmount(props));
+      window.proxy.vitebootstrap(() => qiankunLifeCycle.bootstrap());
+      window.proxy.viteupdate((props) => qiankunLifeCycle.update(props));
+    }
+  
+          })</script>
+  <link rel="stylesheet" href="/wocwin-admin/assets/index.8747161e.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  
+
+
+<script>
+  const createDeffer = (hookName) => {
+    const d = new Promise((resolve, reject) => {
+      window.proxy && (window.proxy[`vite${hookName}`] = resolve)
+    })
+    return props => d.then(fn => fn(props));
+  }
+  const bootstrap = createDeffer('bootstrap');
+  const mount = createDeffer('mount');
+  const unmount = createDeffer('unmount');
+  const update = createDeffer('update');
+
+  ;(global => {
+    global.qiankunName = 'vite-vue3-ts-qiankun-demo';
+    global['vite-vue3-ts-qiankun-demo'] = {
+      bootstrap,
+      mount,
+      unmount,
+      update
+    };
+  })(window);
+</script></body></html>

@@ -1,0 +1,1 @@
+import{d as c,u as a,a as n,o as u,c as _,_ as p}from"./index.dba7a505.js";const i=c({__name:"redirect",setup(d){const e=a(),t=n(),{params:r,query:o}=e,{path:s}=r;return t.replace({path:"/"+s,query:o}),(m,f)=>(u(),_("div"))}}),h=p(i,[["__file","F:/Wrok/Me/wocwin-admin/src/views/redirect.vue"]]);export{h as default};

@@ -1,0 +1,1 @@
+import{_ as e,o as n,c}from"./index.dba7a505.js";const o={},s={class:"menu2"};function t(r,_){return n(),c("div",s,"menu2\u9875\u9762")}const a=e(o,[["render",t],["__file","F:/Wrok/Me/wocwin-admin/src/views/vitedemo/menu/menu2/index.vue"]]);export{a as default};
