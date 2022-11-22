@@ -3,7 +3,7 @@
 > 此项目集成的qiankun（即可以当做一个子应用）
 
 ### 前言
-wocwin-admin，基于 Vue3.2、TypeScript、Vite3、Pinia、Element-Plus 开源的一套后台管理模板。项目中很多样式都是借鉴其它的管理系统，后期会持续更新，希望大家能多提意见。
+wocwin-admin，基于 Vue3.2、TypeScript、Vite3、Pinia、Element-Plus 开源的一套后台管理模板。
 
 
 ### 项目功能
