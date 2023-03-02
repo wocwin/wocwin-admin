@@ -98,7 +98,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('../assets/images/bg.png');
+  background: #3987b1;
   height: 100vh;
   background-size: cover;
   padding: 50px 0;
