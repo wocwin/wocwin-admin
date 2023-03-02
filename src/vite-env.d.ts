@@ -6,3 +6,4 @@ declare module '*.vue' {
   export default component
 }
 declare module 'jsencrypt/bin/jsencrypt';
+declare module '@wocwin/t-ui-plus';

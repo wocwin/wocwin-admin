@@ -26,7 +26,9 @@ import '@/assets/styles/index.scss'
 import 'normalize.css'
 
 // 统一注册 baseComponents
-import baseComponentsInstall from '@/components/baseComponents/install'
+// import baseComponentsInstall from '@/components/baseComponents/install'
+import TuiPlus from '@wocwin/t-ui-plus'
+import '@wocwin/t-ui-plus/lib/style.css'
 // svg渲染
 import SvgIcon from '@/components/SvgIcon/index.vue'
 
@@ -52,7 +54,8 @@ function render(props: any = {}) {
     // size: Cookies.get('size') || 'medium' // 尺寸设置
   })
   // 自动注册全部本地组件
-  instance.use(baseComponentsInstall)
+  // instance.use(baseComponentsInstall)
+  instance.use(TuiPlus)
   // 全局组件祖册
   instance.component(
     'SvgIcon',
