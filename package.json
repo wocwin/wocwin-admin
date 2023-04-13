@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
-    "@wocwin/t-ui-plus": "^1.0.9",
+    "@wocwin/t-ui-plus": "^1.0.18",
     "axios": "^1.1.2",
     "element-plus": "^2.2.18",
     "normalize.css": "^8.0.1",
