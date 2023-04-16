@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useGlobalStore } from "@/stores/modules/global";
+import { useGlobalStore } from "@/store/modules/global";
 
 const globalStore = useGlobalStore();
 const changeCollapse = () => globalStore.setGlobalState("isCollapse", !globalStore.isCollapse);

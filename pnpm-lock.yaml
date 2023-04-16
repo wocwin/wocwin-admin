@@ -4,6 +4,7 @@ specifiers:
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
   '@element-plus/icons-vue': ^2.1.0
+  '@types/js-cookie': ^3.0.3
   '@types/js-md5': ^0.7.0
   '@types/nprogress': ^0.2.0
   '@types/qs': ^6.9.7
@@ -99,6 +100,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.6.1
   '@commitlint/config-conventional': 17.6.1
+  '@types/js-cookie': 3.0.3
   '@types/js-md5': 0.7.0
   '@types/nprogress': 0.2.0
   '@types/qs': 6.9.7
@@ -1126,6 +1128,10 @@ packages:
   /@types/event-emitter/0.3.3:
     resolution: {integrity: sha512-UfnOK1pIxO7P+EgPRZXD9jMpimd8QEFcEZ5R67R1UhGbv4zghU5+NE7U8M8G9H5Jc8FI51rqDWQs6FtUfq2e/Q==}
     dev: false
+
+  /@types/js-cookie/3.0.3:
+    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
+    dev: true
 
   /@types/js-md5/0.7.0:
     resolution: {integrity: sha512-4mN02EhCni6MlvCUl9bpcbMfu7R3G+ac+J37b7gKCu3tWhZc5/Ya41T+2QNR2aFt6vnMe+uTa5rFQ+nT2kl6cA==}

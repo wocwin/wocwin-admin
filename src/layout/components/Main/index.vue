@@ -19,8 +19,8 @@
 import { ref, onBeforeUnmount, provide, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useDebounceFn } from "@vueuse/core";
-import { useGlobalStore } from "@/stores/modules/global";
-import { useKeepAliveStore } from "@/stores/modules/keepAlive";
+import { useGlobalStore } from "@/store/modules/global";
+import { useKeepAliveStore } from "@/store/modules/keepAlive";
 import Maximize from "./components/Maximize.vue";
 import Tabs from "@/layout/components/Tabs/index.vue";
 import Footer from "@/layout/components/Footer/index.vue";

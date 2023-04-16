@@ -5,9 +5,9 @@
   </svg>
 </template>
 
-<script lang='ts'>
-import { isExternal } from '@/utils/validate'
-import { computed, defineComponent } from 'vue'
+<script lang="ts">
+import { isExternal } from "@/utils/validate";
+import { computed, defineComponent } from "vue";
 export default defineComponent({
   props: {
     iconClass: {
@@ -16,43 +16,42 @@ export default defineComponent({
     },
     className: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   setup(props) {
-    const iconClass = props.iconClass
-    const className = props.className
+    const iconClass = props.iconClass;
+    const className = props.className;
 
-    const isExt = computed(() => isExternal(iconClass))
-    const iconName = computed(() => `#icon-${iconClass}`)
+    const isExt = computed(() => isExternal(iconClass));
+    const iconName = computed(() => `#icon-${iconClass}`);
     const svgClass = computed(() => {
       if (className) {
-        return 'svg-icon ' + className
+        return "svg-icon " + className;
       } else {
-        return 'svg-icon'
+        return "svg-icon";
       }
-    })
+    });
     const styleExternalIcon = computed(() => ({
       mask: `url(${iconClass}) no-repeat 50% 50%`,
-      '-webkit-mask': `url(${iconClass}) no-repeat 50% 50%`
-    }))
-    return { isExt, iconName, svgClass, styleExternalIcon }
+      "-webkit-mask": `url(${iconClass}) no-repeat 50% 50%`
+    }));
+    return { isExt, iconName, svgClass, styleExternalIcon };
   }
-})
+});
 </script>
 
 <style scoped>
 .svg-icon {
   width: 1em;
   height: 1em;
+  overflow: hidden;
   vertical-align: -0.15em;
   fill: currentColor;
-  overflow: hidden;
 }
-
 .svg-external-icon {
+  display: inline-block;
   background-color: currentColor;
   mask-size: cover !important;
-  display: inline-block;
 }
 </style>

@@ -39,8 +39,8 @@
 <script setup lang="ts" name="layoutClassic">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { useAuthStore } from "@/stores/modules/auth";
-import { useGlobalStore } from "@/stores/modules/global";
+import { useAuthStore } from "@/store/modules/auth";
+import { useGlobalStore } from "@/store/modules/global";
 import Main from "@/layout/components/Main/index.vue";
 import SubMenu from "@/layout/components/Menu/SubMenu.vue";
 import ToolBarLeft from "@/layout/components/Header/ToolBarLeft.vue";

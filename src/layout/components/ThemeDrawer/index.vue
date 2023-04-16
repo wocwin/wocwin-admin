@@ -110,8 +110,8 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTheme } from "@/hooks/useTheme";
-import { useGlobalStore } from "@/stores/modules/global";
-import { LayoutType } from "@/stores/interface";
+import { useGlobalStore } from "@/store/modules/global";
+import { LayoutType } from "@/store/interface";
 import { DEFAULT_PRIMARY } from "@/config";
 import mittBus from "@/utils/mittBus";
 import SwitchDark from "@/components/SwitchDark/index.vue";

@@ -36,7 +36,7 @@
 
 <script setup lang="ts" name="layoutTransverse">
 import { computed } from "vue";
-import { useAuthStore } from "@/stores/modules/auth";
+import { useAuthStore } from "@/store/modules/auth";
 import { useRoute, useRouter } from "vue-router";
 import Main from "@/layout/components/Main/index.vue";
 import ToolBarRight from "@/layout/components/Header/ToolBarRight.vue";

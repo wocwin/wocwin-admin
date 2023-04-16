@@ -20,8 +20,8 @@ import { computed } from "vue";
 import { HOME_URL } from "@/config";
 import { useRoute, useRouter } from "vue-router";
 import { ArrowRight } from "@element-plus/icons-vue";
-import { useAuthStore } from "@/stores/modules/auth";
-import { useGlobalStore } from "@/stores/modules/global";
+import { useAuthStore } from "@/store/modules/auth";
+import { useGlobalStore } from "@/store/modules/global";
 
 const route = useRoute();
 const router = useRouter();
