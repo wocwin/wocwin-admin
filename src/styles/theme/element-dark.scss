@@ -1,0 +1,36 @@
+/* 自定义 element 暗黑模式 */
+html.dark {
+  /* wangEditor */
+  --w-e-toolbar-color: #eeeeee;
+  --w-e-toolbar-bg-color: #141414;
+  --w-e-textarea-bg-color: #141414;
+  --w-e-textarea-color: #eeeeee;
+
+  /* login */
+  .login-container {
+    background-color: #191919 !important;
+    .login-box {
+      background-color: rgb(0 0 0 / 80%) !important;
+      .login-form {
+        box-shadow: rgb(255 255 255 / 12%) 0 2px 10px 2px !important;
+        .logo-text {
+          color: var(--el-text-color-primary) !important;
+        }
+      }
+    }
+  }
+
+  /* layout */
+  .el-container {
+    // columns layout
+    .aside-split {
+      background-color: var(--el-bg-color) !important;
+      .logo {
+        border-bottom: 1px solid var(--el-border-color-light) !important;
+      }
+    }
+    .el-header {
+      background-color: var(--el-bg-color) !important;
+    }
+  }
+}
