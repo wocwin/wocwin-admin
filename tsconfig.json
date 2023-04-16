@@ -4,42 +4,39 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "strict": true,
+    "types": ["vite/client", "element-plus/global"],
+
+    /* Strict Type-Checking Options */
+    "strict": true /* Enable all strict type-checking options. */,
+    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+    // "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+    // "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+
     "jsx": "preserve",
-    // 如果编译器无法根据变量的使用来判断类型时，将用 any 类型代替
-    "suppressImplicitAnyIndexErrors": true,
-    // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
-    // 解析非相对模块名的基准目录
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "noEmit": true,
     "baseUrl": "./",
-    // 模块名到基于 baseUrl的路径映射的列表。
     "paths": {
-      "@": [
-        "src"
-      ],
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "skipLibCheck": true
+      "@": ["src"],
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "build/**/*.ts",
+    "build/**/*.d.ts",
+    "vite.config.ts"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "exclude": ["node_modules", "dist", "**/*.js"]
 }
