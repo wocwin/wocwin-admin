@@ -10,9 +10,6 @@
       </transition>
     </router-view>
   </el-main>
-  <el-footer v-if="footer">
-    <Footer />
-  </el-footer>
 </template>
 
 <script setup lang="ts">
@@ -23,10 +20,9 @@ import { useGlobalStore } from "@/store/modules/global";
 import { useKeepAliveStore } from "@/store/modules/keepAlive";
 import Maximize from "./components/Maximize.vue";
 import Tabs from "@/layout/components/Tabs/index.vue";
-import Footer from "@/layout/components/Footer/index.vue";
 
 const globalStore = useGlobalStore();
-const { maximize, isCollapse, layout, tabs, footer } = storeToRefs(globalStore);
+const { maximize, isCollapse, layout, tabs } = storeToRefs(globalStore);
 
 const keepAliveStore = useKeepAliveStore();
 const { keepAliveName } = storeToRefs(keepAliveStore);

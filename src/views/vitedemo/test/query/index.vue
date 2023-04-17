@@ -1,7 +1,7 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" @handleEvent="handleEvent" />
+      <t-query-condition :opts="opts" @submit="conditionEnter" @handle-event="handleEvent" />
     </t-layout-page-item>
     <t-layout-page-item>
       <t-table
@@ -11,7 +11,7 @@
         :columns="state.table.columns"
         @selection-change="selectionChange"
         :isShowPagination="false"
-        @radioChange="radioChange"
+        @radio-change="radioChange"
       >
         <!-- 插槽渲染 -->
         <template #dateSlot="{ scope }">

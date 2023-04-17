@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import { AuthState } from "@/store/interface";
-import { getAuthButtonListApi, getAuthMenuListApi } from "@/api/modules/login";
+// import { getAuthButtonListApi, getAuthMenuListApi } from "@/api/modules/login";
 import { getFlatMenuList, getShowMenuList, getAllBreadcrumbList } from "@/utils";
 
 export const useAuthStore = defineStore({
-  id: "geeker-auth",
+  id: "wocwin-auth",
   state: (): AuthState => ({
     // 按钮权限列表
     authButtonList: {},
@@ -27,15 +27,15 @@ export const useAuthStore = defineStore({
   },
   actions: {
     // Get AuthButtonList
-    async getAuthButtonList() {
-      const { data } = await getAuthButtonListApi();
-      this.authButtonList = data;
-    },
-    // Get AuthMenuList
-    async getAuthMenuList() {
-      const { data } = await getAuthMenuListApi();
-      this.authMenuList = data;
-    },
+    // async getAuthButtonList() {
+    //   const { data } = await getAuthButtonListApi();
+    //   this.authButtonList = data;
+    // },
+    // // Get AuthMenuList
+    // async getAuthMenuList() {
+    //   const { data } = await getAuthMenuListApi();
+    //   this.authMenuList = data;
+    // },
     // Set RouteName
     async setRouteName(name: string) {
       this.routeName = name;

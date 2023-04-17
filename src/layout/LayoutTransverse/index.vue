@@ -3,8 +3,8 @@
   <el-container class="layout">
     <el-header>
       <div class="logo flx-center">
-        <img class="logo-img" src="@/assets/images/logo.svg" alt="logo" />
-        <span class="logo-text">Geeker Admin</span>
+        <img class="logo-img" src="@/assets/logo/logo.png" alt="logo" />
+        <span class="logo-text">wocwin Admin</span>
       </div>
       <el-menu mode="horizontal" :default-active="activeMenu" :router="false" :unique-opened="true">
         <!-- 不能直接使用 SubMenu 组件，无法触发 el-menu 隐藏省略功能 -->

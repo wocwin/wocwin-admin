@@ -5,7 +5,7 @@
       <el-icon class="el-icon--right"><arrow-down /></el-icon>
     </el-button>
     <template #dropdown>
-      <el-dropdown-menu>
+      <el-dropdown-menu class="tabs_drop">
         <el-dropdown-item @click="refresh">
           <el-icon><Refresh /></el-icon>{{ $t("tabs.refresh") }}
         </el-dropdown-item>

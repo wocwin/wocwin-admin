@@ -3,7 +3,7 @@ import Message from "@/utils/message";
 import { ElMessageBox } from "element-plus";
 import { getToken } from "@/utils/cookies";
 import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
-import useUserStore from "@/store/modules/user";
+// import useUserStore from "@/store/modules/user";
 export default (config: any) => {
   // 创建axios实例
   const service: any = axios.create({
@@ -45,7 +45,7 @@ export default (config: any) => {
           type: "warning"
         }).then(() => {
           // 调用退出登录接口
-          useUserStore().FedLogOut();
+          // useUserStore().FedLogOut();
           window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/" : "/wocwin-admin/";
         });
       } else if (code !== 200) {

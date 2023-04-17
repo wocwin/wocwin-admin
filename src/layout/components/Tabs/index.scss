@@ -49,5 +49,12 @@
         }
       }
     }
+    .tabs_drop {
+      :deep(.el-dropdown-menu__item) {
+        display: flex;
+        align-items: center;
+        flex-direction: inherit;
+      }
+    }
   }
 }

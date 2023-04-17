@@ -4,7 +4,7 @@
 
 <script setup lang="ts" name="SwitchDark">
 import { useTheme } from "@/hooks/useTheme";
-import { useGlobalStore } from "@/stores/modules/global";
+import { useGlobalStore } from "@/store/modules/global";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 
 const { switchDark } = useTheme();

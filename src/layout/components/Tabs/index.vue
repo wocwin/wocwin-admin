@@ -4,9 +4,9 @@
       <el-tabs v-model="tabsMenuValue" type="card" @tab-click="tabClick" @tab-remove="tabRemove">
         <el-tab-pane v-for="item in tabsMenuList" :key="item.path" :label="item.title" :name="item.path" :closable="item.close">
           <template #label>
-            <el-icon class="tabs-icon" v-show="item.icon && tabsIcon">
+            <!-- <el-icon class="tabs-icon" v-show="item.icon && tabsIcon">
               <component :is="item.icon"></component>
-            </el-icon>
+            </el-icon> -->
             {{ item.title }}
           </template>
         </el-tab-pane>
@@ -20,7 +20,7 @@
 import Sortable from "sortablejs";
 import { ref, computed, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useGlobalStore } from "@/store/modules/global";
+// import { useGlobalStore } from "@/store/modules/global";
 import { useTabsStore } from "@/store/modules/tabs";
 import { useAuthStore } from "@/store/modules/auth";
 import { useKeepAliveStore } from "@/store/modules/keepAlive";
@@ -31,12 +31,12 @@ const route = useRoute();
 const router = useRouter();
 const tabStore = useTabsStore();
 const authStore = useAuthStore();
-const globalStore = useGlobalStore();
+// const globalStore = useGlobalStore();
 const keepAliveStore = useKeepAliveStore();
 
 const tabsMenuValue = ref(route.fullPath);
 const tabsMenuList = computed(() => tabStore.tabsMenuList);
-const tabsIcon = computed(() => globalStore.tabsIcon);
+// const tabsIcon = computed(() => globalStore.tabsIcon);
 
 onMounted(() => {
   tabsDrop();

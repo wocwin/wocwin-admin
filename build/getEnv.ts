@@ -1,7 +1,7 @@
 import path from "path";
 
 export function isDevFn(mode: string): boolean {
-  return mode === "dev";
+  return mode === "development";
 }
 
 export function isProdFn(mode: string): boolean {

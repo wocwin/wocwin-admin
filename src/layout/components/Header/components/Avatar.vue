@@ -1,10 +1,10 @@
 <template>
   <el-dropdown trigger="click">
     <div class="avatar">
-      <img src="@/assets/images/avatar.gif" alt="avatar" />
+      <img src="@/assets/logo/logo.png" alt="avatar" />
     </div>
     <template #dropdown>
-      <el-dropdown-menu>
+      <el-dropdown-menu class="user_info">
         <el-dropdown-item @click="openDialog('infoRef')">
           <el-icon><User /></el-icon>{{ $t("header.personalData") }}
         </el-dropdown-item>
@@ -27,7 +27,7 @@
 import { ref } from "vue";
 import { LOGIN_URL } from "@/config";
 import { useRouter } from "vue-router";
-import { logoutApi } from "@/api/modules/login";
+// import { logoutApi } from "@/api/modules/login";
 import { useUserStore } from "@/store/modules/user";
 import { ElMessageBox, ElMessage } from "element-plus";
 import InfoDialog from "./InfoDialog.vue";
@@ -44,7 +44,7 @@ const logout = () => {
     type: "warning"
   }).then(async () => {
     // 1.执行退出登录接口
-    await logoutApi();
+    // await logoutApi();
 
     // 2.清除 Token
     userStore.setToken("");
@@ -74,6 +74,13 @@ const openDialog = (ref: string) => {
   img {
     width: 100%;
     height: 100%;
+  }
+}
+.user_info {
+  :deep(.el-dropdown-menu__item) {
+    display: flex;
+    align-items: center;
+    flex-direction: inherit;
   }
 }
 </style>

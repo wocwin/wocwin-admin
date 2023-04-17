@@ -1,14 +1,13 @@
 <template>
   <div id="app">
-    <div class="env_tag" v-if="ENV !== 'production'">{{ ENV }}</div>
+    <!-- <div class="env_tag" v-if="ENV !== 'production'">{{ ENV }}</div> -->
     <router-view v-if="isRouterAlive" />
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
-const ENV = computed(() => {
-  return import.meta.env.VITE_APP_ENV;
-});
+// const ENV = computed(() => {
+//   return import.meta.env.VITE_APP_ENV;
+// });
 const isRouterAlive = ref(true);
 const reload = () => {
   isRouterAlive.value = false;

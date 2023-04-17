@@ -1,10 +1,10 @@
-import router from "@/routers";
+import router from "@/router";
 import { defineStore } from "pinia";
 import { TabsState, TabsMenuProps } from "@/store/interface";
 import piniaPersistConfig from "@/config/piniaPersist";
 
 export const useTabsStore = defineStore({
-  id: "geeker-tabs",
+  id: "wocwin-tabs",
   state: (): TabsState => ({
     tabsMenuList: []
   }),
@@ -46,5 +46,5 @@ export const useTabsStore = defineStore({
       });
     }
   },
-  persist: piniaPersistConfig("geeker-tabs")
+  persist: piniaPersistConfig("wocwin-tabs")
 });

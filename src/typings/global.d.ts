@@ -41,7 +41,7 @@ declare namespace File {
 declare type Recordable<T = any> = Record<string, T>;
 
 declare interface ViteEnv {
-  VITE_USER_NODE_ENV: "dev" | "production" | "sit";
+  VITE_USER_NODE_ENV: "development" | "production" | "sit";
   VITE_GLOB_APP_TITLE: string;
   VITE_PORT: number;
   VITE_OPEN: boolean;

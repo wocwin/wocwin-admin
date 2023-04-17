@@ -4,9 +4,12 @@ import App from "./App.vue";
 import "@/styles/reset.scss";
 // CSS common style sheet
 import "@/styles/common.scss";
+// iconfont css
+import "@/assets/iconfont/iconfont.css";
+
 import router from "@/router";
 // 所有业务api接口
-import api from "./api";
+import api from "@/api";
 /**
  * element-plus
  */
@@ -29,12 +32,12 @@ import I18n from "@/languages/index";
 // pinia代替vuex
 import pinia from "@/store";
 // 权限控制(全局路由守卫)
-import "./permission";
+// import "./permission";
 
 import TuiPlus from "@wocwin/t-ui-plus";
 import "@wocwin/t-ui-plus/lib/style.css";
 // svg渲染
-import SvgIcon from "@/components/SvgIcon/index.vue";
+// import SvgIcon from "@/components/SvgIcon/index.vue";
 
 /**
  * 配置qiankun
@@ -62,11 +65,11 @@ function render(props: any = {}) {
   // instance.use(baseComponentsInstall)
   instance.use(TuiPlus);
   // 全局组件祖册
-  instance.component(
-    "SvgIcon",
-    // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
-    SvgIcon.default || SvgIcon
-  );
+  // instance.component(
+  //   "SvgIcon",
+  //   // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
+  //   SvgIcon.default || SvgIcon
+  // );
   instance?.mount(container ? container.querySelector("#app") : "#app");
   console.log("开始加载相关内容");
 }

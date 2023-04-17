@@ -1,6 +1,6 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { useAuthStore } from "@/stores/modules/auth";
+import { useAuthStore } from "@/store/modules/auth";
 
 /**
  * @description 页面按钮权限
