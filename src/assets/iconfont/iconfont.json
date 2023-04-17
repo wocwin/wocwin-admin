@@ -1,0 +1,44 @@
+{
+  "id": "4021242",
+  "name": "wocwin-admin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "vue3+vite+ts",
+  "glyphs": [
+    {
+      "icon_id": "4608986",
+      "name": "主题",
+      "font_class": "theme",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "7009042",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e741",
+      "unicode_decimal": 59201
+    },
+    {
+      "icon_id": "7533292",
+      "name": "中英文",
+      "font_class": "zhongyingwen",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "886689",
+      "name": "exit-fullscreen",
+      "font_class": "exitfullscreen",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "11864264",
+      "name": "fullscreen",
+      "font_class": "fullscreen",
+      "unicode": "e6d7",
+      "unicode_decimal": 59095
+    }
+  ]
+}
