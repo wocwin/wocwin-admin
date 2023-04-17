@@ -1,5 +1,5 @@
 <template>
-  <div class="theme-setting">
+  <div class="theme-setting" style="cursor: pointer">
     <i :class="'iconfont icon-theme'" class="toolBar-icon" @click="openDrawer"></i>
   </div>
 </template>

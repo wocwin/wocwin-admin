@@ -3,8 +3,12 @@
     <div class="header-icon">
       <Language id="language" />
       <SearchMenu id="searchMenu" />
-      <ThemeSetting id="themeSetting" />
-      <Fullscreen id="fullscreen" />
+      <el-tooltip content="主题切换" effect="dark" placement="bottom">
+        <ThemeSetting id="themeSetting" />
+      </el-tooltip>
+      <el-tooltip content="全屏预览" effect="dark" placement="bottom">
+        <Fullscreen id="fullscreen" />
+      </el-tooltip>
     </div>
     <span class="username">{{ username }}</span>
     <Avatar />
@@ -30,13 +34,16 @@ const username = computed(() => userStore.userInfo.name);
   align-items: center;
   justify-content: center;
   padding-right: 25px;
+
   .header-icon {
     display: flex;
     align-items: center;
+
     & > * {
       margin-left: 21px;
     }
   }
+
   .username {
     margin: 0 20px;
     font-size: 15px;

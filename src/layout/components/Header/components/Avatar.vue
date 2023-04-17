@@ -77,6 +77,7 @@ const openDialog = (ref: string) => {
   }
 }
 .user_info {
+  cursor: pointer;
   :deep(.el-dropdown-menu__item) {
     display: flex;
     align-items: center;
