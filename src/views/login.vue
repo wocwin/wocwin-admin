@@ -2,11 +2,11 @@
   <div class="login">
     <div class="content">
       <div class="input-format">
-        <img src="../assets/images/logo.jpg" class="logon" />
-        <h2 class="title">vue3+vite子应用模板</h2>
+        <img src="@/assets/images/logo.jpg" class="logon" />
+        <h2 class="title">Wocwin-Admin</h2>
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
           <el-form-item prop="username">
-            <el-input v-model="loginForm.username" type="text" placeholder="账号">
+            <el-input v-model="loginForm.username" clearable type="text" placeholder="账号">
               <template #prefix>
                 <el-icon>
                   <User />
@@ -19,6 +19,7 @@
               v-model="loginForm.password"
               type="password"
               placeholder="密码"
+              clearable
               @keyup.enter="handleLogin(loginFormRef)"
               show-password
             >
@@ -29,7 +30,9 @@
               </template>
             </el-input>
           </el-form-item>
-          <el-checkbox v-model="loginForm.rememberMe" style="margin: 0 0 25px">记住密码</el-checkbox>
+          <el-form-item style="width: 100%">
+            <el-checkbox v-model="loginForm.rememberMe">记住密码</el-checkbox>
+          </el-form-item>
           <el-form-item style="width: 100%">
             <el-button :loading="loading" size="default" type="primary" style="width: 100%" @click="handleLogin(loginFormRef)">
               <span v-if="!loading">登 录</span>
@@ -45,8 +48,12 @@
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/jsencrypt";
 import type { FormInstance } from "element-plus";
-// import useUserStore from "@/store/modules/user";
-// console.log('userStore', useUserStore())
+import { useUserStore } from "@/store/modules/user";
+import { ElNotification } from "element-plus";
+import { getTimeState } from "@/utils";
+
+const userStore = useUserStore();
+
 const loginForm = reactive({
   username: "admin",
   password: "123456",
@@ -87,10 +94,16 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       Cookies.remove("password");
       Cookies.remove("rememberMe");
     }
-    useUserStore()
-      .Login(loginForm)
+    userStore
+      .Login()
       .then(() => {
         router.push({ path: "/" });
+        ElNotification({
+          title: getTimeState(),
+          message: "欢迎登录 Wocwin-Admin",
+          type: "success",
+          duration: 3000
+        });
       })
       .finally(() => (loading.value = false));
   });
@@ -103,8 +116,6 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 50px 0;
-  background: #3987b1;
   background-size: cover;
   .content {
     display: flex;
@@ -112,21 +123,21 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     justify-content: flex-end;
     width: 100%;
     height: 100%;
-    padding-right: 12%;
-
-    // background: url('../assets/images/content.png') no-repeat 0;
-    background-size: 70%;
+    padding-right: 8%;
+    background: url("../assets/images/guitar.jpg") no-repeat 0;
+    background-size: cover;
     .input-format {
       width: 340px;
       height: 440px;
-      padding: 40px 37px;
-      text-align: left;
+      padding: 40px;
+      text-align: center;
       background: #ffffff;
       border-radius: 4px;
       box-shadow: 0 2px 24px 0 rgb(0 0 0 / 20%);
       .logon {
-        width: 260px;
+        width: 100px;
         height: 100px;
+        border-radius: 50%;
       }
       .title {
         margin-top: 8px;

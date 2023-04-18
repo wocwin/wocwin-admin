@@ -1,9 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-// reset style sheet
-import "@/styles/reset.scss";
-// CSS common style sheet
-import "@/styles/common.scss";
+
 // iconfont css
 import "@/assets/iconfont/iconfont.css";
 
@@ -19,8 +16,8 @@ import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 // custom element dark css
 import "@/styles/theme/element-dark.scss";
-// custom element css
-import "@/styles/element.scss";
+// reset style sheet
+import "@/styles/index.scss";
 // 因element-plus默认是英文，我们指定一下默认中文
 import locale from "element-plus/lib/locale/lang/zh-cn";
 // 图标并进行全局注册
@@ -31,13 +28,11 @@ import I18n from "@/languages/index";
 
 // pinia代替vuex
 import pinia from "@/store";
-// 权限控制(全局路由守卫)
-// import "./permission";
 
 import TuiPlus from "@wocwin/t-ui-plus";
 import "@wocwin/t-ui-plus/lib/style.css";
 // svg渲染
-// import SvgIcon from "@/components/SvgIcon/index.vue";
+import SvgIcon from "@/components/SvgIcon/index.vue";
 
 /**
  * 配置qiankun
@@ -65,11 +60,11 @@ function render(props: any = {}) {
   // instance.use(baseComponentsInstall)
   instance.use(TuiPlus);
   // 全局组件祖册
-  // instance.component(
-  //   "SvgIcon",
-  //   // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
-  //   SvgIcon.default || SvgIcon
-  // );
+  instance.component(
+    "SvgIcon",
+    // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
+    SvgIcon.default || SvgIcon
+  );
   instance?.mount(container ? container.querySelector("#app") : "#app");
   console.log("开始加载相关内容");
 }
