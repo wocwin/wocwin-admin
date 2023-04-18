@@ -1,18 +1,35 @@
 <template>
   <el-dropdown trigger="click">
     <div class="avatar">
-      <img src="@/assets/logo/logo.png" alt="avatar" />
+      <img src="@/assets/logo/guitar.gif" alt="avatar" />
     </div>
     <template #dropdown>
       <el-dropdown-menu class="user_info">
         <el-dropdown-item @click="openDialog('infoRef')">
-          <el-icon><User /></el-icon>{{ $t("header.personalData") }}
+          <el-icon>
+            <User />
+          </el-icon>
+          {{ $t("header.personalData") }}
         </el-dropdown-item>
         <el-dropdown-item @click="openDialog('passwordRef')">
-          <el-icon><Edit /></el-icon>{{ $t("header.changePassword") }}
+          <el-icon>
+            <Edit />
+          </el-icon>
+          {{ $t("header.changePassword") }}
+        </el-dropdown-item>
+        <el-dropdown-item>
+          <el-icon><Memo /></el-icon>
+          <a href="https://wocwin.github.io/t-ui/" target="_blank">vue2基础组件文档</a>
+        </el-dropdown-item>
+        <el-dropdown-item>
+          <el-icon><Memo /></el-icon>
+          <a href="https://wocwin.github.io/t-ui-plus/" target="_blank">vue3基础组件文档</a>
         </el-dropdown-item>
         <el-dropdown-item @click="logout" divided>
-          <el-icon><SwitchButton /></el-icon>{{ $t("header.logout") }}
+          <el-icon>
+            <SwitchButton />
+          </el-icon>
+          {{ $t("header.logout") }}
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -24,16 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { LOGIN_URL } from "@/config";
-import { useRouter } from "vue-router";
-// import { logoutApi } from "@/api/modules/login";
+import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
 import { useUserStore } from "@/store/modules/user";
 import { ElMessageBox, ElMessage } from "element-plus";
 import InfoDialog from "./InfoDialog.vue";
 import PasswordDialog from "./PasswordDialog.vue";
 
-const router = useRouter();
 const userStore = useUserStore();
 
 // 退出登录
@@ -44,13 +57,8 @@ const logout = () => {
     type: "warning"
   }).then(async () => {
     // 1.执行退出登录接口
-    // await logoutApi();
-
-    // 2.清除 Token
-    userStore.setToken("");
-
-    // 3.重定向到登陆页
-    router.replace(LOGIN_URL);
+    userStore.FedLogOut();
+    window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/" : "/wocwin-admin/";
     ElMessage.success("退出登录成功！");
   });
 };
@@ -82,6 +90,9 @@ const openDialog = (ref: string) => {
     display: flex;
     align-items: center;
     flex-direction: inherit;
+    a {
+      user-select: none;
+    }
   }
 }
 </style>

@@ -1,8 +1,12 @@
 .el-main {
   box-sizing: border-box;
-  padding: 10px 12px;
+  padding: 0;
   overflow-x: hidden;
   background-color: var(--el-bg-color-page);
+  :deep(.t_layout_page_item) {
+    margin: 0;
+    margin-bottom: 8px;
+  }
 }
 .el-footer {
   height: auto;
