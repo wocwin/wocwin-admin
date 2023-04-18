@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { AuthState } from "@/store/interface";
-// import { getAuthButtonListApi, getAuthMenuListApi } from "@/api/modules/login";
 import { getFlatMenuList, getShowMenuList, getAllBreadcrumbList } from "@/utils";
-
+import GetMenuData from "./getData/menu.json";
 export const useAuthStore = defineStore({
   id: "wocwin-auth",
   state: (): AuthState => ({
@@ -32,10 +31,10 @@ export const useAuthStore = defineStore({
     //   this.authButtonList = data;
     // },
     // // Get AuthMenuList
-    // async getAuthMenuList() {
-    //   const { data } = await getAuthMenuListApi();
-    //   this.authMenuList = data;
-    // },
+    getAuthMenuList() {
+      const { data } = GetMenuData;
+      this.authMenuList = data;
+    },
     // Set RouteName
     async setRouteName(name: string) {
       this.routeName = name;

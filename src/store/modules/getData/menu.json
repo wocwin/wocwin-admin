@@ -1,0 +1,79 @@
+{
+  "code": 200,
+  "msg": "成功",
+  "success": true,
+  "data": [
+    {
+      "path": "/index",
+      "name": "home",
+      "component": "/index",
+      "meta": {
+        "icon": "HomeFilled",
+        "title": "首页",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": true,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/t-ui-plus",
+      "name": "tTable",
+      "redirect": "/t-ui-plus/query",
+      "meta": {
+        "icon": "MessageBox",
+        "title": "组件示例",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      },
+      "children": [
+        {
+          "path": "/t-ui-plus/query",
+          "name": "query",
+          "component": "/demo/test/query/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "常规使用",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/t-ui-plus/table",
+          "name": "table",
+          "component": "/demo/test/table/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "table插槽",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/t-ui-plus/test1",
+          "name": "test1",
+          "component": "/demo/test/test1/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "分页使用",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        }
+      ]
+    }
+  ]
+}
