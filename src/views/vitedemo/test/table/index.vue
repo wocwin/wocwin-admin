@@ -1,7 +1,7 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" @handleEvent="handleEvent" />
+      <t-query-condition :opts="opts" @submit="conditionEnter" @handle-event="handleEvent" />
     </t-layout-page-item>
     <t-layout-page-item>
       <t-table
@@ -11,70 +11,7 @@
         :columns="state.table.columns"
         @selection-change="selectionChange"
         :isShowPagination="false"
-        @radioChange="radioChange"
-      >
-        <!-- 插槽渲染 -->
-        <template #dateSlot="{ scope }">
-          <div>{{ scope.row.date1 }}</div>
-        </template>
-        <template #toolbar>
-          <el-button size="default" type="primary" :disabled="state.ids.length < 1" @click="cancelSelect">取消选中</el-button>
-          <el-button size="default" type="primary" @click="add">新增</el-button>
-          <el-button size="default" type="danger" :disabled="state.ids.length < 1" @click="del">删除</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        ref="selectionTable"
-        title="TTable组件使用"
-        :table="state.table"
-        :columns="state.table.columns"
-        @selection-change="selectionChange"
-        :isShowPagination="false"
-        @radioChange="radioChange"
-      >
-        <!-- 插槽渲染 -->
-        <template #dateSlot="{ scope }">
-          <div>{{ scope.row.date1 }}</div>
-        </template>
-        <template #toolbar>
-          <el-button size="default" type="primary" :disabled="state.ids.length < 1" @click="cancelSelect">取消选中</el-button>
-          <el-button size="default" type="primary" @click="add">新增</el-button>
-          <el-button size="default" type="danger" :disabled="state.ids.length < 1" @click="del">删除</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        ref="selectionTable"
-        title="TTable组件使用"
-        :table="state.table"
-        :columns="state.table.columns"
-        @selection-change="selectionChange"
-        :isShowPagination="false"
-        @radioChange="radioChange"
-      >
-        <!-- 插槽渲染 -->
-        <template #dateSlot="{ scope }">
-          <div>{{ scope.row.date1 }}</div>
-        </template>
-        <template #toolbar>
-          <el-button size="default" type="primary" :disabled="state.ids.length < 1" @click="cancelSelect">取消选中</el-button>
-          <el-button size="default" type="primary" @click="add">新增</el-button>
-          <el-button size="default" type="danger" :disabled="state.ids.length < 1" @click="del">删除</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        ref="selectionTable"
-        title="TTable组件使用"
-        :table="state.table"
-        :columns="state.table.columns"
-        @selection-change="selectionChange"
-        :isShowPagination="false"
-        @radioChange="radioChange"
+        @radio-change="radioChange"
       >
         <!-- 插槽渲染 -->
         <template #dateSlot="{ scope }">
@@ -100,9 +37,6 @@ const edit = (val: any) => {
 };
 const nullify = (val: any) => {
   console.log("nullify", val);
-};
-const change = (val: any, type: any) => {
-  console.log(111, val, type);
 };
 let state = reactive({
   queryData: {

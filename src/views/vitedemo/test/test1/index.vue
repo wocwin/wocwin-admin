@@ -20,7 +20,6 @@
 <script setup lang="ts">
 import data from "./data.json";
 import data2 from "./data2.json";
-import { toRefs, reactive, onBeforeMount } from "vue";
 const viewDetail = (val: any) => {
   console.log("查看", val);
 };

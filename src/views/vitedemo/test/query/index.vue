@@ -38,9 +38,6 @@ const edit = (val: any) => {
 const nullify = (val: any) => {
   console.log("nullify", val);
 };
-const change = (val: any, type: any) => {
-  console.log(111, val, type);
-};
 let state = reactive({
   queryData: {
     userName: null, // 登录名
