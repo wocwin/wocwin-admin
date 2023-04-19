@@ -12,7 +12,7 @@ export const useGlobalStore = defineStore({
     // element 组件大小
     assemblySize: "default",
     // 当前系统语言
-    language: null,
+    language: "zh",
     // 当前页面是否全屏
     maximize: false,
     // 主题颜色
@@ -24,7 +24,7 @@ export const useGlobalStore = defineStore({
     // 色弱模式
     isWeak: false,
     // 侧边栏反转 (目前仅支持 'vertical' 模式)
-    asideInverted: false,
+    asideInverted: true,
     // 折叠菜单
     isCollapse: false,
     // 面包屑导航
@@ -34,7 +34,7 @@ export const useGlobalStore = defineStore({
     // 标签页
     tabs: true,
     // 标签页图标
-    tabsIcon: true,
+    tabsIcon: false,
     // 页脚
     footer: true
   }),

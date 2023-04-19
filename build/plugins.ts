@@ -41,7 +41,7 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
     // 注入变量到 html 文件
     createHtmlPlugin({
       inject: {
-        data: { title: viteEnv.VITE_GLOB_APP_TITLE }
+        data: { title: "Wocwin-Admin" }
       }
     }),
     // 使用 svg 图标

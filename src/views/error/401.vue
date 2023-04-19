@@ -8,7 +8,7 @@
         <h6>对不起，您没有访问权限，请不要进行非法操作！您可以返回主页面</h6>
         <ul class="list-unstyled">
           <li class="link-type">
-            <router-link to="/"> 回首页 </router-link>
+            <el-button type="primary" @click="router.push(HOME_URL)">返回首页</el-button>
           </li>
         </ul>
       </el-col>
@@ -19,9 +19,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="401">
 import errImage from "@/assets/401_images/401.gif";
-
+import { HOME_URL } from "@/config";
+const router = useRouter();
 let { proxy } = getCurrentInstance() as any;
 
 const errGif = ref(errImage + "?" + +new Date());

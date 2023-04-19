@@ -47,6 +47,14 @@ export const errorRouter = [
       title: "401页面"
     }
   },
+  {
+    path: "/500",
+    name: "500",
+    component: () => import("@/views/error/500.vue"),
+    meta: {
+      title: "500页面"
+    }
+  },
   // Resolve refresh page, route warnings
   {
     path: "/:pathMatch(.*)*",

@@ -7,9 +7,9 @@ import { staticRouter, errorRouter } from "@/router/modules/staticRouter";
 import NProgress from "@/config/nprogress";
 import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
 /**
- * @description 📚 路由参数配置简介
+ * @description 路由参数配置简介
  * @param path ==> 菜单路径
- * @param name ==> 菜单别名
+ * @param name ==> 菜单别名(缓存页面的nama)
  * @param redirect ==> 重定向地址
  * @param component ==> 视图文件路径
  * @param meta ==> 菜单信息
@@ -39,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start();
 
   // 2.动态设置标题
-  const title = import.meta.env.VITE_GLOB_APP_TITLE || "Wocwin-Admin";
+  const title = "Wocwin-Admin";
   document.title = to.meta.title ? `${to.meta.title} - ${title}` : title;
 
   // 3.判断是访问登陆页，有 Token 就在当前页面，没有 Token 重置路由到登陆页

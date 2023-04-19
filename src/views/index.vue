@@ -66,8 +66,8 @@ const username = computed(() => userStore.name);
   }
   .github-corner {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 8px;
+    right: 8px;
     z-index: 99;
     border: 0;
   }
