@@ -24,8 +24,9 @@
         height: 55px;
         .logo-img {
           width: 28px;
+          height: 28px;
           border-radius: 50%;
-          object-fit: contain;
+          // object-fit: contain;
           margin-right: 6px;
         }
         .logo-text {
