@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ElMessageBox, ElMessage } from "element-plus";
+import { showFullScreenLoading, tryHideFullScreenLoading } from "@/config/serviceLoading";
 import { getToken } from "@/utils/cookies";
 import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
 import { useUserStore } from "@/store/modules/user";
@@ -15,6 +16,8 @@ export default (config: any) => {
   // 请求拦截器
   service.interceptors.request.use(
     (config: any) => {
+      // 当前请求不需要显示 loading，在 api 服务中通过指定的第三个参数: { noLoading: true } 来控制
+      config.noLoading || showFullScreenLoading();
       config.headers["Authorization"] = getToken() || "";
       // config.headers['Authorization'] = 'PC:90_d6164543c758402d815604f5f698098d'
       config.headers["Content-Type"] = config.headers["Content-Type"] || "application/json";
@@ -37,6 +40,7 @@ export default (config: any) => {
   service.interceptors.response.use(
     (response: any) => {
       const code = response.data.code;
+      tryHideFullScreenLoading();
       if (code === 401) {
         ElMessageBox.confirm("登录状态已过期，您可以继续留在该页面，或者重新登录", "系统提示", {
           confirmButtonText: "重新登录",
@@ -59,6 +63,7 @@ export default (config: any) => {
       }
     },
     (error: any) => {
+      tryHideFullScreenLoading();
       ElMessage({
         message: error.message,
         type: "error",
