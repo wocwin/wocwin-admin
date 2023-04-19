@@ -61,6 +61,7 @@
     display: flex;
     height: calc(100% - 55px);
     :deep(.el-aside) {
+      z-index: 5;
       width: auto;
       background-color: var(--el-menu-bg-color);
       border-right: 1px solid var(--el-border-color-light);

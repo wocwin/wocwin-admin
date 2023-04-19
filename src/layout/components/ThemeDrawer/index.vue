@@ -99,10 +99,6 @@
       <span>标签栏图标</span>
       <el-switch v-model="tabsIcon" />
     </div>
-    <div class="theme-item">
-      <span>页脚</span>
-      <el-switch v-model="footer" />
-    </div>
   </el-drawer>
 </template>
 
@@ -119,7 +115,7 @@ import SwitchDark from "@/components/SwitchDark/index.vue";
 const { changePrimary, changeGreyOrWeak, setAsideTheme } = useTheme();
 
 const globalStore = useGlobalStore();
-const { layout, primary, isGrey, isWeak, asideInverted, isCollapse, breadcrumb, breadcrumbIcon, tabs, tabsIcon, footer } =
+const { layout, primary, isGrey, isWeak, asideInverted, isCollapse, breadcrumb, breadcrumbIcon, tabs, tabsIcon } =
   storeToRefs(globalStore);
 
 // 预定义主题颜色

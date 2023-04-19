@@ -65,6 +65,7 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
+    z-index: 5;
     background-color: var(--el-menu-bg-color);
     border-right: 1px solid var(--el-border-color-light);
     transition: width 0.3s ease;

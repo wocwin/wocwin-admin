@@ -8,6 +8,18 @@
       top: 8px;
       right: 13px;
     }
+    .right-tag {
+      position: fixed;
+      top: 55px;
+      right: 15px;
+      z-index: 100;
+      :deep(.el-button){
+        height: 39px;
+        line-height: 39px;
+        border-radius: 0;
+        padding: 15px;
+      }
+    }
     :deep(.el-tabs) {
       .el-tabs__header {
         box-sizing: border-box;

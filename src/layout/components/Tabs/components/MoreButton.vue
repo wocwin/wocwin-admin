@@ -1,5 +1,5 @@
 <template>
-  <el-dropdown trigger="click" :teleported="false">
+  <el-dropdown class="right-tag" trigger="click" :teleported="false">
     <el-button size="small" type="primary">
       <span>{{ $t("tabs.more") }}</span>
       <el-icon class="el-icon--right"><arrow-down /></el-icon>
