@@ -1,8 +1,8 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
-      <el-button type="danger" @click="add">新增</el-button>
-      <el-button type="danger" @click="edit">编辑</el-button>
+      <el-button type="danger" @click="add">显示密码项</el-button>
+      <el-button type="danger" @click="edit">隐藏密码项</el-button>
     </t-layout-page-item>
     <el-dialog :title="title" width="40%" v-model="dialogSelectEnt" draggable>
       <t-form ref="TFormDemo" v-model="formOpts.ref" :formOpts="formOpts" :widthSize="1" />

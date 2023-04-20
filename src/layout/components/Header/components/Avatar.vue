@@ -46,14 +46,9 @@ import { useUserStore } from "@/store/modules/user";
 import { ElMessageBox, ElMessage } from "element-plus";
 import InfoDialog from "./InfoDialog.vue";
 import PasswordDialog from "./PasswordDialog.vue";
-import { useTabsStore } from "@/store/modules/tabs";
-import { useKeepAliveStore } from "@/store/modules/keepAlive";
-import { HOME_URL } from "@/config";
 
 const userStore = useUserStore();
-const tabStore = useTabsStore();
-const keepAliveStore = useKeepAliveStore();
-const router = useRouter();
+
 // 退出登录
 const logout = () => {
   ElMessageBox.confirm("您是否确认退出登录?", "温馨提示", {
@@ -63,9 +58,6 @@ const logout = () => {
   }).then(async () => {
     // 1.执行退出登录接口
     userStore.FedLogOut();
-    tabStore.closeMultipleTab();
-    keepAliveStore.setKeepAliveName();
-    router.push(HOME_URL);
     window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/" : "/wocwin-admin/";
     ElMessage.success("退出登录成功！");
   });

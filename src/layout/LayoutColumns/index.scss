@@ -15,9 +15,8 @@
       border-bottom: 1px solid #282a35;
       .logo-img {
         width: 32px;
-        height: 32px;
         border-radius: 50%;
-        // object-fit: contain;
+        object-fit: contain;
       }
     }
     .el-scrollbar {

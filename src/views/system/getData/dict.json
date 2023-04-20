@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "code": 200,
+  "msg": "成功",
+  "data": {
+    "total": 2,
+    "rows": [
+      {
+        "dictId": 1,
+        "dictName": "用户状态",
+        "dictType": "ce_shi",
+        "status": true,
+        "createBy": "wocwin",
+        "createTime": "2022-11-02 13:12:41",
+        "updateBy": null,
+        "updateTime": null,
+        "remark": null,
+        "delFlag": null
+      },
+      {
+        "dictId": 2,
+        "dictName": "ce",
+        "dictType": "sc",
+        "status": true,
+        "createBy": "wocwin",
+        "createTime": "2022-11-02 13:14:23",
+        "updateBy": null,
+        "updateTime": null,
+        "remark": null,
+        "delFlag": null
+      }
+    ]
+  }
+}

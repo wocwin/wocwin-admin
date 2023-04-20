@@ -173,7 +173,6 @@ const descData: any = reactive({
   }
 });
 </script>
-
 <style scoped lang="scss">
 .t-module-form_demo_detail {
   :deep(.t_layout_page_item) {

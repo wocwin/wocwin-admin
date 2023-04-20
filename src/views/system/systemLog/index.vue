@@ -1,0 +1,246 @@
+<template>
+  <t-layout-page class="dept_mange">
+    <t-layout-page-item>
+      <t-query-condition :opts="opts" @submit="conditionEnter" />
+    </t-layout-page-item>
+    <t-layout-page-item>
+      <t-table
+        title="操作日志列表"
+        isCopy
+        :table="state.table"
+        :columns="state.table.columns"
+        @selection-change="selectionChange"
+      >
+        <template #toolbar>
+          <el-button type="primary">清空</el-button>
+          <el-button type="danger" :disabled="state.ids.length < 1">删除</el-button>
+        </template>
+      </t-table>
+    </t-layout-page-item>
+  </t-layout-page>
+</template>
+
+<script setup lang="tsx" name="systemLog">
+import logData from "@/views/system/getData/log.json";
+const state: any = reactive({
+  ids: [],
+  queryData: {
+    systemName: null, // 业务系统
+    title: null, // 业务模块
+    operName: null, // 操作人员
+    businessType: null, // 操作类型
+    status: null, // 状态
+    date: null // 操作时间
+  },
+  listTypeInfo: {
+    businessTypeList: [
+      {
+        label: "其他",
+        key: 0
+      },
+      {
+        label: "新增",
+        key: 1
+      },
+      {
+        label: "修改",
+        key: 2
+      },
+      {
+        label: "删除",
+        key: 3
+      }
+    ],
+    statusList: [
+      {
+        label: "正常",
+        key: 1
+      },
+      {
+        label: "异常",
+        key: 0
+      }
+    ]
+  },
+  table: {
+    total: 0,
+    firstColumn: { type: "selection" },
+    // 接口返回数据
+    data: [],
+    // 表头数据
+    columns: [
+      { prop: "systemName", label: "业务系统", minWidth: 120 },
+      { prop: "title", label: "业务模块", minWidth: 120 },
+      { prop: "methodDesc", label: "方法描述", minWidth: 120 },
+      {
+        prop: "businessType",
+        label: "操作类型",
+        minWidth: 80,
+        render: (text: any) => {
+          // 0其它 1新增 2修改 3删除
+          let type = "";
+          let val = "";
+          switch (text) {
+            case 0:
+              type = "info";
+              val = "其它";
+              break;
+            case 1:
+              type = "success";
+              val = "新增";
+              break;
+            case 2:
+              type = "warning";
+              val = "修改";
+              break;
+            case 3:
+              type = "danger";
+              val = "删除";
+              break;
+          }
+          return <el-tag type={type}>{val}</el-tag>;
+        }
+      },
+      { prop: "requestMethod", label: "请求方式", minWidth: 80 },
+      { prop: "operName", label: "操作人员", minWidth: 120 },
+      { prop: "deptName", label: "	部门名称", minWidth: 120 },
+      { prop: "operIp", label: "	主机地址", minWidth: 120 },
+      {
+        prop: "status",
+        label: "	操作状态",
+        minWidth: 120,
+        render: (text: any) => {
+          // （1正常 0异常）
+          let type = "";
+          let val = "";
+          switch (text) {
+            case true:
+              type = "success";
+              val = "正常";
+              break;
+            case false:
+              type = "danger";
+              val = "异常";
+              break;
+          }
+          return <el-tag type={type}>{val}</el-tag>;
+        }
+      },
+      { prop: "operTime", label: "	操作时间", minWidth: 120 },
+
+      {
+        prop: "operatorType",
+        label: "操作类别",
+        minWidth: 140,
+        render: (text: any) => {
+          // （0其它 1后台用户 2手机端用户）
+          let val = "";
+          switch (text) {
+            case 0:
+              val = "其它";
+              break;
+            case 1:
+              val = "后台用户";
+              break;
+            case 2:
+              val = "手机端用户";
+              break;
+          }
+          return <el-tag>{val}</el-tag>;
+        }
+      }
+    ],
+    operator: [
+      {
+        text: "详情"
+        // fun: edit
+      }
+    ],
+    // 操作列样式
+    operatorConfig: {
+      fixed: "right", // 固定列表右边（left则固定在左边）
+      align: "left",
+      width: "80",
+      label: "操作"
+    }
+  }
+});
+
+const opts = computed(() => {
+  return {
+    systemName: {
+      label: "业务系统",
+      comp: "el-input"
+    },
+    title: {
+      label: "业务模块",
+      comp: "el-input"
+    },
+    operName: {
+      label: "操作人员",
+      comp: "el-input"
+    },
+    businessType: {
+      label: "操作类型",
+      comp: "t-select",
+      bind: {
+        optionSource: state.listTypeInfo.businessTypeList
+      }
+    },
+    status: {
+      label: "状态",
+      comp: "t-select",
+      bind: {
+        optionSource: state.listTypeInfo.statusList
+      }
+    },
+    date: {
+      label: "操作时间",
+      comp: "el-date-picker",
+      span: 2,
+      bind: {
+        rangeSeparator: "-",
+        startPlaceholder: "开始日期",
+        endPlaceholder: "结束日期",
+        valueFormat: "yyyy-MM-dd HH:mm:ss",
+        type: "datetimerange"
+      }
+    }
+  };
+});
+// 最终参数获取
+const getQueryData = computed(() => {
+  const { title, systemName, operName, businessType, status, date } = state.queryData;
+  return {
+    title,
+    systemName,
+    operName,
+    businessType,
+    status,
+    beginTime: date && date[0] ? date[0] : null,
+    endTime: date && date[1] ? date[1] : null
+  };
+});
+// 点击查询按钮
+const conditionEnter = (data: any) => {
+  console.log(1122, data);
+  state.queryData = data;
+  console.log("最终参数", getQueryData.value);
+};
+// 复选框选中
+const selectionChange = (data: any[]) => {
+  console.log("复选框选中", data);
+  state.ids = data.map((item: { operId: any }) => item.operId);
+};
+onMounted(() => {
+  getData();
+});
+// 获取菜单数据
+const getData = async () => {
+  const res = await logData;
+  if (res.success) {
+    state.table.data = res.data.rows;
+    state.table.total = res.data.total;
+  }
+};
+</script>

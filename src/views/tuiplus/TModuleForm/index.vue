@@ -400,7 +400,6 @@ const formOpts: any = reactive({
   }
 });
 </script>
-
 <style scoped lang="scss">
 .t-module-form_demo {
   :deep(.t_layout_page_item) {

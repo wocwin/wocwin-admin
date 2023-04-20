@@ -190,3 +190,24 @@
     }
   }
 }
+
+.el-tooltip__popper, .el-popper.is-dark {
+  line-height: 14px;
+  max-width: 25rem;
+  color: #fff !important;
+}
+// ttable过长省略号
+.el-table .el-tooltip div {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  line-height: 23px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.el-table [class*=el-table__row--level] .el-table__expand-icon{
+  line-height:32px;
+  height: 32px;
+}
