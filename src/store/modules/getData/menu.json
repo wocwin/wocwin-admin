@@ -200,6 +200,20 @@
           }
         },
         {
+          "path": "/t-table/singleEdit",
+          "name": "singleEdit",
+          "component": "/tuiplus/TTable/singleEdit/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "单元格单独编辑",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
           "path": "/t-table/singleEditCell",
           "name": "singleEditCell",
           "component": "/tuiplus/TTable/singleEditCell/index",
