@@ -194,7 +194,9 @@
 .el-tooltip__popper, .el-popper.is-dark {
   line-height: 14px;
   max-width: 25rem;
-  color: #fff !important;
+  color: var(--el-bg-color);
+  background: var(--el-text-color-primary);
+  border: 1px solid var(--el-text-color-primary);
 }
 // ttable过长省略号
 .el-table .el-tooltip div {

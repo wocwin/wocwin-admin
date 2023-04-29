@@ -20,7 +20,7 @@
     "@vueuse/core": "^9.13.0",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
-    "@wocwin/t-ui-plus": "^1.0.18",
+    "@wocwin/t-ui-plus": "^1.0.21",
     "axios": "^1.3.4",
     "dayjs": "^1.11.7",
     "driver.js": "^0.9.8",

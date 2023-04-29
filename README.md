@@ -24,10 +24,11 @@
 - 整个项目集成了 TypeScript、i18n 国际化
 - 使用 Pinia 替代 Vuex，轻量、简单、易用（ 集成了持久化插件）
 - 使用 TypeScript 对 Axios 整个二次封装 （全局错误拦截）
-- 使用了基于 [Element-plus 二次封装 t-ui-plus 组件](https://gitee.com/wocwin/t-ui-plus) ，里面有常用的 table、条件查询、form 表单、下拉选择组件等
+- 使用了基于 [Element-plus 二次封装 t-ui-plus 组件](https://github.com/wocwin/t-ui-plus) ，里面有常用的 table、条件查询、form 表单、下拉选择组件等
 - 使用 vue-router 进行路由权限拦截、路由懒加载
 - 使用 KeepAlive 对页面进行缓存，支持多级嵌套页面缓存
 - 使用 Prettier 统一格式化代码，集成 Eslint 代码校验规范
+- 项目支持多种常规的布局模式；同时支持主题切换、暗黑模式、灰色模式。
 
 ### 安装使用
 
