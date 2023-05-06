@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 stats.html
-deploy.sh
+# deploy.sh
 package-lock
 package-lock.json
 
