@@ -6,6 +6,7 @@ import eslintPlugin from "vite-plugin-eslint";
 import viteCompression from "vite-plugin-compression";
 import vueSetupExtend from "unplugin-vue-setup-extend-plus/vite";
 import AutoImport from "unplugin-auto-import/vite"; // 自动导入
+import resolveExternalsPlugin from "vite-plugin-resolve-externals";
 // 配置qiankun
 import qiankun from "vite-plugin-qiankun";
 
@@ -40,6 +41,10 @@ export const createVitePlugins = (): (PluginOption | PluginOption[])[] => {
       threshold: 10240, // 压缩前最小文件大小
       algorithm: "gzip", // 压缩算法
       ext: ".gz" // 文件类型
+    }),
+    // 解决高德地图---找不到名称“AMap”
+    resolveExternalsPlugin({
+      AMap: "AMap"
     }),
     // 注入变量到 html 文件
     createHtmlPlugin({
