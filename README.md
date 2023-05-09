@@ -4,6 +4,11 @@
 >
 > 此项目集成了微前端 qiankun（即可以当做一个子应用）
 
+### 动态效果图
+
+<img src="./public/demo.gif">
+
+
 ### 在线预览
 
 - Link：<https://wocwin.github.io/wocwin-admin/>
