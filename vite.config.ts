@@ -63,32 +63,29 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       }
     },
     plugins: createVitePlugins(),
-    esbuild: {
-      pure: viteEnv.VITE_DROP_CONSOLE ? ["console.log", "debugger"] : []
-    },
     build: {
+      target: "modules",
       outDir: "dist",
-      // minify: "esbuild",
-      // esbuild 打包更快，但是不能去除 console.log，terser打包慢，但能去除 console.log
-      minify: "terser",
-      terserOptions: {
-        compress: {
-          drop_console: viteEnv.VITE_DROP_CONSOLE,
-          drop_debugger: true
-        }
-      },
+      minify: "esbuild", // esbuild打包速度最快，terser打包体积最小。
+      // assetsInlineLimit: 4000, // 小于该值 图片将打包成Base64
       // 禁用 gzip 压缩大小报告，可略微减少打包时间
-      reportCompressedSize: false,
+      // reportCompressedSize: false,
       // 规定触发警告的 chunk 大小
-      chunkSizeWarningLimit: 2000
-      // rollupOptions: {
-      //   output: {
-      //     // Static resource classification and packaging
-      //     chunkFileNames: "assets/js/[name]-[hash].js",
-      //     entryFileNames: "assets/js/[name]-[hash].js",
-      //     assetFileNames: "assets/[ext]/[name]-[hash].[ext]"
-      //   }
-      // }
+      chunkSizeWarningLimit: 3000,
+      rollupOptions: {
+        output: {
+          // js最小拆包
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              return id.toString().split("node_modules/")[1].split("/")[0].toString();
+            }
+          },
+          // 静态资源分类和包装
+          chunkFileNames: "assets/js/[name]-[hash].js",
+          entryFileNames: "assets/js/[name]-[hash].js",
+          assetFileNames: "assets/[ext]/[name]-[hash].[ext]"
+        }
+      }
     }
   };
 });
