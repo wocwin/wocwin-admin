@@ -1,23 +1,19 @@
 <template>
-  <t-layout-page>
-    <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        title="角色管理列表"
-        isCopy
-        :table="state.table"
-        :columns="state.table.columns"
-        @selection-change="selectionChange"
-      >
-        <template #toolbar>
-          <el-button type="primary">新增</el-button>
-          <el-button type="danger" :disabled="state.roleIds.length < 1">批量删除</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-  </t-layout-page>
+  <t-adaptive-page
+    title="角色管理列表"
+    isCopy
+    :table="state.table"
+    :columns="state.table.columns"
+    @selection-change="selectionChange"
+    :opts="opts"
+    @submit="conditionEnter"
+    height="100%"
+  >
+    <template #toolbar>
+      <el-button type="primary">新增</el-button>
+      <el-button type="danger" :disabled="state.roleIds.length < 1">批量删除</el-button>
+    </template>
+  </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="roleManage">

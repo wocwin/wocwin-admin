@@ -1,23 +1,20 @@
 <template>
-  <t-layout-page class="menu_mange">
-    <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        title="菜单管理页面"
-        row-key="path"
-        :table="state.table"
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        :columns="state.table.columns"
-        :isShowPagination="false"
-      >
-        <template #toolbar>
-          <el-button type="primary">新增</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-  </t-layout-page>
+  <t-adaptive-page
+    class="menu_mange"
+    title="菜单管理页面"
+    row-key="path"
+    :table="state.table"
+    :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+    :columns="state.table.columns"
+    :isShowPagination="false"
+    :opts="opts"
+    @submit="conditionEnter"
+    height="100%"
+  >
+    <template #toolbar>
+      <el-button type="primary">新增</el-button>
+    </template>
+  </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="menuMange">
