@@ -4,10 +4,6 @@
 >
 > 此项目集成了微前端 qiankun（即可以当做一个子应用）
 
-### 动态效果图
-
-<img src="./public/demo.gif">
-
 ### 在线预览
 
 - Link：<https://wocwin.github.io/wocwin-admin/>
@@ -29,6 +25,48 @@
 - 使用 KeepAlive 对页面进行缓存，支持多级嵌套页面缓存
 - 使用 Prettier 统一格式化代码，集成 Eslint 代码校验规范
 - 项目支持多种常规的布局模式；同时支持主题切换、暗黑模式、灰色模式。
+
+### 项目截图
+
+- 登录页：
+
+![login](./public/img/login.png)
+
+- 首页：
+
+![home_light](./public/img/home_light.png)
+
+![home_dark](./public/img/home_dark.png)
+
+- TTable+查询条件(一屏展示页面)：
+
+![home_light](./public/img/table_light.png)
+
+![home_dark](./public/img/table_dark.png)
+
+- TForm 组件：
+
+![TForm_light](./public/img/TForm_light.png)
+
+![TForm_dark](./public/img/TForm_dark.png)
+
+- Layout 布局方式：
+
+![vertical](./public/img/vertical.png)
+
+![classic](./public/img/classic.png)
+
+![transverse](./public/img/transverse.png)
+
+![columns](./public/img/columns.png)
+
+- 灰色模式：
+
+![grey](./public/img/grey.png)
+
+- 高德地图定位：
+
+![amap](./public/img/amap.png)
 
 ### 安装使用
 
