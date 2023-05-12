@@ -49,7 +49,7 @@ export default (config: any) => {
         }).then(() => {
           // 调用退出登录接口
           useUserStore().FedLogOut();
-          window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/" : "/wocwin-admin/";
+          window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/wocwin-qiankun/" : "/wocwin-admin/";
         });
       } else if (code !== 200) {
         ElMessage({

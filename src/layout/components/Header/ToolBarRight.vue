@@ -1,6 +1,9 @@
 <template>
   <div class="tool-bar-ri">
     <div class="header-icon">
+      <el-tooltip content="页面刷新" effect="dark" placement="bottom">
+        <i @click="refresh" :class="'iconfont icon-refresh'" class="toolBar-icon"></i>
+      </el-tooltip>
       <Language id="language" />
       <SearchMenu id="searchMenu" />
       <el-tooltip content="主题切换" effect="dark" placement="bottom">
@@ -16,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { useUserStore } from "@/store/modules/user";
 import Language from "./components/Language.vue";
 import SearchMenu from "./components/SearchMenu.vue";
@@ -26,6 +28,13 @@ import Avatar from "./components/Avatar.vue";
 
 const userStore = useUserStore();
 const username = computed(() => userStore.name || "wocwin");
+// refresh current page
+const reload: Function = inject("reload") as Function;
+const refresh = () => {
+  setTimeout(() => {
+    reload();
+  }, 0);
+};
 </script>
 
 <style scoped lang="scss">
@@ -39,7 +48,7 @@ const username = computed(() => userStore.name || "wocwin");
     display: flex;
     align-items: center;
 
-    & > * {
+    * {
       margin-left: 21px;
     }
   }

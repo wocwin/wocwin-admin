@@ -6,6 +6,13 @@
   "description": "vue3+vite+ts",
   "glyphs": [
     {
+      "icon_id": "6849978",
+      "name": "refresh",
+      "font_class": "refresh",
+      "unicode": "e74a",
+      "unicode_decimal": 59210
+    },
+    {
       "icon_id": "4608986",
       "name": "主题",
       "font_class": "theme",

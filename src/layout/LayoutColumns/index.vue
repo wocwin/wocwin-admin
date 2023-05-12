@@ -2,7 +2,7 @@
 <template>
   <el-container class="layout">
     <div class="aside-split">
-      <div class="logo flx-center">
+      <div class="logo flx-center" @click="goIndex">
         <img class="logo-img" src="@/assets/logo/logo.png" alt="logo" />
       </div>
       <el-scrollbar>
@@ -57,6 +57,7 @@ import Main from "@/layout/components/Main/index.vue";
 import ToolBarLeft from "@/layout/components/Header/ToolBarLeft.vue";
 import ToolBarRight from "@/layout/components/Header/ToolBarRight.vue";
 import SubMenu from "@/layout/components/Menu/SubMenu.vue";
+import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
 
 const route = useRoute();
 const router = useRouter();
@@ -92,6 +93,9 @@ const changeSubMenu = (item: Menu.MenuOptions) => {
   if (item.children?.length) return (subMenuList.value = item.children);
   subMenuList.value = [];
   router.push(item.path);
+};
+const goIndex = () => {
+  window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/wocwin-qiankun/" : "/wocwin-admin/";
 };
 </script>
 

@@ -27,8 +27,9 @@
 - 使用 Prettier 统一格式化代码，集成 Eslint 代码校验规范
 - 项目支持多种常规的布局模式；同时支持主题切换、暗黑模式、灰色模式。
 
+### 动态效果图
 
-### [动态效果图](https://blog.csdn.net/cwin8951/article/details/130269505)
+- Link：<https://blog.csdn.net/cwin8951/article/details/130269505>
 ### 项目截图
 
 - 登录页：

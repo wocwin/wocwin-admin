@@ -23,7 +23,7 @@ import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
  * @param meta.isKeepAlive ==> 是否缓存
  * */
 const router = createRouter({
-  history: createWebHistory(qiankunWindow.__POWERED_BY_QIANKUN__ ? "/" : "/wocwin-admin/"),
+  history: createWebHistory("/wocwin-admin/"),
   routes: [...staticRouter, ...errorRouter],
   strict: false,
   scrollBehavior: () => ({ left: 0, top: 0 })
@@ -37,35 +37,45 @@ router.beforeEach(async (to, from, next) => {
 
   // 1.NProgress 开始
   NProgress.start();
-
-  // 2.动态设置标题
-  const title = "Wocwin-Admin";
-  document.title = to.meta.title ? `${to.meta.title} - ${title}` : title;
-
-  // 3.判断是访问登陆页，有 Token 就在当前页面，没有 Token 重置路由到登陆页
-  if (to.path.toLocaleLowerCase() === LOGIN_URL) {
-    if (getToken()) return next(from.fullPath);
-    resetRouter();
-    return next();
+  if (getToken()) {
+    // 2.动态设置标题
+    const title = "Wocwin-Admin";
+    document.title = to.meta.title ? `${to.meta.title} - ${title}` : title;
+    // 3.判断是访问登陆页，有 Token 就在当前页面，没有 Token 重置路由到登陆页
+    if (to.path.toLocaleLowerCase() === LOGIN_URL) {
+      if (getToken()) return next(from.fullPath);
+      resetRouter();
+      return next();
+    }
+    // 子应用单独运行，直接进入该系统
+    // console.log("子应用单独运行，直接进入该系统", to, authStore.authMenuListGet);
+    if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
+      // 6.如果没有菜单列表，就重新请求菜单列表并添加动态路由
+      if (!authStore.authMenuListGet.length) {
+        await initDynamicRouter();
+        return next({ ...to, replace: true });
+      }
+      // 7.存储 routerName 做按钮权限筛选
+      authStore.setRouteName(to.name as string);
+      // 8.正常访问页面
+      next();
+    } else {
+      if (!authStore.authMenuListGet.length) {
+        await initDynamicRouter();
+        return next({ ...to, replace: true });
+      }
+      // console.log("主项目的next", to, authStore.authMenuListGet);
+      next();
+    }
+  } else {
+    // 4.判断访问页面是否在路由白名单地址(静态路由)中，如果存在直接放行
+    if (ROUTER_WHITE_LIST.includes(to.path)) {
+      next();
+    } else {
+      // 5.判断是否有 Token，没有重定向到 login 页面
+      next({ path: LOGIN_URL, replace: true });
+    }
   }
-
-  // 4.判断访问页面是否在路由白名单地址(静态路由)中，如果存在直接放行
-  if (ROUTER_WHITE_LIST.includes(to.path)) return next();
-
-  // 5.判断是否有 Token，没有重定向到 login 页面
-  if (!getToken()) return next({ path: LOGIN_URL, replace: true });
-
-  // 6.如果没有菜单列表，就重新请求菜单列表并添加动态路由
-  if (!authStore.authMenuListGet.length) {
-    await initDynamicRouter();
-    return next({ ...to, replace: true });
-  }
-
-  // 7.存储 routerName 做按钮权限筛选
-  authStore.setRouteName(to.name as string);
-
-  // 8.正常访问页面
-  next();
 });
 
 /**

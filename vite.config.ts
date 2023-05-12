@@ -85,10 +85,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         output: {
           // js最小拆包
-          // manualChunks(id) {
-          //   if (id.includes("node_modules")) {
-          //     return id.toString().split("node_modules/")[1].split("/")[0].toString();
-          //   }
+          // manualChunks: id => {
+          //   if (id.includes("node_modules")) return "vendor";
           // },
           // 静态资源分类和包装
           chunkFileNames: "assets/js/[name]-[hash].js",

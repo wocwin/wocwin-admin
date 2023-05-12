@@ -2,7 +2,7 @@
 <template>
   <el-container class="layout">
     <el-header>
-      <div class="logo flx-center">
+      <div class="logo flx-center" @click="goIndex">
         <img class="logo-img" src="@/assets/logo/logo.png" alt="logo" />
         <span class="logo-text">wocwin Admin</span>
       </div>
@@ -41,6 +41,7 @@ import { useRoute, useRouter } from "vue-router";
 import Main from "@/layout/components/Main/index.vue";
 import ToolBarRight from "@/layout/components/Header/ToolBarRight.vue";
 import SubMenu from "@/layout/components/Menu/SubMenu.vue";
+import { qiankunWindow } from "vite-plugin-qiankun/dist/helper";
 
 const route = useRoute();
 const router = useRouter();
@@ -51,6 +52,9 @@ const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu
 const handleClickMenu = (subItem: Menu.MenuOptions) => {
   if (subItem.meta.isLink) return window.open(subItem.meta.isLink, "_blank");
   router.push(subItem.path);
+};
+const goIndex = () => {
+  window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/wocwin-qiankun/" : "/wocwin-admin/";
 };
 </script>
 
