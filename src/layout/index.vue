@@ -1,4 +1,3 @@
-<!-- 💥 这里是一次性加载 LayoutComponents -->
 <template>
   <component :is="LayoutComponents[layout]" />
   <ThemeDrawer />

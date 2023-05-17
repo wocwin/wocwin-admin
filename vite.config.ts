@@ -65,7 +65,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     plugins: createVitePlugins(),
     build: {
       outDir: "dist",
-      minify: "esbuild", // esbuild打包速度最快，terser打包体积最小。
+      minify: "terser", // esbuild打包速度最快，terser打包体积最小。
       // assetsInlineLimit: 4000, // 小于该值 图片将打包成Base64
       terserOptions: {
         compress: {
@@ -85,9 +85,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         output: {
           // js最小拆包
-          // manualChunks: id => {
-          //   if (id.includes("node_modules")) return "vendor";
-          // },
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              // console.log("777--", id.toString().split("node_modules/")[1].split("/")[1]);
+              return id.toString().split("node_modules/")[1].split("/")[1].toString();
+            }
+          },
           // 静态资源分类和包装
           chunkFileNames: "assets/js/[name]-[hash].js",
           entryFileNames: "assets/js/[name]-[hash].js",
