@@ -12,43 +12,27 @@
         </el-tab-pane>
       </el-tabs>
       <div class="right-tag">
-        <el-divider direction="vertical" />
-        <div @click="refresh" class="tabs_icon">
-          <el-tooltip effect="dark" :content="$t('tabs.refresh')" placement="bottom">
-            <el-icon><Refresh /></el-icon>
-          </el-tooltip>
-        </div>
-        <el-divider direction="vertical" />
-        <div @click="maximize" class="tabs_icon">
-          <el-tooltip effect="dark" :content="$t('tabs.maximize')" placement="bottom">
-            <el-icon><FullScreen /></el-icon>
-          </el-tooltip>
-        </div>
+        <Refresh />
+        <MoreButton class="tabs_icon" />
+        <Maximize />
       </div>
     </div>
-    <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
-      <li @click="closeCurrentTab">
-        <el-icon><Remove /></el-icon>{{ $t("tabs.closeCurrent") }}
-      </li>
-      <li @click="closeOtherTab">
-        <el-icon><CircleClose /></el-icon>{{ $t("tabs.closeOther") }}
-      </li>
-      <li @click="closeAllTab">
-        <el-icon><FolderDelete /></el-icon>{{ $t("tabs.closeAll") }}
-      </li>
-    </ul>
+    <Contextmenu :visible="visible" :left="left" :top="top" />
   </div>
 </template>
 
 <script setup lang="ts">
 import Sortable from "sortablejs";
-import { HOME_URL } from "@/config";
 import { useRoute, useRouter } from "vue-router";
 import { useGlobalStore } from "@/store/modules/global";
 import { useTabsStore } from "@/store/modules/tabs";
 import { useAuthStore } from "@/store/modules/auth";
 import { useKeepAliveStore } from "@/store/modules/keepAlive";
 import { TabsPaneContext, TabPaneName } from "element-plus";
+import MoreButton from "./components/MoreButton.vue"; // TAB operation
+import Refresh from "./components/Refresh.vue";
+import Maximize from "./components/Maximize.vue";
+import Contextmenu from "./components/Contextmenu.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -87,44 +71,6 @@ watch(visible, value => {
     document.body.removeEventListener("click", closeMenu);
   }
 });
-
-// Close Current
-const closeCurrentTab = () => {
-  if (route.meta.isAffix) return;
-  tabStore.removeTabs(route.fullPath);
-  keepAliveStore.removeKeepAliveName(route.name as string);
-};
-
-// Close Other
-const closeOtherTab = () => {
-  tabStore.closeMultipleTab(route.fullPath);
-  keepAliveStore.setKeepAliveName([route.name] as string[]);
-};
-
-// Close All
-const closeAllTab = () => {
-  tabStore.closeMultipleTab();
-  keepAliveStore.setKeepAliveName();
-  router.push(HOME_URL);
-};
-
-// maximize current page
-const maximize = () => {
-  globalStore.setGlobalState("maximize", true);
-};
-
-// refresh current page
-const refreshCurrentPage: Function = inject("refresh") as Function;
-const refresh = () => {
-  setTimeout(() => {
-    keepAliveStore.removeKeepAliveName(route.name as string);
-    refreshCurrentPage(false);
-    nextTick(() => {
-      keepAliveStore.addKeepAliveName(route.name as string);
-      refreshCurrentPage(true);
-    });
-  }, 0);
-};
 
 onMounted(() => {
   tabsDrop();
@@ -201,9 +147,11 @@ const tabRemove = (fullPath: TabPaneName) => {
     position: relative;
     width: 100%;
     .el-dropdown {
-      position: absolute;
-      top: 8px;
-      right: 13px;
+      :deep(.el-dropdown-menu__item) {
+        display: flex;
+        align-items: center;
+        flex-direction: inherit;
+      }
     }
     .right-tag {
       position: fixed;
@@ -212,8 +160,11 @@ const tabRemove = (fullPath: TabPaneName) => {
       z-index: 100;
       display: flex;
       align-items: center;
-      .tabs_icon {
-        width: 40px;
+      :deep(.el-divider) {
+        margin: 0;
+      }
+      :deep(.tabs_icon) {
+        width: 36px;
         height: 40px;
         display: flex;
         align-items: center;
@@ -236,7 +187,7 @@ const tabRemove = (fullPath: TabPaneName) => {
         margin: 0;
         .el-tabs__nav-wrap {
           position: absolute;
-          width: calc(100% - 130px);
+          width: calc(100% - 140px);
           .el-tabs__nav {
             display: flex;
             border: none;
@@ -269,15 +220,8 @@ const tabRemove = (fullPath: TabPaneName) => {
         }
       }
     }
-    // .tabs_drop {
-    //   :deep(.el-dropdown-menu__item) {
-    //     display: flex;
-    //     align-items: center;
-    //     flex-direction: inherit;
-    //   }
-    // }
   }
-  .contextmenu {
+  :deep(.contextmenu) {
     margin: 0;
     background-color: var(--el-bg-color-overlay);
     z-index: 3000;

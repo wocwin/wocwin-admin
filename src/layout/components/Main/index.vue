@@ -67,5 +67,18 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="scss">
-@import "./index.scss";
+.el-main {
+  box-sizing: border-box;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--el-bg-color-page);
+  :deep(.t_layout_page_item) {
+    margin: 0;
+    margin-bottom: 8px;
+  }
+}
+.el-footer {
+  height: auto;
+  padding: 0;
+}
 </style>

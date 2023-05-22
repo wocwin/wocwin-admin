@@ -59,7 +59,6 @@ const formOpts: any = reactive({
       value: "accountType",
       type: "select-obj",
       comp: "el-select",
-      list: "accountTypeList",
       childSlotName: "accountType"
     },
     { label: "微信", value: "wechat", slotName: "wechat" },

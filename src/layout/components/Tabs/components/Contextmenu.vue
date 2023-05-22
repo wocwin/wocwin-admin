@@ -1,29 +1,36 @@
 <template>
-  <el-dropdown trigger="click" :teleported="false">
-    <!-- <el-tooltip effect="dark" :content="$t('tabs.more')" placement="bottom"> -->
-    <el-icon><ArrowDown /></el-icon>
-    <!-- </el-tooltip> -->
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item @click="closeCurrentTab">
-          <el-icon><Remove /></el-icon>{{ $t("tabs.closeCurrent") }}
-        </el-dropdown-item>
-        <el-dropdown-item @click="closeOtherTab">
-          <el-icon><CircleClose /></el-icon>{{ $t("tabs.closeOther") }}
-        </el-dropdown-item>
-        <el-dropdown-item @click="closeAllTab">
-          <el-icon><FolderDelete /></el-icon>{{ $t("tabs.closeAll") }}
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+  <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
+    <li @click="closeCurrentTab">
+      <el-icon><Remove /></el-icon>{{ $t("tabs.closeCurrent") }}
+    </li>
+    <li @click="closeOtherTab">
+      <el-icon><CircleClose /></el-icon>{{ $t("tabs.closeOther") }}
+    </li>
+    <li @click="closeAllTab">
+      <el-icon><FolderDelete /></el-icon>{{ $t("tabs.closeAll") }}
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
+defineProps({
+  visible: {
+    type: Boolean,
+    required: false
+  },
+  top: {
+    type: Number,
+    default: 0
+  },
+  left: {
+    type: Number,
+    default: 0
+  }
+});
 import { HOME_URL } from "@/config";
+import { useRoute, useRouter } from "vue-router";
 import { useTabsStore } from "@/store/modules/tabs";
 import { useKeepAliveStore } from "@/store/modules/keepAlive";
-import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();

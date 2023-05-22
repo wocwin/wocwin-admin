@@ -1,9 +1,9 @@
 <template>
   <div class="tool-bar-ri">
     <div class="header-icon">
-      <el-tooltip content="页面刷新" effect="dark" placement="bottom">
+      <!-- <el-tooltip content="页面刷新" effect="dark" placement="bottom">
         <i @click="refresh" :class="'iconfont icon-refresh'" class="toolBar-icon"></i>
-      </el-tooltip>
+      </el-tooltip> -->
       <Language id="language" />
       <SearchMenu id="searchMenu" />
       <el-tooltip content="主题切换" effect="dark" placement="bottom">
@@ -29,12 +29,12 @@ import Avatar from "./components/Avatar.vue";
 const userStore = useUserStore();
 const username = computed(() => userStore.name || "wocwin");
 // refresh current page
-const reload: Function = inject("reload") as Function;
-const refresh = () => {
-  setTimeout(() => {
-    reload();
-  }, 0);
-};
+// const reload: Function = inject("reload") as Function;
+// const refresh = () => {
+//   setTimeout(() => {
+//     reload();
+//   }, 0);
+// };
 </script>
 
 <style scoped lang="scss">
