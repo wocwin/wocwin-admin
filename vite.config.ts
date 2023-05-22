@@ -87,7 +87,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           // js最小拆包
           manualChunks(id) {
             if (id.includes("node_modules")) {
-              // console.log("777--", id.toString().split("node_modules/")[1].split("/")[1]);
               return id.toString().split("node_modules/")[1].split("/")[1].toString();
             }
           },
