@@ -13,6 +13,10 @@
 </template>
 
 <script setup lang="ts">
+import { HOME_URL } from "@/config";
+import { useRoute, useRouter } from "vue-router";
+import { useTabsStore } from "@/store/modules/tabs";
+import { useKeepAliveStore } from "@/store/modules/keepAlive";
 defineProps({
   visible: {
     type: Boolean,
@@ -27,10 +31,6 @@ defineProps({
     default: 0
   }
 });
-import { HOME_URL } from "@/config";
-import { useRoute, useRouter } from "vue-router";
-import { useTabsStore } from "@/store/modules/tabs";
-import { useKeepAliveStore } from "@/store/modules/keepAlive";
 
 const route = useRoute();
 const router = useRouter();
