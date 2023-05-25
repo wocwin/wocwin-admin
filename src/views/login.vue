@@ -95,7 +95,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       Cookies.remove("rememberMe");
     }
     userStore
-      .Login()
+      .Login(loginForm)
       .then(() => {
         router.push({ path: "/" });
         ElNotification({

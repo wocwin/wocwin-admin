@@ -4,10 +4,11 @@ import { removeToken, setToken, getToken } from "@/utils/cookies";
 import UserInfoData from "./getData/userInfo.json";
 import GetTokenData from "./getData/token.json";
 import { ElMessage } from "element-plus";
+// import { login } from "@/api/login";
 export const useUserStore = defineStore({
   id: "wocwin-user",
   state: (): UserState => ({
-    token: getToken() || "PC:179_bb5c02174b084e04a16b1d7f3c0ca5bf",
+    token: getToken() || "PC:1_11363596c43444b9bc5c38403c0d9c12",
     name: "",
     nickName: "",
     userId: null,
@@ -15,8 +16,9 @@ export const useUserStore = defineStore({
   }),
   actions: {
     // 登录
-    Login() {
+    Login(userInfo: any) {
       return new Promise((resolve: any) => {
+        console.log("login--", userInfo);
         const res: any = GetTokenData;
         if (res.success) {
           setToken(res.data);
@@ -25,12 +27,25 @@ export const useUserStore = defineStore({
           ElMessage.error(res?.msg);
         }
         resolve();
+        // login(userInfo)
+        //   .then((res: any) => {
+        //     if (res.success) {
+        //       setToken(res.data);
+        //       this.token = res.data;
+        //     } else {
+        //       ElMessage.error(res?.msg);
+        //     }
+        //     resolve();
+        //   })
+        //   .catch((error: any) => {
+        //     reject(error);
+        //   });
       });
     },
     // 获取用户信息
     GetInfo() {
       const res: any = UserInfoData;
-      console.log(666, res);
+      // console.log(666, res);
       if (res?.success) {
         const user = res.data;
         this.name = user.userName;
