@@ -1,16 +1,19 @@
 <template>
-  <t-layout-page class="menu_mange">
-    <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table title="用户管理列表" isCopy :table="state.table" :columns="state.table.columns">
-        <template #toolbar>
-          <el-button type="primary">新增</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-  </t-layout-page>
+  <t-adaptive-page
+    class="menu_mange"
+    title="用户管理列表"
+    row-key="path"
+    isCopy
+    :table="state.table"
+    :columns="state.table.columns"
+    :opts="opts"
+    @submit="conditionEnter"
+    height="100%"
+  >
+    <template #toolbar>
+      <el-button type="primary">新增</el-button>
+    </template>
+  </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="accountManage">
@@ -20,9 +23,31 @@ const handleDelete = (row: any) => {
 };
 const state: any = reactive({
   queryData: {
-    userName: undefined, // 登录名
-    nickName: undefined // 用户状态
+    userName: null, // 登录名
+    nickName: null, // 用户状态
+    workshopNum: null,
+    phonenumber: null,
+    date1: null,
+    date: null
   },
+  multipleList: [
+    {
+      name: "前纺一车间",
+      id: "W1"
+    },
+    {
+      name: "前纺二车间",
+      id: "W2"
+    },
+    {
+      name: "前纺三车间",
+      id: "W3"
+    },
+    {
+      name: "前纺四车间",
+      id: "W4"
+    }
+  ],
   table: {
     total: 0,
     // 接口返回数据
@@ -91,15 +116,56 @@ const opts = computed(() => {
     nickName: {
       label: "姓名",
       comp: "el-input"
+    },
+    phonenumber: {
+      label: "手机号码",
+      comp: "el-input"
+    },
+    date1: {
+      label: "日期组件使用",
+      comp: "t-date-picker",
+      bind: {
+        isPickerOptions: true
+      }
+    },
+    workshopNum: {
+      label: "t-select使用",
+      placeholder: "请多选",
+      span: 2,
+      comp: "t-select",
+      bind: {
+        valueKey: "id",
+        labelKey: "name",
+        multiple: true,
+        optionSource: state.multipleList
+      }
+    },
+    date: {
+      label: "创建时间",
+      comp: "el-date-picker",
+      span: 2,
+      event: "date",
+      bind: {
+        rangeSeparator: "-",
+        startPlaceholder: "开始日期",
+        endPlaceholder: "结束日期",
+        valueFormat: "YYYY-MM-DD",
+        type: "daterange"
+      }
     }
   };
 });
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { userName, nickName } = state.queryData;
+  const { userName, nickName, date, date1, workshopNum, phonenumber } = state.queryData;
   return {
     userName,
-    nickName
+    nickName,
+    workshopNum,
+    phonenumber,
+    date1,
+    beginDate: date && date[0] ? date[0] : null,
+    endDate: date && date[1] ? date[1] : null
   };
 });
 // 点击查询按钮
