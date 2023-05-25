@@ -132,6 +132,8 @@ Wocwin-Admin
 ├─ .stylelintignore       # 忽略 stylelint 格式化
 ├─ .stylelintrc.cjs       # stylelint 样式格式化配置
 ├─ index.html             # 入口 html
+├─ stats.html             # Rollup Visualizer html
+├─ deploy.sh              # 发布GitHub Pages指令
 ├─ LICENSE                # 开源协议文件
 ├─ pnpm-lock.yaml      # 依赖包包版本锁
 ├─ package.json           # 依赖包管理
