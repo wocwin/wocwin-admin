@@ -7,15 +7,16 @@ import { useUserStore } from "@/store/modules/user";
 export default (config: any) => {
   // 创建axios实例
   const service: any = axios.create({
-    baseURL:
-      (import.meta.env.VITE_APP_BASE_API as string) +
-      (config.url.includes("portal-sso") || config.url.includes("portal-user") ? "" : "/mes"),
+    baseURL: import.meta.env.VITE_APP_BASE_API as string,
     // 超时
     timeout: 50000
   });
   // 请求拦截器
   service.interceptors.request.use(
     (config: any) => {
+      if (!(config.url.includes("portal-sso") || config.url.includes("portal-user"))) {
+        config.url = `/mes${config.url}`;
+      }
       // 当前请求不需要显示 loading，在 api 服务中通过指定的第三个参数: { noLoading: true } 来控制
       config.noLoading || showFullScreenLoading();
       config.headers["Authorization"] = getToken() || "";
