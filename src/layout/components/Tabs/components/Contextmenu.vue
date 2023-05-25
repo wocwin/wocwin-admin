@@ -31,7 +31,6 @@ defineProps({
     default: 0
   }
 });
-
 const route = useRoute();
 const router = useRouter();
 const tabStore = useTabsStore();

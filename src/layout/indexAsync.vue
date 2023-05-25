@@ -1,4 +1,3 @@
-<!-- 💥 这里是异步加载 LayoutComponents -->
 <template>
   <suspense>
     <template #default>

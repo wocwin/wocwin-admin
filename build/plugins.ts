@@ -7,6 +7,7 @@ import viteCompression from "vite-plugin-compression";
 import vueSetupExtend from "unplugin-vue-setup-extend-plus/vite";
 import AutoImport from "unplugin-auto-import/vite"; // 自动导入
 import resolveExternalsPlugin from "vite-plugin-resolve-externals";
+// import { visualizer } from "rollup-plugin-visualizer";
 // 配置qiankun
 import qiankun from "vite-plugin-qiankun";
 
@@ -52,5 +53,10 @@ export const createVitePlugins = (): (PluginOption | PluginOption[])[] => {
         data: { title: "Wocwin-Admin" }
       }
     })
+    // visualizer({
+    //   open: true, //注意这里要设置为true，否则无效
+    //   gzipSize: true,
+    //   brotliSize: true
+    // })
   ];
 };

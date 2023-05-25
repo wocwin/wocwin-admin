@@ -20,8 +20,8 @@ export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/layout",
     name: "layout",
-    component: () => import("@/layout/index.vue"),
-    // component: () => import("@/layouts/indexAsync.vue"),
+    // component: () => import("@/layout/index.vue"),
+    component: () => import("@/layout/indexAsync.vue"),
     redirect: HOME_URL,
     children: []
   }
