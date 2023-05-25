@@ -70,7 +70,7 @@ const goIndex = () => {
     height: 55px;
     padding: 0 15px 0 0;
     background-color: #191a20;
-    border-bottom: 1px solid var(--el-border-color-light);
+    // border-bottom: 1px solid var(--el-border-color-light);
     .header-lf {
       display: flex;
       align-items: center;
@@ -121,7 +121,7 @@ const goIndex = () => {
   }
   .classic-content {
     display: flex;
-    height: calc(100% - 55px);
+    height: calc(100% - 50px);
     :deep(.el-aside) {
       z-index: 5;
       width: auto;
