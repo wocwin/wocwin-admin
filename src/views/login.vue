@@ -1,6 +1,11 @@
 <template>
   <div class="login">
     <div class="content">
+      <div class="star1"></div>
+      <div class="star2"></div>
+      <div class="star3"></div>
+      <div class="star4"></div>
+      <div class="star5"></div>
       <div class="input-format">
         <img src="@/assets/images/logo.jpg" class="logon" />
         <h2 class="title">Wocwin-Admin</h2>
@@ -111,11 +116,27 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
 </script>
 
 <style lang="scss">
+@function getShadows($n) {
+  $shadows: "#{random(100)}vw #{random(100)}vh #fff";
+  @for $i from 2 through $n {
+    $shadows: "#{$shadows},#{random(100)}vw #{random(100)}vh #fff";
+  }
+  @return unquote($shadows);
+}
+@keyframes moveUp {
+  100% {
+    transform: translateY(-100vh);
+  }
+}
+$duration: 600s;
+$count: 1400;
 .login {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   background-size: cover;
   .content {
     display: flex;
@@ -124,8 +145,6 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     width: 100%;
     height: 100%;
     padding-right: 8%;
-    background: url("../assets/images/guitar.jpg") no-repeat 0;
-    background-size: cover;
     .input-format {
       width: 340px;
       height: 440px;
@@ -142,6 +161,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       .title {
         margin-top: 8px;
         margin-bottom: 40px;
+
         // font-size: 29px;
         font-family: PingFangSC-Medium, "PingFang SC";
         font-weight: 600;
@@ -167,6 +187,31 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
           width: 14px;
           height: 39px;
           margin-left: 2px;
+        }
+      }
+    }
+    @for $i from 1 through 5 {
+      $duration: floor(calc($duration / 2));
+      $count: floor(calc($count / 2));
+      .star#{$i} {
+        $size: #{$i}px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        box-shadow: getShadows($count);
+        animation: moveUp $duration linear infinite;
+        &::after {
+          position: fixed;
+          top: 100vh;
+          left: 0;
+          width: $size;
+          height: $size;
+          content: "";
+          border-radius: inherit;
+          box-shadow: inherit;
         }
       }
     }
