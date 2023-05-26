@@ -1060,6 +1060,38 @@
             "isFull": false,
             "isAffix": false,
             "isKeepAlive": true
+          },
+          "children": [
+            {
+              "path": "/system/accountManage/detail",
+              "name": "accountManageDetail",
+              "component": "/system/accountManage/detail",
+              "meta": {
+                "icon": "Menu",
+                "title": "子级账号管理详情",
+                "isLink": "",
+                "isHide": true,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/system/accountManage"
+              }
+            }
+          ]
+        },
+        {
+          "path": "/system/accountManage/detail1",
+          "name": "accountManageDetail1",
+          "component": "/system/accountManage/detail1",
+          "meta": {
+            "icon": "Menu",
+            "title": "同级账号管理详情",
+            "isLink": "",
+            "isHide": true,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true,
+            "activeMenu": "/system/accountManage"
           }
         },
         {

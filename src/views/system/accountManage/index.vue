@@ -11,13 +11,22 @@
     height="100%"
   >
     <template #toolbar>
-      <el-button type="primary">新增</el-button>
+      <el-button type="primary" @click="toDetail('child')">子级详情页面</el-button>
+      <el-button type="primary" @click="toDetail('peer')">同级详情页面</el-button>
     </template>
   </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="accountManage">
 import accountData from "@/views/system/getData/account.json";
+const router = useRouter();
+// 跳转详情页
+const toDetail = (type: any) => {
+  router.push({
+    path: `/system/accountManage/detail${type === "child" ? "" : "1"}`,
+    query: { flag: `accountManageDetail${type === "child" ? "" : "1"}`, type }
+  });
+};
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
 };
