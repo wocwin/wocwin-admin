@@ -12,7 +12,6 @@
     "uat": "vue-tsc --noEmit && vite build --mode uat",
     "prod": "vue-tsc --noEmit && vite build --mode prod",
     "lint:prettier": "prettier --write \"src/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
-    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "deploy": "deploy.sh",
     "preview": "vite preview"
   },

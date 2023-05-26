@@ -24,7 +24,7 @@
     </div>
     <el-aside :class="{ 'not-aside': !subMenuList.length }" :style="{ width: isCollapse ? '65px' : '210px' }">
       <div class="logo flx-center">
-        <span class="logo-text" v-show="subMenuList.length">{{ isCollapse ? "G" : "wocwin Admin" }}</span>
+        <span class="logo-text" v-show="subMenuList.length">{{ isCollapse ? "W" : "wocwin Admin" }}</span>
       </div>
       <el-scrollbar>
         <el-menu
@@ -169,6 +169,7 @@ const goIndex = () => {
     height: 100%;
     overflow: hidden;
     z-index: 5;
+    padding: 0;
     background-color: var(--el-menu-bg-color);
     border-right: 1px solid var(--el-border-color-light);
     transition: width 0.3s ease;

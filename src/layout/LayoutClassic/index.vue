@@ -70,7 +70,7 @@ const goIndex = () => {
     height: 55px;
     padding: 0 15px 0 0;
     background-color: #191a20;
-    // border-bottom: 1px solid var(--el-border-color-light);
+    border-bottom: 1px solid #191a20;
     .header-lf {
       display: flex;
       align-items: center;
@@ -142,6 +142,13 @@ const goIndex = () => {
     .classic-main {
       display: flex;
       flex-direction: column;
+    }
+  }
+}
+html.dark {
+  .el-container {
+    :deep(.el-header) {
+      border-bottom: 1px solid var(--el-border-color-light);
     }
   }
 }

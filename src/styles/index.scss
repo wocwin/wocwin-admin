@@ -14,6 +14,7 @@ body,
 :-webkit-any(article, aside, nav, section) h1 {
   font-size: 2em;
 }
+
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -105,11 +106,13 @@ div:focus {
   }
 }
 
+// 菜单栏
 aside {
-  background: #eef1f6;
-  padding: 8px 15px;
-  margin-bottom: 10px;
-  border-radius: 2px;
+  // background: #eef1f6;
+  background-color: var(--el-menu-bg-color);
+  padding: 0 2px;
+  // margin-bottom: 10px;
+  // border-radius: 2px;
   display: block;
   line-height: 32px;
   font-size: 16px;
@@ -129,52 +132,9 @@ aside {
   }
 }
 
-//main-container全局样式
-.app-container {
-  padding: 20px;
-}
-
-.components-container {
-  margin: 30px 50px;
-  position: relative;
-}
-
-.pagination-container {
-  margin-top: 30px;
-}
-
+// 全局样式
 .text-center {
   text-align: center;
-}
-
-.sub-navbar {
-  height: 50px;
-  line-height: 50px;
-  position: relative;
-  width: 100%;
-  text-align: right;
-  padding-right: 20px;
-  transition: 600ms ease position;
-  background: linear-gradient(
-    90deg,
-    rgba(32, 182, 249, 1) 0%,
-    rgba(32, 182, 249, 1) 0%,
-    rgba(33, 120, 241, 1) 100%,
-    rgba(33, 120, 241, 1) 100%
-  );
-
-  .subtitle {
-    font-size: 20px;
-    color: #fff;
-  }
-
-  &.draft {
-    background: #d0d0d0;
-  }
-
-  &.deleted {
-    background: #d0d0d0;
-  }
 }
 
 .link-type,
@@ -187,15 +147,6 @@ aside {
   }
 }
 
-.filter-container {
-  padding-bottom: 10px;
-
-  .filter-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 10px;
-  }
-}
 
 //refine vue-multiselect plugin
 .multiselect {
@@ -206,73 +157,71 @@ aside {
   z-index: 1000 !important;
 }
 
-// 页面包裹公用样式
-.page_wrap {
-  flex-grow: 1;
-  padding: 16px;
-  width: 100%;
-  background-color: #ecf0f3;
-}
-// 功能块公用样式
-.block_wrap {
-  margin-bottom: 16px;
-  padding: 24px;
-  background: #fff;
-  border-radius: 4px;
-}
 // 主题颜色
 .router-link-active .is-active span {
   color: #fff;
 }
+
 .tags-view-container .tags-view-wrapper .tags-view-item.active {
   background-color: #355db4 !important;
   border-color: #355db4 !important;
 }
+
 /*******************flex样式****************************/
 .flex-box {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
 }
+
 /*************垂直方向左对齐********/
 .flex-ver-left {
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
+
 /*************水平方向左对齐********/
 .flex-ver-h-left {
   justify-content: flex-start;
 }
+
 /*************水平方向右对齐********/
 .flex-ver-h-right {
   justify-content: flex-end;
 }
+
 /*************水平垂直居中********/
 .flex-ver {
   align-items: center;
   justify-content: center;
 }
+
 /*************垂直居中********/
 .flex-ver-v {
   align-items: center;
 }
+
 /*************水平居中********/
 .flex-ver-h {
   justify-content: center;
 }
+
 /*************换行********/
 .flex-wrap {
   flex-wrap: wrap;
 }
+
 /*************两端对齐********/
 .flex-between {
   justify-content: space-between;
 }
+
 /*******************flex样式结束****************************/
 .dl-horizontal {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+
   dt {
     min-width: 60px;
     text-align: right;
@@ -281,26 +230,14 @@ aside {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
   dd {
     margin-inline-start: 20px;
   }
 }
+
 .sidebar-logo-container {
   cursor: pointer;
-}
-
-// 详情页面
-.detail_page {
-  padding: 15px;
-  background: #f0f2f5;
-  min-height: 100vh;
-  padding-bottom: 75px;
-}
-// 弹窗小标题文字加粗
-.dialog_title_bold {
-  font-weight: bold !important;
-  color: #333 !important;
-  font-size: 17px !important;
 }
 
 /* flex */
@@ -309,11 +246,13 @@ aside {
   align-items: center;
   justify-content: center;
 }
+
 .flx-justify-between {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .flx-align-center {
   display: flex;
   align-items: center;
@@ -354,11 +293,13 @@ aside {
 .fade-transform-enter-active {
   transition: all 0.2s;
 }
+
 .fade-transform-enter-from {
   opacity: 0;
   transition: all 0.2s;
   transform: translateX(-30px);
 }
+
 .fade-transform-leave-to {
   opacity: 0;
   transition: all 0.2s;
@@ -369,6 +310,7 @@ aside {
 .breadcrumb-enter-active {
   transition: all 0.2s;
 }
+
 .breadcrumb-enter-from,
 .breadcrumb-leave-active {
   opacity: 0;
@@ -380,6 +322,7 @@ aside {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: var(--el-border-color-darker);
   border-radius: 20px;
@@ -389,10 +332,12 @@ aside {
 #nprogress .bar {
   background: var(--el-color-primary) !important;
 }
+
 #nprogress .spinner-icon {
   border-top-color: var(--el-color-primary) !important;
   border-left-color: var(--el-color-primary) !important;
 }
+
 #nprogress .peg {
   box-shadow: 0 0 10px var(--el-color-primary), 0 0 5px var(--el-color-primary) !important;
 }
@@ -402,24 +347,31 @@ aside {
   .mt#{$i} {
     margin-top: #{$i}px !important;
   }
+
   .mr#{$i} {
     margin-right: #{$i}px !important;
   }
+
   .mb#{$i} {
     margin-bottom: #{$i}px !important;
   }
+
   .ml#{$i} {
     margin-left: #{$i}px !important;
   }
+
   .pt#{$i} {
     padding-top: #{$i}px !important;
   }
+
   .pr#{$i} {
     padding-right: #{$i}px !important;
   }
+
   .pb#{$i} {
     padding-bottom: #{$i}px !important;
   }
+
   .pl#{$i} {
     padding-left: #{$i}px !important;
   }
