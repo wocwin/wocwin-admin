@@ -93,6 +93,10 @@ const changeOverViewStatus = () => {
   #container {
     width: 100%;
     height: 100%;
+    // height: 100vh;
+    filter: invert(100%) hue-rotate(180deg);
+    -webkit-filter: invert(100%) hue-rotate(180deg);
+    mix-blend-mode: exclusion;
   }
   .control-item {
     position: absolute;
