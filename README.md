@@ -11,8 +11,8 @@
 
 ### 代码仓库
 
-- Gitee：<https://gitee.com/wocwin/wocwin-admin>
 - GitHub：<https://github.com/wocwin/wocwin-admin>
+- Gitee：<https://gitee.com/wocwin/wocwin-admin>
 
 ### 项目功能
 
@@ -30,48 +30,6 @@
 ### 动态效果图
 
 - Link：<https://blog.csdn.net/cwin8951/article/details/130269505>
-
-### 项目截图
-
-- 登录页：
-
-![login](./public/img/login.png)
-
-- 首页：
-
-![home_light](./public/img/home_light.png)
-
-![home_dark](./public/img/home_dark.png)
-
-- TTable+查询条件(一屏展示页面)：
-
-![home_light](./public/img/table_light.png)
-
-![home_dark](./public/img/table_dark.png)
-
-- TForm 组件：
-
-![TForm_light](./public/img/TForm_light.png)
-
-![TForm_dark](./public/img/TForm_dark.png)
-
-- Layout 布局方式：
-
-![vertical](./public/img/vertical.png)
-
-![classic](./public/img/classic.png)
-
-![transverse](./public/img/transverse.png)
-
-![columns](./public/img/columns.png)
-
-- 灰色模式：
-
-![grey](./public/img/grey.png)
-
-- 高德地图定位：
-
-![amap](./public/img/amap.png)
 
 ### 安装使用
 
@@ -135,7 +93,7 @@ Wocwin-Admin
 ├─ stats.html             # Rollup Visualizer html
 ├─ deploy.sh              # 发布GitHub Pages指令
 ├─ LICENSE                # 开源协议文件
-├─ pnpm-lock.yaml      # 依赖包包版本锁
+├─ pnpm-lock.yaml         # 依赖包包版本锁
 ├─ package.json           # 依赖包管理
 ├─ postcss.config.cjs     # postcss 配置
 ├─ README.md              # README 介绍
@@ -143,7 +101,7 @@ Wocwin-Admin
 └─ vite.config.ts         # vite 全局配置文件
 ```
 
-### [Git 提交规范](https://npmmirror.com/package/dh-scm/v/0.1.26)
+### Git 提交规范
 
 - `ci`: ci 配置文件和脚本的变动;
 - `chore`: 构建系统或辅助工具的变动;
