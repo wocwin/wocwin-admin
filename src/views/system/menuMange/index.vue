@@ -3,6 +3,7 @@
     class="menu_mange"
     title="菜单管理页面"
     row-key="path"
+    isTree
     :table="state.table"
     :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     :columns="state.table.columns"
@@ -105,10 +106,10 @@ const opts = computed(() => {
 });
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { title, path } = state.queryData;
+  const { title, path } = toRefs(state.queryData);
   return {
-    title,
-    path
+    title: title.value,
+    path: path.value
   };
 });
 // 点击查询按钮
@@ -131,14 +132,6 @@ const getMenuData = async () => {
 <style lang="scss" scoped>
 .menu_mange {
   :deep(.t-table) {
-    .el-table__body-wrapper {
-      .el-table__body {
-        .cell {
-          display: flex;
-          align-items: center;
-        }
-      }
-    }
     .el-table__header-wrapper {
       .el-table__header {
         thead {
@@ -153,8 +146,5 @@ const getMenuData = async () => {
       padding-right: 20px;
     }
   }
-  // ::v-deep .el-input-number--medium {
-  //   line-height: 32px;
-  // }
 }
 </style>

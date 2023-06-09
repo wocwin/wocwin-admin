@@ -1,24 +1,22 @@
 <template>
-  <t-layout-page class="dept_mange">
-    <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        title="部门管理列表"
-        isCopy
-        :table="state.table"
-        :columns="state.table.columns"
-        row-key="deptId"
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        :isShowPagination="false"
-      >
-        <template #toolbar>
-          <el-button type="primary">新增</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
-  </t-layout-page>
+  <t-adaptive-page
+    title="部门管理列表"
+    isCopy
+    isTree
+    :table="state.table"
+    :columns="state.table.columns"
+    row-key="deptId"
+    default-expand-all
+    :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+    :isShowPagination="false"
+    :opts="opts"
+    @submit="conditionEnter"
+    height="100%"
+  >
+    <template #toolbar>
+      <el-button type="primary">新增</el-button>
+    </template>
+  </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="departmentManage">
@@ -93,10 +91,10 @@ const handleStatusChange = (row: any) => {
 };
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { deptName, deptNum } = state.queryData;
+  const { deptName, deptNum } = toRefs(state.queryData);
   return {
-    deptName,
-    deptNum
+    deptName: deptName.value,
+    deptNum: deptNum.value
   };
 });
 // 点击查询按钮
@@ -144,33 +142,3 @@ const getData = async () => {
   }
 };
 </script>
-<style lang="scss" scoped>
-.dept_mange {
-  :deep(.t-table) {
-    .el-table__body-wrapper {
-      .el-table__body {
-        .cell {
-          display: flex;
-          align-items: center;
-        }
-      }
-    }
-    .el-table__header-wrapper {
-      .el-table__header {
-        thead {
-          .cell {
-            text-align: left;
-          }
-        }
-      }
-    }
-    .el-table__cell > .cell {
-      padding-left: 14px;
-      padding-right: 20px;
-    }
-  }
-  // ::v-deep .el-input-number--medium {
-  //   line-height: 32px;
-  // }
-}
-</style>

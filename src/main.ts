@@ -33,8 +33,6 @@ import TuiPlus from "@wocwin/t-ui-plus";
 import "@wocwin/t-ui-plus/lib/style.css";
 // svg渲染
 import SvgIcon from "@/components/SvgIcon/index.vue";
-// 侧边栏反转色目前只支持在 vertical 布局模式下生效
-import { useTheme } from "@/hooks/useTheme";
 /**
  * 配置qiankun
  */
@@ -66,9 +64,6 @@ function render(props: any = {}) {
     // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
     SvgIcon.default || SvgIcon
   );
-  // 侧边栏反转色目前只支持在 vertical 布局模式下生效
-  const { setAsideTheme } = useTheme();
-  setAsideTheme();
   instance?.mount(container ? container.querySelector("#app") : "#app");
   console.log("开始加载相关内容");
 }

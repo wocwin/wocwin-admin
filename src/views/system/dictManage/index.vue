@@ -123,14 +123,10 @@ const opts = computed(() => {
     },
     createDate: {
       label: "创建时间",
-      comp: "el-date-picker",
+      comp: "t-date-picker",
       span: 2,
       bind: {
-        type: "datetimerange",
-        rangeSeparator: "-",
-        startPlaceholder: "开始日期",
-        endPlaceholder: "结束日期",
-        valueFormat: "yyyy-MM-dd HH:mm:ss"
+        type: "datetimerange"
       }
     },
     status: {
@@ -144,13 +140,13 @@ const opts = computed(() => {
 });
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { dictName, dictType, status, createDate } = state.queryData;
+  const { dictName, dictType, status, createDate } = toRefs(state.queryData);
   return {
-    dictName, // 字典名称
-    dictType, // 字典类型
-    status, // 字典状态
-    beginTime: createDate && createDate[0] ? createDate[0] : null,
-    endTime: createDate && createDate[1] ? createDate[1] : null
+    dictName: dictName.value, // 字典名称
+    dictType: dictType.value, // 字典类型
+    status: status.value, // 字典状态
+    beginTime: createDate.value && createDate.value[0] ? createDate.value[0] : null,
+    endTime: createDate.value && createDate.value[1] ? createDate.value[1] : null
   };
 });
 // 点击查询按钮

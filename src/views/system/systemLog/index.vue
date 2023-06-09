@@ -192,13 +192,9 @@ const opts = computed(() => {
     },
     date: {
       label: "操作时间",
-      comp: "el-date-picker",
+      comp: "t-date-picker",
       span: 2,
       bind: {
-        rangeSeparator: "-",
-        startPlaceholder: "开始日期",
-        endPlaceholder: "结束日期",
-        valueFormat: "yyyy-MM-dd HH:mm:ss",
         type: "datetimerange"
       }
     }
@@ -206,15 +202,15 @@ const opts = computed(() => {
 });
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { title, systemName, operName, businessType, status, date } = state.queryData;
+  const { title, systemName, operName, businessType, status, date } = toRefs(state.queryData);
   return {
-    title,
-    systemName,
-    operName,
-    businessType,
-    status,
-    beginTime: date && date[0] ? date[0] : null,
-    endTime: date && date[1] ? date[1] : null
+    title: title.value,
+    systemName: systemName.value,
+    operName: operName.value,
+    businessType: businessType.value,
+    status: status.value,
+    beginTime: date.value && date.value[0] ? date.value[0] : null,
+    endTime: date.value && date.value[1] ? date.value[1] : null
   };
 });
 // 点击查询按钮

@@ -151,14 +151,9 @@ const opts = computed(() => {
     },
     date: {
       label: "创建时间",
-      comp: "el-date-picker",
+      comp: "t-date-picker",
       span: 2,
-      event: "date",
       bind: {
-        rangeSeparator: "-",
-        startPlaceholder: "开始日期",
-        endPlaceholder: "结束日期",
-        valueFormat: "YYYY-MM-DD",
         type: "daterange"
       }
     }
@@ -166,15 +161,15 @@ const opts = computed(() => {
 });
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { userName, nickName, date, date1, workshopNum, phonenumber } = state.queryData;
+  const { userName, nickName, date, date1, workshopNum, phonenumber } = toRefs(state.queryData);
   return {
-    userName,
-    nickName,
-    workshopNum,
-    phonenumber,
-    date1,
-    beginDate: date && date[0] ? date[0] : null,
-    endDate: date && date[1] ? date[1] : null
+    userName: userName.value,
+    nickName: nickName.value,
+    workshopNum: workshopNum.value,
+    phonenumber: phonenumber.value,
+    date1: date1.value,
+    beginDate: date.value && date.value[0] ? date.value[0] : null,
+    endDate: date.value && date.value[1] ? date.value[1] : null
   };
 });
 // 点击查询按钮
