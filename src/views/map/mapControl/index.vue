@@ -100,11 +100,15 @@ const changeOverViewStatus = () => {
   }
   .control-item {
     position: absolute;
-    background: white;
+    background: var(--el-menu-bg-color);
     margin: 10px 30px 10px;
     padding: 10px 5px;
     left: 50px;
     top: 30px;
+    box-shadow: 1px 4px 12px 10px var(--el-menu-bg-color);
+    h5 {
+      color: var(--el-menu-text-color);
+    }
     .control {
       display: block;
       padding: 5px 20px 10px;

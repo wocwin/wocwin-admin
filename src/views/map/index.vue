@@ -165,14 +165,16 @@ const regeoCode = () => {
   }
   .circle-item {
     position: absolute;
-    background: white;
+    background: var(--el-menu-bg-color);
     padding: 5px 20px 10px;
     right: 6px;
     bottom: 170px;
+    box-shadow: 1px 4px 12px 10px var(--el-menu-bg-color);
     .title {
       font-weight: bold;
       font-size: 16px;
       margin-bottom: 10px;
+      color: var(--el-menu-text-color);
     }
     .item {
       margin: 10px 0px;
@@ -180,26 +182,30 @@ const regeoCode = () => {
   }
   .input-item {
     position: absolute;
-    background: white;
+    background: var(--el-menu-bg-color);
     padding: 15px;
     right: 30px;
     bottom: 10px;
+    box-shadow: 1px 4px 12px 10px var(--el-menu-bg-color);
     .title {
       font-weight: bold;
       font-size: 16px;
       margin-bottom: 10px;
+      color: var(--el-menu-text-color);
     }
   }
   .cursor-item {
     position: absolute;
-    background: white;
+    background: var(--el-menu-bg-color);
     padding: 5px 20px 10px;
     right: 340px;
     bottom: 170px;
+    box-shadow: 1px 4px 12px 10px var(--el-menu-bg-color);
     .title {
       font-weight: bold;
       font-size: 16px;
       margin-bottom: 10px;
+      color: var(--el-menu-text-color);
     }
     .mouseStyle {
       display: block;

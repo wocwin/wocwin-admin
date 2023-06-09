@@ -268,7 +268,7 @@ const regeoCode = () => {
   }
   .input-card {
     position: absolute;
-    background-color: white;
+    background-color: var(--el-menu-bg-color);
     max-height: 90%;
     // overflow-y: auto;
     top: 30px;
@@ -276,6 +276,10 @@ const regeoCode = () => {
     padding: 10px;
     width: 400px;
     cursor: move;
+    box-shadow: 1px 4px 12px 10px var(--el-menu-bg-color);
+    label {
+      color: var(--el-menu-text-color);
+    }
     .input-item {
       margin: 10px 0;
       display: flex;
@@ -285,6 +289,7 @@ const regeoCode = () => {
         width: 150px;
         text-align: right;
         padding-right: 10px;
+        color: var(--el-menu-text-color);
       }
     }
     .concrete {
