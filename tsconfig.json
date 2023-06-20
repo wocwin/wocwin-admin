@@ -1,34 +1,36 @@
 {
+  /* 项目选项 */
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "types": [
-      "vite/client",
-      "element-plus/global"
-    ],
-    /* Strict Type-Checking Options */
-    "strict": true /* Enable all strict type-checking options. */,
-    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-    // "strictNullChecks": true,              /* Enable strict null checks. */
-    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
-    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
-    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
-    // "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
-    // "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
-    "jsx": "preserve",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": [
+    "target": "ESNext", // 目标语言的版本
+    "module": "ESNext", // 生成代码的模板标准
+    "lib": [ // TS需要引用的库
       "ESNext",
       "DOM"
     ],
-    "skipLibCheck": true,
-    "noEmit": true,
-    "baseUrl": "./",
-    "paths": {
+    "useDefineForClassFields": true, // 此标志用作迁移到即将推出的类字段标准版本的一部分，默认：false。
+    "moduleResolution": "Node", // 指定模块解析策略，node或classic
+    "types": [ // 用来指定需要包含的模块，并将其包含在全局范围内。
+      "vite/client",
+      "element-plus/global",
+      "@wocwin/t-ui-plus/lib/components.d.ts"
+    ],
+    /* 严格检查选项 */
+    "strict": true, // 开启所有严格的类型检查
+    // "noImplicitAny": true, // 不允许隐式的any类型
+    // "strictNullChecks": true, // 不允许把null、undefined赋值给其他类型的变量
+    // "strictFunctionTypes": true,  // 不允许函数参数双向协变
+    // "strictBindCallApply": true, // 严格的bind/call/apply检查
+    // "strictPropertyInitialization": true,// 类的实例属性必须初始化
+    // "noImplicitThis": true, // 不允许this有隐式的any类型
+    // "alwaysStrict": true, // 在代码中注入'use strict'
+    "jsx": "preserve",
+    "resolveJsonModule": true, // 是否解析 JSON 模块，默认：false。
+    "isolatedModules": true, // 是否将每个文件转换为单独的模块，默认：false。
+    "esModuleInterop": true, // 允许export=导出，由import from 导入
+    "skipLibCheck": true, // 是否跳过声明文件的类型检查，这可以在编译期间以牺牲类型系统准确性为代价来节省时间，默认：false。
+    "noEmit": true, // 不生成编译后的文件，默认：false。
+    "baseUrl": "./", // 用于解析非绝对模块名的基本目录，相对模块不受影响。
+    "paths": { // 用于设置模块名称基于baseUrl的路径映射关系。
       "@": [
         "src"
       ],
@@ -37,6 +39,7 @@
       ],
     }
   },
+  // 指定被编译文件所在的目录 填写路径时 ** 表示任意目录， * 表示任意文件
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
@@ -44,10 +47,9 @@
     "src/**/*.vue",
     "build/**/*.ts",
     "build/**/*.d.ts",
-    "node_modules/@wocwin/t-ui-plus/global.d.ts",
-    "node_modules/element-plus/global.d.ts",
     "vite.config.ts"
   ],
+  // 指定不需要被编译的目录
   "exclude": [
     "node_modules",
     "dist",

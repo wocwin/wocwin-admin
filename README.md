@@ -41,6 +41,10 @@ git clone https://gitee.com/wocwin/wocwin-admin.git
 # GitHub
 git clone https://github.com/wocwin/wocwin-admin.git
 
+# 安装pnpm
+
+npm install pnpm -g
+
 # 安装依赖
 pnpm install
 
