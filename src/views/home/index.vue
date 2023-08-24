@@ -62,19 +62,26 @@ import RadarChart from "./components/RadarChart.vue";
 
 const userStore = useUserStore();
 const username = computed(() => userStore.name);
+const { appContext } = getCurrentInstance() as any;
+const global = appContext.config.globalProperties;
+// 获取所有业务api接口
+console.log("获取所有业务api接口", global.$api);
 </script>
 
 <style lang="scss" scoped>
 .dashboard-container {
   position: relative;
+
   .user-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
   }
+
   .w-full {
     width: 100%;
   }
+
   .github-corner {
     position: absolute;
     top: 8px;

@@ -23,6 +23,9 @@ import locale from "element-plus/lib/locale/lang/zh-cn";
 // 图标并进行全局注册
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
+// import Antd from "ant-design-vue";
+import { Table, Select } from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
 // vue i18n
 import I18n from "@/languages/index";
 
@@ -44,6 +47,9 @@ function render(props: any = {}) {
   instance.use(router);
   instance.use(pinia);
   instance.use(I18n);
+  // instance.use(Antd);
+  instance.component("ASelect", Select);
+  instance.component("ATable", Table);
   // 注册全局api方法
   instance.config.globalProperties.$api = api;
   // 注册所有图标

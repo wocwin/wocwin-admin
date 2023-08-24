@@ -900,6 +900,106 @@
             "isAffix": false,
             "isKeepAlive": true
           }
+        },
+        {
+          "path": "/assembly/t-antd-select-table",
+          "name": "TAntdSelectTable",
+          "redirect": "/assembly/t-antd-select-table/radio",
+          "meta": {
+            "icon": "MessageBox",
+            "title": "Antd下拉选择表格",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          },
+          "children": [
+            {
+              "path": "/assembly/t-antd-select-table/radio",
+              "name": "radioTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/radio",
+              "meta": {
+                "icon": "Menu",
+                "title": "单选",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/radiopagination",
+              "name": "radiopaginationTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/radiopagination",
+              "meta": {
+                "icon": "Menu",
+                "title": "单选--分页",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/radiodefaultSelectVal",
+              "name": "radiodefaultSelectValTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/radiodefaultSelectVal",
+              "meta": {
+                "icon": "Menu",
+                "title": "单选-默认选中",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/multiple",
+              "name": "multipleTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/multiple",
+              "meta": {
+                "icon": "Menu",
+                "title": "多选",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/multiplepagination",
+              "name": "multiplepaginationTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/multiplepagination",
+              "meta": {
+                "icon": "Menu",
+                "title": "多选-分页",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/multipledefaultSelectVal",
+              "name": "multipledefaultSelectValTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/multipledefaultSelectVal",
+              "meta": {
+                "icon": "Menu",
+                "title": "多选--默认选中",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            }
+          ]
         }
       ]
     },
