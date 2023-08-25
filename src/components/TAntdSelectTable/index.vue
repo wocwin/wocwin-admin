@@ -256,11 +256,13 @@ const selectKeyup = (e: { keyCode: any }) => {
         }
         break;
       case 13: // 回车
-        const keys = [];
-        const items = [];
-        keys.push(state.tableData[nowIndex.value][props.keywords.value]);
-        items.push(state.tableData[nowIndex.value]);
-        onSelectChange(keys, items);
+        if (state.tableData[nowIndex.value]) {
+          const keys = [];
+          const items = [];
+          keys.push(state.tableData[nowIndex.value][props.keywords.value]);
+          items.push(state.tableData[nowIndex.value]);
+          onSelectChange(keys, items);
+        }
         break;
     }
   }
