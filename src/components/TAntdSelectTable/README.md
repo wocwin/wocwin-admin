@@ -34,6 +34,7 @@
 | ------label      | 选项的标签                                                                                  | String        | ‘label’ |
 | ------value      | 选项的值（（value-key 配置）  ）                                                            | String        | ‘value’ |
 | rowSelection     | 列表项是否可选择--具体查看AntDesignVue文档                                                  | Object        | -       |
+| isKeyup          | 单选是否开启键盘事件（上下选择高亮，回车选中）                                              | Boolean       | false    |
 | isShowPagination | 是否开启分页                                                                                | Boolean       | false   |
 | mode             | 是否多选（配置'multiple'）默认单选                                                          | String        | -       |
 | defaultSelectVal | 设置第一页默认选中项--keywords.value 值                                                     | Array         | -       |

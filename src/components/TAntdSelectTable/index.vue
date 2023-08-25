@@ -14,6 +14,7 @@
     @dropdown-visible-change="visibleChange"
     @deselect="removeTag"
     @clear="clear"
+    @input-key-down="selectKeyup"
   >
     <template #notFoundContent>
       <div class="t-table-select__table" :style="{ width: `${tableWidth}px` }">
@@ -21,11 +22,9 @@
           ref="selectTable"
           :data-source="state.tableData"
           :columns="columns"
-          :class="{
-            radioStyle: !(mode === 'multiple')
-          }"
           bordered
           :row-key="getRowKey"
+          :row-class-name="getRowClass"
           :pagination="isShowPagination && table.pagination"
           :row-selection="
             rowSelection || {
@@ -98,6 +97,11 @@ const props = defineProps({
   mode: {
     type: String
   },
+  // 单选是否开启键盘事件
+  isKeyup: {
+    type: Boolean,
+    default: false
+  },
   // select宽度
   selectWidth: {
     type: [String, Number],
@@ -127,9 +131,11 @@ const renderArr = Object.keys(slots);
 
 const isDefaultSelectVal = ref(true); // 是否已经重新选择了
 const open = ref(false);
+const nowIndex = ref(-1);
 const state: any = reactive({
   defaultSelectValue: props.defaultSelectVal, // 默认选中
   tableData: props.table.data, // table数据
+  activeTableRow: {}, // 键盘上下键选中项
   // 选中KEY
   selectedRowKeys: [] as (string | number)[],
   // 选中行
@@ -164,7 +170,7 @@ let childSelectedValue = computed({
     return props.modelValue;
   },
   set(val) {
-    console.log("v-model简写", val);
+    // console.log("v-model简写", val);
     emits("update:modelValue", val);
   }
 });
@@ -178,7 +184,7 @@ onMounted(() => {
 // 单选or 多选
 const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
   setTimeout(() => {
-    console.log("选择", selectedRowKeys, selectedRows);
+    // console.log("选择", selectedRowKeys, selectedRows);
     state.selectedRowKeys = selectedRowKeys;
     state.selectedRows = selectedRows;
     isDefaultSelectVal.value = false;
@@ -188,6 +194,7 @@ const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
           state.selectedRows.length > 0 && state.selectedRows.map((item: { [x: string]: any }) => item[props.keywords.label]);
       } else {
         // console.log("单选", state.selectedRows[0]);
+        state.activeTableRow = state.selectedRows[0];
         childSelectedValue.value = state.selectedRows[0][props.keywords.label];
         blur();
       }
@@ -195,7 +202,7 @@ const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
       childSelectedValue.value = undefined;
     }
     emits("checkedChange", state.selectedRowKeys, state.selectedRows);
-  }, 500);
+  }, 10);
 };
 
 const rowClick = (record: { [x: string]: any }) => {
@@ -223,6 +230,47 @@ const rowClick = (record: { [x: string]: any }) => {
       }
     }
   };
+};
+// 单选键盘事件
+const selectKeyup = (e: { keyCode: any }) => {
+  if (!(props.mode === "multiple")) {
+    if (!props.isKeyup) return;
+    if (state.tableData.length === 0) return;
+    switch (e.keyCode) {
+      case 40: // 下键
+        if (state.tableData[nowIndex.value + 1] !== undefined) {
+          state.activeTableRow = state.tableData[nowIndex.value + 1];
+          nowIndex.value = nowIndex.value + 1;
+        } else {
+          nowIndex.value = 0;
+          state.activeTableRow = state.tableData[0];
+        }
+        break;
+      case 38: // 上键
+        if (state.tableData[nowIndex.value - 1] !== undefined && nowIndex.value > 0) {
+          state.activeTableRow = state.tableData[nowIndex.value - 1];
+          nowIndex.value = nowIndex.value - 1;
+        } else {
+          nowIndex.value = 0;
+          state.activeTableRow = state.tableData[0];
+        }
+        break;
+      case 13: // 回车
+        const keys = [];
+        const items = [];
+        keys.push(state.tableData[nowIndex.value][props.keywords.value]);
+        items.push(state.tableData[nowIndex.value]);
+        onSelectChange(keys, items);
+        break;
+    }
+  }
+};
+// 动态添加类
+const getRowClass = (record: any) => {
+  // console.log("record--", state.activeTableRow);
+  return state.activeTableRow[props.keywords.value] === record[props.keywords.value] && props.isKeyup
+    ? "active-selected-row"
+    : "";
 };
 // 默认选中（且只能默认选中第一页的数据）
 const defaultSelect = (defaultSelectVal: any[]) => {
@@ -270,7 +318,7 @@ const defaultSelect = (defaultSelectVal: any[]) => {
       } else {
         childSelectedValue.value = undefined;
       }
-    }, 300);
+    }, 20);
   }
 };
 // RowKey配置
@@ -279,25 +327,27 @@ const getRowKey = (row: { [x: string]: any }) => {
 };
 // 搜索过滤
 const filterMethodHandle = (input: string) => {
-  const tableData = JSON.parse(JSON.stringify(props.table?.data));
-  if (tableData && tableData.length > 0) {
-    if (!(props.mode === "multiple")) {
-      if (input) {
-        state.selectedRowKeys = [];
-      } else {
-        tableData.map((item: { [x: string]: any }) => {
-          if (item[props.keywords.value] === state.selectedRows[0] && state.selectedRows[0][props.keywords.value]) {
-            state.selectedRowKeys = [item[props.keywords.value]];
-          }
-        });
+  setTimeout(() => {
+    const tableData = JSON.parse(JSON.stringify(props.table?.data));
+    if (tableData && tableData.length > 0) {
+      if (!(props.mode === "multiple")) {
+        if (input) {
+          state.selectedRowKeys = [];
+        } else {
+          tableData.map((item: { [x: string]: any }) => {
+            if (item[props.keywords.value] === (state.selectedRows[0] && state.selectedRows[0][props.keywords.value])) {
+              state.selectedRowKeys = [item[props.keywords.value]];
+            }
+          });
+        }
       }
+      state.tableData = tableData.filter((item: { [x: string]: string | any[] }) => {
+        if (item[props.keywords.label].includes(input)) {
+          return item;
+        }
+      });
     }
-    state.tableData = tableData.filter((item: { [x: string]: string | any[] }) => {
-      if (item[props.keywords.label].includes(input)) {
-        return item;
-      }
-    });
-  }
+  }, 0);
 };
 // 表格显示隐藏回调
 const visibleChange = (visible: boolean) => {
@@ -338,8 +388,12 @@ const clear = () => {
   if (props.mode === "multiple") {
     onSelectNone();
   } else {
-    state.selectedRowKeys = [];
-    state.selectedRows = [];
+    console.log("单选");
+    nextTick(() => {
+      state.selectedRowKeys = [];
+      state.selectedRows = [];
+      state.activeTableRow = {};
+    });
   }
 };
 // 触发select隐藏
@@ -355,27 +409,11 @@ const openSelectDropdown = () => {
   open.value = true;
 };
 // 暴露方法出去
-defineExpose({ focus, blur, openSelectDropdown });
+defineExpose({ focus, blur, openSelectDropdown, state });
 </script>
 
 <style lang="scss">
 .t_antd_select_dropdown {
-  // width: 100%;
-  // 单选样式
-  .radioStyle {
-    .a-radio {
-      .a-radio__label {
-        display: none;
-      }
-
-      &:focus:not(.is-focus):not(:active):not(.is-disabled) .el-radio__inner {
-        box-shadow: none;
-      }
-    }
-    .ant-table-row {
-      cursor: pointer;
-    }
-  }
   .t-table-select__table {
     padding: 10px;
 
@@ -387,6 +425,11 @@ defineExpose({ focus, blur, openSelectDropdown });
       .ant-table-tbody {
         .ant-table-row {
           cursor: pointer;
+        }
+        .ant-table-row-selected,
+        .active-selected-row {
+          color: #409eff;
+          background-color: #ecf5ff;
         }
       }
     }

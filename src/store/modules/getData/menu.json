@@ -930,6 +930,20 @@
               }
             },
             {
+              "path": "/assembly/t-antd-select-table/isKeyup",
+              "name": "isKeyupTAntdSelectTable",
+              "component": "/tuiplus/TAntdSelectTable/isKeyup",
+              "meta": {
+                "icon": "Menu",
+                "title": "单选-键盘事件",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
               "path": "/assembly/t-antd-select-table/radiopagination",
               "name": "radiopaginationTAntdSelectTable",
               "component": "/tuiplus/TAntdSelectTable/radiopagination",
