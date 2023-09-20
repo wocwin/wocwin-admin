@@ -69,7 +69,10 @@ export const useTheme = () => {
       document.documentElement.style.setProperty(key, value);
     }
   };
-
+  // 默认暗黑模式
+  if (isDark.value) {
+    switchDark();
+  }
   // init theme
   const initTheme = () => {
     switchDark();

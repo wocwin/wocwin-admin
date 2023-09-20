@@ -65,8 +65,8 @@ const state: any = reactive({
     data: [],
     // 表头数据
     columns: [
-      { prop: "systemName", label: "业务系统", minWidth: 120 },
-      { prop: "title", label: "业务模块", minWidth: 120 },
+      { prop: "systemName", label: "业务系统", minWidth: 220 },
+      { prop: "title", label: "业务模块", minWidth: 140 },
       { prop: "methodDesc", label: "方法描述", minWidth: 120 },
       {
         prop: "businessType",
@@ -97,10 +97,10 @@ const state: any = reactive({
           return <el-tag type={type}>{val}</el-tag>;
         }
       },
-      { prop: "requestMethod", label: "请求方式", minWidth: 80 },
+      { prop: "requestMethod", label: "请求方式", minWidth: 120 },
       { prop: "operName", label: "操作人员", minWidth: 120 },
-      { prop: "deptName", label: "	部门名称", minWidth: 120 },
-      { prop: "operIp", label: "	主机地址", minWidth: 120 },
+      { prop: "deptName", label: "部门名称", minWidth: 140 },
+      { prop: "operIp", label: "主机地址", minWidth: 140 },
       {
         prop: "status",
         label: "	操作状态",
@@ -122,12 +122,12 @@ const state: any = reactive({
           return <el-tag type={type}>{val}</el-tag>;
         }
       },
-      { prop: "operTime", label: "	操作时间", minWidth: 120 },
+      { prop: "operTime", label: "操作时间", minWidth: 200 },
 
       {
         prop: "operatorType",
         label: "操作类别",
-        minWidth: 140,
+        minWidth: 160,
         render: (text: any) => {
           // （0其它 1后台用户 2手机端用户）
           let val = "";
@@ -156,7 +156,7 @@ const state: any = reactive({
     operatorConfig: {
       fixed: "right", // 固定列表右边（left则固定在左边）
       align: "left",
-      width: "80",
+      width: 80,
       label: "操作"
     }
   }

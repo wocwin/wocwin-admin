@@ -14,8 +14,8 @@ dependencies:
     specifier: ^5.1.12
     version: 5.1.12(@wangeditor/editor@5.1.23)(vue@3.2.47)
   '@wocwin/t-ui-plus':
-    specifier: ^1.1.9
-    version: 1.1.9
+    specifier: ^1.1.17
+    version: 1.1.17
   ant-design-vue:
     specifier: ^3.2.20
     version: 3.2.20(vue@3.2.47)
@@ -1843,8 +1843,8 @@ packages:
       snabbdom: 3.5.1
     dev: false
 
-  /@wocwin/t-ui-plus@1.1.9:
-    resolution: {integrity: sha512-9OK7hxrM42uRgIyTNYRPwIc/DMX1J/s3rVAOsX4SGOErMrG9UDvlLyzNrTcMPBbSl4od2f4hQKXGj/Q8JylEmg==}
+  /@wocwin/t-ui-plus@1.1.17:
+    resolution: {integrity: sha512-9QjAqjY7y6KIFTVb1pqDxXS9JTwcYXy1YW8e4gQYuK5nWy0bbV7zqhcUkqFlxnpNcFdwDcKx8v1U30dAKLuK3A==}
     dev: false
 
   /JSONStream@1.3.5:

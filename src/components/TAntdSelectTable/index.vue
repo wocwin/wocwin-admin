@@ -368,14 +368,16 @@ const visibleChange = (visible: boolean) => {
 // tags删除后回调
 const removeTag = (tag: any) => {
   const row = state.tableData.find((item: { [x: string]: any }) => item[props.keywords.label] === tag);
-  const indexRow = state.selectedRowKeys.indexOf(row[props.keywords.value]);
-  indexRow === -1 ? state.selectedRowKeys.push(row[props.keywords.value]) : state.selectedRowKeys.splice(indexRow, 1);
-  if (indexRow === -1) {
-    state.selectedRows.push(row);
-  } else {
-    state.selectedRows.splice(indexRow, 1);
+  if (row) {
+    const indexRow = state.selectedRowKeys.indexOf(row[props.keywords.value]);
+    indexRow === -1 ? state.selectedRowKeys.push(row[props.keywords.value]) : state.selectedRowKeys.splice(indexRow, 1);
+    if (indexRow === -1) {
+      state.selectedRows.push(row);
+    } else {
+      state.selectedRows.splice(indexRow, 1);
+    }
+    onSelectChange(state.selectedRowKeys, state.selectedRows);
   }
-  onSelectChange(state.selectedRowKeys, state.selectedRows);
 };
 // 多选清空
 const onSelectNone = () => {

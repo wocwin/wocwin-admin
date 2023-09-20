@@ -29,7 +29,7 @@ export interface UserState {
   name: string;
   nickName: string;
   userId: null;
-  userInfo: {};
+  userInfo: any;
 }
 
 /* tabsMenuProps */

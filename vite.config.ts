@@ -45,20 +45,10 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       cors: true,
       https: false,
       proxy: {
-        "^/mes": {
-          target: `http://10.0.10.243:5000/mesv2/`,
+        "^/api": {
+          target: `https://www.fastmock.site/mock/373c6bec324b79f7c174427baf2663cb/api`,
           changeOrigin: true,
-          rewrite: p => p.replace(/^\/mes/, "")
-        },
-        "^/portal-user": {
-          target: `http://10.0.10.240:8172`,
-          changeOrigin: true,
-          rewrite: p => p.replace(/^\/portal-user/, "/portal-user")
-        },
-        "^/portal-sso": {
-          target: `http://10.0.10.240:8171`,
-          changeOrigin: true,
-          rewrite: p => p.replace(/^\/portal-sso/, "/portal-sso")
+          rewrite: p => p.replace(/^\/api/, "")
         }
       }
     },

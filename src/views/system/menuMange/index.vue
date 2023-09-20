@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="tsx" name="menuMange">
-import menuData from "@/store/modules/getData/menu.json";
 import { ElMessageBox, ElMessage } from "element-plus";
 import TIcon from "./TIcon.vue";
 const handleDelete = (row: any) => {
@@ -121,9 +120,12 @@ const conditionEnter = (data: any) => {
 onMounted(() => {
   getMenuData();
 });
+const { appContext } = getCurrentInstance() as any;
+const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getMenuData = async () => {
-  const res = await menuData;
+  const res = await proxy.$api.getRouters();
+  // console.log(999, res);
   if (res.success) {
     state.table.data = res.data;
   }

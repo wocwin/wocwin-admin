@@ -7,6 +7,8 @@
     :table="state.table"
     :columns="state.table.columns"
     :opts="opts"
+    @size-change="handlesSizeChange"
+    @page-change="handlesCurrentChange"
     @submit="conditionEnter"
     height="100%"
   >
@@ -18,7 +20,6 @@
 </template>
 
 <script setup lang="tsx" name="accountManage">
-import accountData from "@/views/system/getData/account.json";
 const router = useRouter();
 // 跳转详情页
 const toDetail = (type: any) => {
@@ -58,39 +59,19 @@ const state: any = reactive({
     }
   ],
   table: {
+    currentPage: 1,
+    pageSize: 10,
     total: 0,
     // 接口返回数据
     data: [],
     // 表头数据
     columns: [
-      { prop: "userName", label: "登录名", minWidth: 120 },
-      { prop: "nickName", label: "姓名", minWidth: 120 },
-      {
-        prop: "deptName",
-        label: "部门",
-        minWidth: 120,
-        render: (text: any, row: any) => {
-          return <div>{row.depts && row.depts[0].deptName}</div>;
-        }
-      },
-      {
-        prop: "roles",
-        label: "角色",
-        minWidth: 120,
-        noShowTip: true,
-        render: (text: any, row: any) => {
-          return (
-            <div>
-              {row.roles
-                ?.map((item: { roleName: any }) => {
-                  return item.roleName;
-                })
-                ?.join(",")}
-            </div>
-          );
-        }
-      },
-      { prop: "createTime", label: "创建时间", minWidth: 140 }
+      { prop: "userName", label: "登录名", minWidth: "120" },
+      { prop: "nickName", label: "姓名", minWidth: "120" },
+      { prop: "deptName", label: "部门", minWidth: "120" },
+      { prop: "roleName", label: "角色", minWidth: "120" },
+      { prop: "descript", label: "描述", minWidth: "180" },
+      { prop: "createTime", label: "创建时间", minWidth: "180" }
     ],
     operator: [
       {
@@ -109,7 +90,6 @@ const state: any = reactive({
     // 操作列样式
     operatorConfig: {
       fixed: "right", // 固定列表右边（left则固定在左边）
-      align: "left",
       width: "160",
       label: "操作"
     }
@@ -181,12 +161,28 @@ const conditionEnter = (data: any) => {
 onMounted(() => {
   getData();
 });
+const { appContext } = getCurrentInstance() as any;
+const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
-  const res = await accountData;
+  const params = {
+    pageNum: state.table.currentPage,
+    pageSize: state.table.pageSize
+  };
+  const res = await proxy.$api.userList(params);
   if (res.success) {
     state.table.data = res?.data.rows;
     state.table.total = res.data.total;
   }
+};
+// 页面大小
+const handlesSizeChange = (val: any) => {
+  state.table.pageSize = val;
+  getData();
+};
+// 页码
+const handlesCurrentChange = (val: any) => {
+  state.table.currentPage = val;
+  getData();
 };
 </script>
