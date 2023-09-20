@@ -18,7 +18,7 @@ export const useGlobalStore = defineStore({
     // 主题颜色
     primary: DEFAULT_PRIMARY,
     // 深色模式
-    isDark: false,
+    isDark: true,
     // 灰色模式
     isGrey: false,
     // 色弱模式

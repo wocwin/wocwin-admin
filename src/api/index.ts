@@ -1,6 +1,11 @@
 import request from "@/utils/request";
-
-import * as masterData from "./mes/masterData"; // 主数据接口
+// 自动导入modules
+const files: any = import.meta.globEager("./modules/*.ts");
+let modules: any = {};
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+Object.entries(files).forEach(([k, v]) => {
+  Object.assign(modules, v);
+});
 
 // 数据字典-查询 公共api
 export const getDicts = (dictType: any) => {
@@ -8,5 +13,5 @@ export const getDicts = (dictType: any) => {
 };
 export default {
   getDicts,
-  ...masterData
+  ...modules
 };

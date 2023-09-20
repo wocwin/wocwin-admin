@@ -14,13 +14,10 @@ export default (config: any) => {
   // 请求拦截器
   service.interceptors.request.use(
     (config: any) => {
-      if (!(config.url.includes("portal-sso") || config.url.includes("portal-user"))) {
-        config.url = `/mes${config.url}`;
-      }
+      config.url = `/api${config.url}`;
       // 当前请求不需要显示 loading，在 api 服务中通过指定的第三个参数: { noLoading: true } 来控制
       config.noLoading || showFullScreenLoading();
       config.headers["Authorization"] = getToken() || "";
-      // config.headers['Authorization'] = 'PC:90_d6164543c758402d815604f5f698098d'
       config.headers["Content-Type"] = config.headers["Content-Type"] || "application/json";
       // 8080
       if (config.type == "file") {
@@ -47,9 +44,9 @@ export default (config: any) => {
           confirmButtonText: "重新登录",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(() => {
+        }).then(async () => {
           // 调用退出登录接口
-          useUserStore().FedLogOut();
+          await useUserStore().LogOut();
           window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/wocwin-qiankun/" : "/wocwin-admin/";
         });
       } else if (code !== 200) {

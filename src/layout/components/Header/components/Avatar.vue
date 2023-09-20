@@ -57,7 +57,7 @@ const logout = () => {
     type: "warning"
   }).then(async () => {
     // 1.执行退出登录接口
-    userStore.FedLogOut();
+    await userStore.LogOut();
     window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? "/wocwin-qiankun/" : "/wocwin-admin/";
     ElMessage.success("退出登录成功！");
   });
