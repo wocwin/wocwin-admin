@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="tsx" name="dictManage">
-import dictData from "@/views/system/getData/dict.json";
+import dictData from "./dict.json";
 
 const dictDataClick = (row: any) => {
   console.log("点击字典类型", row);

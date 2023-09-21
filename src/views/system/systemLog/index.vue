@@ -5,6 +5,8 @@
     :table="state.table"
     :columns="state.table.columns"
     @selection-change="selectionChange"
+    @size-change="handlesSizeChange"
+    @page-change="handlesCurrentChange"
     :opts="opts"
     @submit="conditionEnter"
     height="100%"
@@ -17,7 +19,6 @@
 </template>
 
 <script setup lang="tsx" name="systemLog">
-import logData from "@/views/system/getData/log.json";
 const state: any = reactive({
   ids: [],
   queryData: {
@@ -59,6 +60,8 @@ const state: any = reactive({
     ]
   },
   table: {
+    currentPage: 1,
+    pageSize: 10,
     total: 0,
     firstColumn: { type: "selection" },
     // 接口返回数据
@@ -210,14 +213,16 @@ const getQueryData = computed(() => {
     businessType: businessType.value,
     status: status.value,
     beginTime: date.value && date.value[0] ? date.value[0] : null,
-    endTime: date.value && date.value[1] ? date.value[1] : null
+    endTime: date.value && date.value[1] ? date.value[1] : null,
+    pageNum: state.table.currentPage,
+    pageSize: state.table.pageSize
   };
 });
 // 点击查询按钮
 const conditionEnter = (data: any) => {
-  console.log(1122, data);
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
+  getData();
 };
 // 复选框选中
 const selectionChange = (data: any[]) => {
@@ -227,12 +232,24 @@ const selectionChange = (data: any[]) => {
 onMounted(() => {
   getData();
 });
+const { appContext } = getCurrentInstance() as any;
+const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
-  const res = await logData;
+  const res = await proxy.$api.logList(getQueryData.value);
   if (res.success) {
     state.table.data = res.data.rows;
     state.table.total = res.data.total;
   }
+};
+// 页面大小
+const handlesSizeChange = (val: any) => {
+  state.table.pageSize = val;
+  getData();
+};
+// 页码
+const handlesCurrentChange = (val: any) => {
+  state.table.currentPage = val;
+  getData();
 };
 </script>

@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="tsx" name="departmentManage">
-import deptData from "@/views/system/getData/dept.json";
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
 };
@@ -99,9 +98,10 @@ const getQueryData = computed(() => {
 });
 // 点击查询按钮
 const conditionEnter = (data: any) => {
-  console.log(1122, data);
+  // console.log(1122, data);
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
+  getData();
 };
 /**
  * 构造树型结构数据
@@ -134,9 +134,12 @@ const handleTree = (data: any, id: string, parentId: string = "parentId", childr
 onMounted(() => {
   getData();
 });
+const { appContext } = getCurrentInstance() as any;
+const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
-  const res = await deptData;
+  // const res = await deptData;
+  const res = await proxy.$api.deptList(getQueryData.value);
   if (res.success) {
     state.table.data = handleTree(res.data, "deptId");
   }

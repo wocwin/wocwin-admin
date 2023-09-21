@@ -5,9 +5,10 @@
     :table="state.table"
     :columns="state.table.columns"
     @selection-change="selectionChange"
+    @size-change="handlesSizeChange"
+    @page-change="handlesCurrentChange"
     :opts="opts"
     @submit="conditionEnter"
-    height="100%"
   >
     <template #toolbar>
       <el-button type="primary">新增</el-button>
@@ -16,20 +17,17 @@
   </t-adaptive-page>
 </template>
 
-<script setup lang="tsx" name="roleManage">
-import roleData from "@/views/system/getData/role.json";
-const handleDelete = (row: any) => {
-  console.log("点击删除", row);
-};
+<script setup lang="tsx" name="roleManageList">
 const state: any = reactive({
   roleIds: [],
   queryData: {
     roleName: undefined, // 角色名称
     roleKey: undefined, // 权限字符
-    beginTime: null, // 创建开始日期
-    endTime: null // 创建结束日期
+    date: null
   },
   table: {
+    currentPage: 1,
+    pageSize: 15,
     total: 0,
     firstColumn: { type: "selection" },
     // 接口返回数据
@@ -64,15 +62,14 @@ const state: any = reactive({
         // fun: resetHandle
       },
       {
-        text: "删除",
-        fun: handleDelete
+        text: "删除"
+        // fun: handleDelete
       }
     ],
     // 操作列样式
     operatorConfig: {
       fixed: "right", // 固定列表右边（left则固定在左边）
-      align: "left",
-      width: "160",
+      width: "180",
       label: "操作"
     }
   }
@@ -98,14 +95,6 @@ const opts = computed(() => {
     }
   };
 });
-const handleStatusChange = (row: any) => {
-  console.log("点击状态", row);
-};
-// 复选框选中
-const selectionChange = (data: any[]) => {
-  state.roleIds = data.map((item: { roleId: any }) => item.roleId);
-  // console.log(77, this.roleIds)
-};
 // 最终参数获取
 const getQueryData = computed(() => {
   const { roleName, roleKey, date } = toRefs(state.queryData);
@@ -113,24 +102,47 @@ const getQueryData = computed(() => {
     roleName: roleName.value,
     roleKey: roleKey.value,
     beginTime: date.value && date.value[0] ? date.value[0] : null,
-    endTime: date.value && date.value[1] ? date.value[1] : null
+    endTime: date.value && date.value[1] ? date.value[1] : null,
+    pageNum: state.table.currentPage,
+    pageSize: state.table.pageSize
   };
 });
+
+const handleStatusChange = (row: any) => {
+  console.log("点击状态", row);
+};
 // 点击查询按钮
 const conditionEnter = (data: any) => {
-  console.log(1122, data);
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
+  getData();
+};
+// 复选框选中
+const selectionChange = (data: any[]) => {
+  console.log("复选框选中", data);
+  state.ids = data.map((item: { operId: any }) => item.operId);
 };
 onMounted(() => {
   getData();
 });
+const { appContext } = getCurrentInstance() as any;
+const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
-  const res = await roleData;
+  const res = await proxy.$api.roleList(getQueryData.value);
   if (res.success) {
-    state.table.data = res?.data.rows;
+    state.table.data = res.data.rows;
     state.table.total = res.data.total;
   }
+};
+// 页面大小
+const handlesSizeChange = (val: any) => {
+  state.table.pageSize = val;
+  getData();
+};
+// 页码
+const handlesCurrentChange = (val: any) => {
+  state.table.currentPage = val;
+  getData();
 };
 </script>

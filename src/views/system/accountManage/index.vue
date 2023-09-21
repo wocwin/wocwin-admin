@@ -60,7 +60,7 @@ const state: any = reactive({
   ],
   table: {
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 15,
     total: 0,
     // 接口返回数据
     data: [],
@@ -149,7 +149,9 @@ const getQueryData = computed(() => {
     phonenumber: phonenumber.value,
     date1: date1.value,
     beginDate: date.value && date.value[0] ? date.value[0] : null,
-    endDate: date.value && date.value[1] ? date.value[1] : null
+    endDate: date.value && date.value[1] ? date.value[1] : null,
+    pageNum: state.table.currentPage,
+    pageSize: state.table.pageSize
   };
 });
 // 点击查询按钮
@@ -157,6 +159,7 @@ const conditionEnter = (data: any) => {
   console.log(1122, data);
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
+  getData();
 };
 onMounted(() => {
   getData();
@@ -165,11 +168,7 @@ const { appContext } = getCurrentInstance() as any;
 const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
-  const params = {
-    pageNum: state.table.currentPage,
-    pageSize: state.table.pageSize
-  };
-  const res = await proxy.$api.userList(params);
+  const res = await proxy.$api.userList(getQueryData.value);
   if (res.success) {
     state.table.data = res?.data.rows;
     state.table.total = res.data.total;
