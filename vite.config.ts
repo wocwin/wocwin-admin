@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv, ConfigEnv, UserConfig } from "vite";
 import { resolve } from "path";
-import { wrapperEnv } from "./build/getEnv";
 import { createVitePlugins } from "./build/plugins";
 import pkg from "./package.json";
 import dayjs from "dayjs";
@@ -13,7 +12,7 @@ const __APP_INFO__ = {
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
-  const viteEnv = wrapperEnv(env);
+  // console.log("env", env);
 
   return {
     base: "/wocwin-admin/",
@@ -46,7 +45,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       https: false,
       proxy: {
         "^/api": {
-          target: `https://www.fastmock.site/mock/373c6bec324b79f7c174427baf2663cb/api`,
+          target: env.VITE_APP_BASE_API,
           changeOrigin: true,
           rewrite: p => p.replace(/^\/api/, "")
         }

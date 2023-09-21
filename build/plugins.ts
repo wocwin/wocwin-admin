@@ -15,7 +15,7 @@ const packName = require("../package").name;
 
 /**
  * 创建 vite 插件
- * @param viteEnv
+ * @param
  */
 export const createVitePlugins = (): (PluginOption | PluginOption[])[] => {
   return [

@@ -2,7 +2,7 @@
 set -e
 
 # 生成静态文件
-npm run dev
+npm run prod
 
 # 进入生成的文件夹
 cd dist
