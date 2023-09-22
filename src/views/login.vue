@@ -11,7 +11,7 @@
         <h2 class="title">Wocwin-Admin</h2>
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
           <el-form-item prop="username">
-            <el-input v-model="loginForm.username" clearable type="text" placeholder="账号">
+            <el-input v-model="loginForm.username" clearable type="text" placeholder="wocwin/user">
               <template #prefix>
                 <el-icon>
                   <User />
@@ -23,7 +23,7 @@
             <el-input
               v-model="loginForm.password"
               type="password"
-              placeholder="密码"
+              placeholder="123456"
               clearable
               @keyup.enter="handleLogin(loginFormRef)"
               show-password
@@ -60,8 +60,8 @@ import { getTimeState } from "@/utils";
 const userStore = useUserStore();
 
 const loginForm = reactive({
-  username: "admin",
-  password: "123456",
+  username: "",
+  password: "",
   rememberMe: false
 });
 const loginRules = reactive({
@@ -101,14 +101,16 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     }
     userStore
       .Login(loginForm)
-      .then(() => {
-        router.push({ path: "/" });
-        ElNotification({
-          title: getTimeState(),
-          message: "欢迎登录 Wocwin-Admin",
-          type: "success",
-          duration: 3000
-        });
+      .then((res: any) => {
+        if (res.success) {
+          router.push({ path: "/" });
+          ElNotification({
+            title: getTimeState(),
+            message: "欢迎登录 Wocwin-Admin",
+            type: "success",
+            duration: 3000
+          });
+        }
       })
       .finally(() => (loading.value = false));
   });

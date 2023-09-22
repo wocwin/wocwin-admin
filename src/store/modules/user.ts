@@ -7,6 +7,7 @@ export const useUserStore = defineStore({
   id: "wocwin-user",
   state: (): UserState => ({
     token: getToken() || "",
+    loginName: "",
     name: "",
     nickName: "",
     userId: null,
@@ -20,12 +21,13 @@ export const useUserStore = defineStore({
           .then((res: any) => {
             if (res.success) {
               // console.log("login--", userInfo, res);
-              setToken(res.data);
-              this.token = res.data;
+              setToken(res.data.token);
+              this.loginName = res.data.loginName;
+              this.token = res.data.token;
             } else {
-              ElMessage.error(res?.msg);
+              ElMessage.error("用户名或密码错误");
             }
-            resolve();
+            resolve(res);
           })
           .catch((error: any) => {
             reject(error);
@@ -55,7 +57,7 @@ export const useUserStore = defineStore({
     LogOut() {
       return new Promise((resolve, reject) => {
         logout()
-          .then((res: { data: unknown }) => {
+          .then((res: any) => {
             removeToken();
             this.token = "";
             this.userInfo = {};

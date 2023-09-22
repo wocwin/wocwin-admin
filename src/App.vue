@@ -20,7 +20,7 @@ provide("reload", reload);
 <style lang="scss">
 body {
   overflow: hidden;
-  background-color: #f6f6f6 !important;
+  background-color: var(--el-bg-color-page);
 }
 #app {
   display: flex;
@@ -29,7 +29,7 @@ body {
   height: 100%;
   overflow: hidden;
   font-variant: tabular-nums;
-  color: #2c3e50;
+  color: var(--el-text-color-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .env_tag {
