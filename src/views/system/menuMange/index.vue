@@ -21,6 +21,8 @@
 <script setup lang="tsx" name="menuMange">
 import { ElMessageBox, ElMessage } from "element-plus";
 import TIcon from "./TIcon.vue";
+import useApi from "@/hooks/useApi";
+const { proxy } = useApi();
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
   ElMessageBox.confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -120,8 +122,6 @@ const conditionEnter = (data: any) => {
 onMounted(() => {
   getMenuData();
 });
-const { appContext } = getCurrentInstance() as any;
-const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getMenuData = async () => {
   const res = await proxy.$api.getRouters();

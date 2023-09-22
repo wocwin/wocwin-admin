@@ -19,6 +19,8 @@
 </template>
 
 <script setup lang="tsx" name="systemLog">
+import useApi from "@/hooks/useApi";
+const { proxy } = useApi();
 const state: any = reactive({
   ids: [],
   queryData: {
@@ -232,8 +234,6 @@ const selectionChange = (data: any[]) => {
 onMounted(() => {
   getData();
 });
-const { appContext } = getCurrentInstance() as any;
-const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
   const res = await proxy.$api.logList(getQueryData.value);

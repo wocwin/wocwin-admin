@@ -24,6 +24,22 @@ export function roleList(params: any) {
     params
   });
 }
+// 字典管理list
+export function dictList(params: any) {
+  return request({
+    url: "/sys/dictList",
+    method: "get",
+    params
+  });
+}
+// 字典管理list--type list
+export function childDictList(params: any) {
+  return request({
+    url: "/sys/childDictList",
+    method: "get",
+    params
+  });
+}
 // 系统日志列表
 export function logList(params: any) {
   return request({

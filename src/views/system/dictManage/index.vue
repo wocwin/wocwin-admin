@@ -1,31 +1,32 @@
 <template>
-  <t-layout-page>
-    <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
-    </t-layout-page-item>
-    <t-layout-page-item>
-      <t-table
-        title="字典配置列表"
-        isCopy
-        :table="state.table"
-        :columns="state.table.columns"
-        @selection-change="selectionChange"
-      >
-        <template #toolbar>
-          <el-button type="primary">清空</el-button>
-          <el-button type="danger" :disabled="state.ids.length < 1">批量删除</el-button>
-        </template>
-      </t-table>
-    </t-layout-page-item>
+  <t-layout-page style="margin: 0; padding: 0">
+    <t-adaptive-page
+      title="字典配置列表"
+      isCopy
+      :table="state.table"
+      :columns="state.table.columns"
+      @size-change="handlesSizeChange"
+      @page-change="handlesCurrentChange"
+      @selection-change="selectionChange"
+      :opts="opts"
+      @submit="conditionEnter"
+    >
+      <template #toolbar>
+        <el-button type="primary">清空</el-button>
+        <el-button type="danger" :disabled="state.ids.length < 1">批量删除</el-button>
+      </template>
+    </t-adaptive-page>
+    <el-dialog title="字典数据列表" width="60%" draggable v-model="dictDataDialog">
+      <div class="block_wrap quality_overflow">
+        <t-table :table="childTable" isCopy :columns="childTable.columns" :isShowPagination="false" />
+      </div>
+    </el-dialog>
   </t-layout-page>
 </template>
 
 <script setup lang="tsx" name="dictManage">
-import dictData from "./dict.json";
-
-const dictDataClick = (row: any) => {
-  console.log("点击字典类型", row);
-};
+import useApi from "@/hooks/useApi";
+const { proxy } = useApi();
 const state: any = reactive({
   ids: [],
   queryData: {
@@ -47,6 +48,8 @@ const state: any = reactive({
     ]
   },
   table: {
+    currentPage: 1,
+    pageSize: 10,
     total: 0,
     firstColumn: { type: "selection" },
     // 接口返回数据
@@ -76,11 +79,11 @@ const state: any = reactive({
           let type = "";
           let val = "";
           switch (text) {
-            case true:
+            case 1:
               type = "success";
               val = "正常";
               break;
-            case false:
+            case 0:
               type = "danger";
               val = "停用";
               break;
@@ -146,14 +149,16 @@ const getQueryData = computed(() => {
     dictType: dictType.value, // 字典类型
     status: status.value, // 字典状态
     beginTime: createDate.value && createDate.value[0] ? createDate.value[0] : null,
-    endTime: createDate.value && createDate.value[1] ? createDate.value[1] : null
+    endTime: createDate.value && createDate.value[1] ? createDate.value[1] : null,
+    pageNum: state.table.currentPage,
+    pageSize: state.table.pageSize
   };
 });
 // 点击查询按钮
 const conditionEnter = (data: any) => {
-  console.log(1122, data);
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
+  getData();
 };
 // 复选框选中
 const selectionChange = (data: any[]) => {
@@ -165,10 +170,64 @@ onMounted(() => {
 });
 // 获取菜单数据
 const getData = async () => {
-  const res = await dictData;
+  const res = await proxy?.$api.dictList(getQueryData.value);
   if (res.success) {
     state.table.data = res.data.rows;
     state.table.total = res.data.total;
+  }
+};
+// 页面大小
+const handlesSizeChange = (val: any) => {
+  state.table.pageSize = val;
+  getData();
+};
+// 页码
+const handlesCurrentChange = (val: any) => {
+  state.table.currentPage = val;
+  getData();
+};
+/**
+ * 弹窗数据
+ */
+const dictDataClick = (row: any) => {
+  console.log("点击字典类型", row);
+  dictDataDialog.value = true;
+  getChildData();
+};
+const dictDataDialog = ref(false);
+const childTable: any = ref({
+  data: [],
+  operator: [
+    {
+      text: "编辑"
+      // fun: this.edit
+    },
+    {
+      text: "删除"
+      // fun: this.handleDelete,
+    }
+  ],
+  // 操作列样式
+  operatorConfig: {
+    fixed: "right", // 固定列表右边（left则固定在左边）
+    width: 160,
+    label: "操作"
+  },
+  columns: [
+    { prop: "dictCode", label: "字典编码", minWidth: "140", fixed: true },
+    { prop: "dictLabel", label: "字典标签", minWidth: "200" },
+    { prop: "dictValue", label: "字典键值", minWidth: "120" },
+    { prop: "dictSort", label: "字典排序", minWidth: "120" },
+    { prop: "statusLabel", label: "状态", minWidth: "160" },
+    { prop: "createTime", label: "创建时间", minWidth: "180" },
+    { prop: "remark", label: "备注", minWidth: "200" }
+  ]
+});
+// 获取菜单数据
+const getChildData = async () => {
+  const res = await proxy.$api.childDictList();
+  if (res.success) {
+    childTable.value.data = res.data;
   }
 };
 </script>

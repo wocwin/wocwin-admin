@@ -20,6 +20,8 @@
 </template>
 
 <script setup lang="tsx" name="departmentManage">
+import useApi from "@/hooks/useApi";
+const { proxy } = useApi();
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
 };
@@ -134,8 +136,6 @@ const handleTree = (data: any, id: string, parentId: string = "parentId", childr
 onMounted(() => {
   getData();
 });
-const { appContext } = getCurrentInstance() as any;
-const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
   // const res = await deptData;

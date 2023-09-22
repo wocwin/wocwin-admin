@@ -121,6 +121,7 @@ const { layout, primary, isGrey, isWeak, asideInverted, isCollapse, breadcrumb, 
 // 预定义主题颜色
 const colorList = [
   DEFAULT_PRIMARY,
+  "#142969",
   "#daa96e",
   "#0c819f",
   "#409eff",
@@ -128,8 +129,7 @@ const colorList = [
   "#ff5c93",
   "#e74c3c",
   "#fd726d",
-  "#f39c12",
-  "#9b59b6"
+  "#f39c12"
 ];
 
 // 设置布局方式

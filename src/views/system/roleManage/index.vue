@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="tsx" name="roleManageList">
+import useApi from "@/hooks/useApi";
+const { proxy } = useApi();
 const state: any = reactive({
   roleIds: [],
   queryData: {
@@ -125,8 +127,6 @@ const selectionChange = (data: any[]) => {
 onMounted(() => {
   getData();
 });
-const { appContext } = getCurrentInstance() as any;
-const proxy = appContext.config.globalProperties;
 // 获取菜单数据
 const getData = async () => {
   const res = await proxy.$api.roleList(getQueryData.value);
