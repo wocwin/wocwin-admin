@@ -111,7 +111,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
           router.push({ path: "/" });
           ElNotification({
             title: getTimeState(),
-            message: "欢迎登录 Wocwin-Admin",
+            message: `欢迎登录 Wocwin-Admin；${res.data.loginName === "wocwin" ? "超管账号" : "游客账号"}`,
             type: "success",
             duration: 3000
           });
@@ -271,6 +271,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       }
       .form_content {
         width: 350px;
+        max-height: 440px;
         padding: 20px;
         text-align: center;
         background-color: var(--el-bg-color);
@@ -313,6 +314,14 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
             margin-left: 2px;
           }
         }
+      }
+    }
+  }
+  @media screen and (max-width: 1150px) {
+    .content {
+      justify-content: center;
+      .login-left {
+        display: none;
       }
     }
   }
