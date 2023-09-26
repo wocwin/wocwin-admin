@@ -103,7 +103,20 @@
         }
       ]
     },
-
+    {
+      "path": "/productionScreen",
+      "name": "productionScreen",
+      "component": "/productionScreen/index",
+      "meta": {
+        "icon": "Histogram",
+        "title": "生产大屏",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
+    },
     {
       "path": "/assembly",
       "name": "assembly",

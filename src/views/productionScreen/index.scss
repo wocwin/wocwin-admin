@@ -1,0 +1,104 @@
+/**
+$title:标签名
+$ist:是否使用自定义属性当作标签名
+$wid:标题背景宽度
+ */
+ @mixin trapezoid($title,$ist:false,$wid:3.6){
+  position: relative;
+  border: 1px solid #1F379D;
+  padding: .46rem .16rem .16rem;
+
+  &::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right:50%;
+    width:$wid+rem;
+    transform: translate($wid*0.5+rem,0);
+    height:0;
+    text-align: center;
+    border-top: .46rem solid #0B2377;
+    border-right: .20rem solid transparent;
+    border-left:.20rem solid transparent;
+  }
+  &::after{
+    @if($ist == false){ content: $title;}
+    @else {content:attr(data-title) }
+    position:absolute;
+    height: .46rem;
+    line-height: .46rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: .24rem;
+    font-weight: bold;
+
+  }
+}
+//四个边角样式
+.bor{
+  background: linear-gradient(to left,#1c40d8,#1c40d8) left top no-repeat,
+  linear-gradient(to bottom,#1c40d8,#1c40d8) left top no-repeat,
+  linear-gradient(to left,#1c40d8,#1c40d8) right top no-repeat,
+  linear-gradient(to bottom,#1c40d8,#1c40d8) right top no-repeat,
+  linear-gradient(to left,#1c40d8,#1c40d8) left bottom no-repeat,
+  linear-gradient(to bottom,#1c40d8,#1c40d8) left bottom no-repeat,
+  linear-gradient(to left,#1c40d8,#1c40d8) right bottom no-repeat,
+  linear-gradient(to bottom,#1c40d8,#1c40d8) right bottom no-repeat;
+  border: .01rem solid #1F379D;
+  background-size: .02rem .2rem,.2rem .02rem,.02rem .2rem,.2rem .02rem;
+}
+
+.main-box {
+  padding: .20rem;
+  display: flex;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: .16rem;
+
+  .box-left {
+    width: 7.36rem;
+    height: 9.24rem;
+    /*border:. 1rem solid #FFFFFF;*/
+
+    .left-h{
+      display: flex;
+      &>div{
+        width: calc(100% / 3 - 3%);
+        margin: 0 1.5% .28rem;
+
+        div:first-child{
+          font-size: .16rem;
+        }
+
+        div:last-child{
+          font-weight: bold;
+          font-size: .36rem;
+          line-height: normal;
+          letter-spacing:0rem;
+          text-align: left;
+
+        }
+      }
+    }
+    .tb-box{
+      margin-bottom: .22rem;
+      @include trapezoid("异常处理明细");
+
+    }
+
+    .e-charts{
+      height: calc(100% - 4.9rem);
+      @include trapezoid("异常趋势");
+    }
+  }
+
+  .box-right {
+    margin-left: .24rem;
+    width: 11.24rem;
+    height: 9.54rem;
+    @include trapezoid("后纺生产过程监控");
+    /*border:. 1rem solid #FFFFFF;*/
+  }
+}

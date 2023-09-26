@@ -26,6 +26,8 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 // import Antd from "ant-design-vue";
 import { Table, Select } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
+
+import MarqueeText from "vue-marquee-text-component";
 // vue i18n
 import I18n from "@/languages/index";
 
@@ -64,7 +66,9 @@ function render(props: any = {}) {
   // 自动注册全部本地组件
   // instance.use(baseComponentsInstall)
   instance.use(TuiPlus);
-  // 全局组件祖册
+  // Vue 文本字幕组件全局组件祖册
+  instance.component("MarqueeText", MarqueeText);
+  // SvgIcon全局组件祖册
   instance.component(
     "SvgIcon",
     // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
