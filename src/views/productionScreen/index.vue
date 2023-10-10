@@ -304,7 +304,7 @@ const getDeptList = async () => {
   }
 };
 const monitorHei = () => {
-  viewHeight.value = productionScreen.value.offsetHeight;
+  viewHeight.value = productionScreen.value?.offsetHeight;
 };
 const setSize = (size: number) => {
   return viewHeight.value / size + "px";
