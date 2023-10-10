@@ -7,13 +7,17 @@ html.dark {
   --w-e-textarea-color: #eeeeee;
 
   /* login */
-  .login-container {
+  .login {
     background-color: #191919 !important;
-    .login-box {
-      background-color: rgb(0 0 0 / 80%) !important;
-      .login-form {
+    .content {
+      background-color: rgb(0 0 0 / 60%) !important;
+      box-shadow: 2px 3px 20px 4px #10184b !important;
+      .login-left{
+        box-shadow: none;
+      }
+      .input-format {
         box-shadow: rgb(255 255 255 / 12%) 0 2px 10px 2px !important;
-        .logo-text {
+        .title {
           color: var(--el-text-color-primary) !important;
         }
       }

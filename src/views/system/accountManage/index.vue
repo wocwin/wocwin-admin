@@ -1,7 +1,6 @@
 <template>
   <t-adaptive-page
     class="menu_mange"
-    title="用户管理列表"
     row-key="path"
     isCopy
     :table="state.table"
@@ -10,8 +9,11 @@
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"
     @submit="conditionEnter"
-    height="100%"
+    title="用户管理列表"
   >
+    <template #nickName="{ scope }">
+      <div>{{ scope.row.nickName }}</div>
+    </template>
     <template #toolbar>
       <el-button type="primary" @click="toDetail('child')">子级详情页面</el-button>
       <el-button type="primary" @click="toDetail('peer')">同级详情页面</el-button>
@@ -69,7 +71,7 @@ const state: any = reactive({
     // 表头数据
     columns: [
       { prop: "userName", label: "登录名", minWidth: "120" },
-      { prop: "nickName", label: "姓名", minWidth: "120" },
+      { prop: "nickName", label: "插槽使用", minWidth: "120", slotName: "nickName" },
       { prop: "deptName", label: "部门", minWidth: "120" },
       { prop: "roleName", label: "角色", minWidth: "120" },
       { prop: "descript", label: "描述", minWidth: "180" },

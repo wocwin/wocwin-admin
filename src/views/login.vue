@@ -1,7 +1,8 @@
 <template>
   <div class="login">
-    <div class="square" v-for="index in 9" :key="index" :style="`--i: ${index - 1}`"></div>
+    <div class="square" v-for="index in 10" :key="index" :style="`--i: ${index - 1}`"></div>
     <div class="content">
+      <div :class="`star${index}`" v-for="index in 6" :key="index"></div>
       <el-tooltip content="暗黑模式切换" effect="dark" placement="top">
         <SwitchDark class="dark" />
       </el-tooltip>
@@ -153,6 +154,20 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     -webkit-transform: translateY(40px);
   }
 }
+@function getShadows($n) {
+  $shadows: "#{random(100)}vw #{random(100)}vh #fff";
+  @for $i from 2 through $n {
+    $shadows: "#{$shadows},#{random(100)}vw #{random(100)}vh #fff";
+  }
+  @return unquote($shadows);
+}
+@keyframes moveUp {
+  100% {
+    transform: translateY(-100vh);
+  }
+}
+$duration: 600s;
+$count: 1400;
 .login {
   display: flex;
   align-items: center;
@@ -219,13 +234,17 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       bottom: 10%;
       right: 40%;
     }
+    &:nth-child(10) {
+      bottom: 40%;
+      right: 45%;
+    }
   }
   .content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 85%;
-    height: 90%;
+    width: 90%;
+    height: 92%;
     padding: 0 30px;
     background-color: rgb(255 255 255 / 60%);
     border-radius: 15px;
@@ -313,6 +332,31 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
             height: 39px;
             margin-left: 2px;
           }
+        }
+      }
+    }
+    @for $i from 1 through 6 {
+      $duration: floor(calc($duration / 2));
+      $count: floor(calc($count / 2));
+      .star#{$i} {
+        $size: #{$i}px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        box-shadow: getShadows($count);
+        animation: moveUp $duration linear infinite;
+        &::after {
+          position: fixed;
+          top: 100vh;
+          left: 0;
+          width: $size;
+          height: $size;
+          content: "";
+          border-radius: inherit;
+          box-shadow: inherit;
         }
       }
     }
