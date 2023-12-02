@@ -39,7 +39,7 @@ const state: any = reactive({
       { prop: "deptNum", label: "部门编码", minWidth: 180, align: "left" },
       { prop: "erpDeptNum", label: "ERP部门编码", minWidth: 180, align: "left" },
       { prop: "orderNum", label: "排序", width: "60px", align: "left" },
-      { prop: "createTime", label: "创建时间", width: "100px", align: "left" },
+      { prop: "createTime", label: "创建时间", width: "180px", align: "left" },
       {
         prop: "status",
         label: "状态",
@@ -69,7 +69,7 @@ const state: any = reactive({
     operatorConfig: {
       fixed: "right", // 固定列表右边（left则固定在左边）
       align: "left",
-      width: "100",
+      width: "140",
       label: "操作"
     }
   }

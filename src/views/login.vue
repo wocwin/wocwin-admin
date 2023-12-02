@@ -66,8 +66,8 @@ import { getTimeState } from "@/utils";
 const userStore = useUserStore();
 
 const loginForm = reactive({
-  username: "",
-  password: "",
+  username: "wocwin",
+  password: "123456",
   rememberMe: false
 });
 const loginRules = reactive({

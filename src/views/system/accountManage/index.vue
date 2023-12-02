@@ -94,7 +94,7 @@ const state: any = reactive({
     // 操作列样式
     operatorConfig: {
       fixed: "right", // 固定列表右边（left则固定在左边）
-      width: "160",
+      width: "220",
       label: "操作"
     }
   }
