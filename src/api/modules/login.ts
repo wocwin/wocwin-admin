@@ -38,3 +38,11 @@ export function getRouters() {
     method: "get"
   });
 }
+
+// 获取user账号路由
+export function getUserRouters() {
+  return request({
+    url: "/menu/getUserRouters",
+    method: "get"
+  });
+}

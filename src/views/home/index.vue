@@ -9,9 +9,7 @@
           <div class="flex-box flex-between flex-wrap">
             <div class="flex-box flex-ver-v">
               <img class="user-avatar" src="@/assets/logo/logo.png" />
-              <span class="ml-[10px] text-[16px]" style="margin-left: 5px">
-                {{ username || "wocwin" }}
-              </span>
+              <span class="ml-[10px] text-[16px]" style="margin-left: 5px">{{ username || "wocwin" }}</span>
             </div>
             <div class="flex-box flex-ver-v" style="margin-top: 5px">
               <a style="padding: 0 5px" href="https://github.com/vuejs/vue" target="_blank">
@@ -28,10 +26,19 @@
               <el-divider direction="vertical" />
               <el-link target="_blank" type="success" href="https://gitee.com/wocwin/wocwin-admin">Gitee源码</el-link>
               <el-divider direction="vertical" />
-              <el-link target="_blank" type="primary" href="https://github.com/wocwin/wocwin-admin">GitHub源码 </el-link>
+              <el-link target="_blank" type="primary" href="https://github.com/wocwin/wocwin-admin">GitHub源码</el-link>
             </div>
           </div>
         </el-card>
+      </div>
+    </t-layout-page-item>
+    <t-layout-page-item>
+      <div>
+        当前登陆账号是：{{
+          loginName === "user"
+            ? `${loginName}（即：游客账号---> 无法显示大屏、高德地图、系统管理菜单）`
+            : `${loginName}（即：超管账号）`
+        }}
       </div>
     </t-layout-page-item>
     <t-layout-page-item>
@@ -62,6 +69,7 @@ import RadarChart from "./components/RadarChart.vue";
 
 const userStore = useUserStore();
 const username = computed(() => userStore.name);
+const loginName = computed(() => userStore.loginName);
 const { appContext } = getCurrentInstance() as any;
 const global = appContext.config.globalProperties;
 // 获取所有业务api接口

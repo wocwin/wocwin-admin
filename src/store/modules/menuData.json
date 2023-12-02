@@ -108,7 +108,7 @@
       "name": "productionScreen",
       "component": "/productionScreen/index",
       "meta": {
-        "icon": "Histogram",
+        "icon": "TrendCharts",
         "title": "生产大屏",
         "isLink": "",
         "isHide": false,
@@ -1419,7 +1419,7 @@
           "name": "accountManage",
           "component": "/system/accountManage/index",
           "meta": {
-            "icon": "Menu",
+            "icon": "User",
             "title": "账号管理",
             "isLink": "",
             "isHide": false,
@@ -1465,7 +1465,7 @@
           "name": "roleManage",
           "component": "/system/roleManage/index",
           "meta": {
-            "icon": "Menu",
+            "icon": "UserFilled",
             "title": "角色管理",
             "isLink": "",
             "isHide": false,
@@ -1479,7 +1479,7 @@
           "name": "menuMange",
           "component": "/system/menuMange/index",
           "meta": {
-            "icon": "Menu",
+            "icon": "Grid",
             "title": "菜单管理",
             "isLink": "",
             "isHide": false,
@@ -1493,7 +1493,7 @@
           "name": "departmentManage",
           "component": "/system/departmentManage/index",
           "meta": {
-            "icon": "Menu",
+            "icon": "Operation",
             "title": "部门管理",
             "isLink": "",
             "isHide": false,
@@ -1507,7 +1507,7 @@
           "name": "dictManage",
           "component": "/system/dictManage/index",
           "meta": {
-            "icon": "Menu",
+            "icon": "SetUp",
             "title": "字典管理",
             "isLink": "",
             "isHide": false,
@@ -1521,7 +1521,7 @@
           "name": "systemLog",
           "component": "/system/systemLog/index",
           "meta": {
-            "icon": "Menu",
+            "icon": "Memo",
             "title": "系统日志",
             "isLink": "",
             "isHide": false,

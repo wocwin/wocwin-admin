@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import { AuthState } from "@/store/interface";
 import { getFlatMenuList, getShowMenuList, getAllBreadcrumbList } from "@/utils";
-import { getRouters } from "@/api/modules/login";
+import { getRouters, getUserRouters } from "@/api/modules/login";
+import { useUserStore } from "@/store/modules/user";
 export const useAuthStore = defineStore({
   id: "wocwin-auth",
   state: (): AuthState => ({
@@ -34,8 +35,10 @@ export const useAuthStore = defineStore({
     getAuthMenuList() {
       // const { data } = GetMenuData;
       // this.authMenuList = data;
+      console.log("useUserStore--", useUserStore().loginName);
+      const useApi = useUserStore().loginName === "user" ? getUserRouters() : getRouters();
       return new Promise((resolve, reject) => {
-        getRouters()
+        useApi
           .then((res: any) => {
             this.authMenuList = res.data;
             resolve(res.data);
