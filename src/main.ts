@@ -19,7 +19,7 @@ import "@/styles/theme/element-dark.scss";
 // reset style sheet
 import "@/styles/index.scss";
 // 因element-plus默认是英文，我们指定一下默认中文
-import locale from "element-plus/lib/locale/lang/zh-cn";
+import locale from "element-plus/es/locale/lang/zh-cn";
 // 图标并进行全局注册
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
