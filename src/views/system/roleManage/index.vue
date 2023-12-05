@@ -4,6 +4,7 @@
     isCopy
     :table="state.table"
     :columns="state.table.columns"
+    :btnPermissions="btnPermissions"
     @selection-change="selectionChange"
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"
@@ -11,8 +12,10 @@
     @submit="conditionEnter"
   >
     <template #toolbar>
-      <el-button type="primary">新增</el-button>
-      <el-button type="danger" :disabled="state.roleIds.length < 1">批量删除</el-button>
+      <el-button type="primary" @click="handleAdd" v-hasPermi="'root:web:sys:role:add'">新增</el-button>
+      <el-button type="danger" :disabled="state.roleIds.length < 1" @click="delHandle" v-hasPermi="'root:web:sys:role:del'"
+        >批量删除</el-button
+      >
     </template>
   </t-adaptive-page>
 </template>
@@ -20,6 +23,21 @@
 <script setup lang="tsx" name="roleManageList">
 import useApi from "@/hooks/useApi";
 const { proxy } = useApi();
+import { useAuthStore } from "@/store/modules/auth";
+const authStore = useAuthStore();
+const btnPermissions = authStore.authButtonListGet;
+const handleDelete = (row: any) => {
+  console.log("点击删除", row);
+};
+const handleAdd = () => {
+  console.log("点击新增");
+};
+const delHandle = () => {
+  console.log("批量删除");
+};
+const edit = (row: any) => {
+  console.log("编辑", row);
+};
 const state: any = reactive({
   roleIds: [],
   queryData: {
@@ -56,16 +74,14 @@ const state: any = reactive({
     ],
     operator: [
       {
-        text: "编辑"
-        // fun: edit
+        text: "编辑",
+        hasPermi: "root:web:sys:role:alter",
+        fun: edit
       },
       {
-        text: "重置密码"
-        // fun: resetHandle
-      },
-      {
-        text: "删除"
-        // fun: handleDelete
+        text: "删除",
+        hasPermi: "root:web:sys:role:del",
+        fun: handleDelete
       }
     ],
     // 操作列样式

@@ -16,6 +16,13 @@ export function getPermBtm() {
   });
 }
 
+// 获取user账号按钮权限
+export function getUserPermBtm() {
+  return request({
+    url: "/auth/userButtons"
+  });
+}
+
 // 获取用户详细信息
 export function getInfo() {
   return request({

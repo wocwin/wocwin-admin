@@ -6,6 +6,7 @@
     :table="state.table"
     :columns="state.table.columns"
     :opts="opts"
+    :btnPermissions="btnPermissions"
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"
     @submit="conditionEnter"
@@ -15,14 +16,19 @@
       <div>{{ scope.row.nickName }}</div>
     </template>
     <template #toolbar>
+      <el-button type="primary" @click="handleAdd" v-hasPermi="'root:web:sys:user:add'">新增</el-button>
+      <el-button type="danger" @click="delHandle" v-hasPermi="'root:web:sys:user:del'">批量删除</el-button>
       <el-button type="primary" @click="toDetail('child')">子级详情页面</el-button>
       <el-button type="primary" @click="toDetail('peer')">同级详情页面</el-button>
     </template>
   </t-adaptive-page>
 </template>
 
-<script setup lang="tsx" name="accountManage">
+<script setup lang="tsx" name="AccountManage">
 import useApi from "@/hooks/useApi";
+import { useAuthStore } from "@/store/modules/auth";
+const authStore = useAuthStore();
+const btnPermissions = authStore.authButtonListGet;
 const { proxy } = useApi();
 const router = useRouter();
 // 跳转详情页
@@ -34,6 +40,21 @@ const toDetail = (type: any) => {
 };
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
+};
+const handleAdd = () => {
+  console.log("点击新增");
+};
+const delHandle = () => {
+  console.log("批量删除");
+};
+const edit = (row: any) => {
+  console.log("编辑", row);
+};
+const resetHandle = (row: any) => {
+  console.log("重置密码", row);
+};
+const view = (row: any) => {
+  console.log("查看", row);
 };
 const state: any = reactive({
   queryData: {
@@ -79,22 +100,30 @@ const state: any = reactive({
     ],
     operator: [
       {
-        text: "编辑"
-        // fun: edit
+        text: "查看",
+        hasPermi: "root:web:sys:user:view",
+        fun: view
       },
       {
-        text: "重置密码"
-        // fun: resetHandle
+        text: "编辑",
+        hasPermi: "root:web:sys:user:alter",
+        fun: edit
+      },
+      {
+        text: "重置密码",
+        hasPermi: "root:web:sys:user:resetpass",
+        fun: resetHandle
       },
       {
         text: "删除",
+        hasPermi: "root:web:sys:user:del",
         fun: handleDelete
       }
     ],
     // 操作列样式
     operatorConfig: {
       fixed: "right", // 固定列表右边（left则固定在左边）
-      width: "220",
+      width: "240",
       label: "操作"
     }
   }

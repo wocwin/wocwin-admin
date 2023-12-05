@@ -4,6 +4,7 @@
     title="菜单管理页面"
     row-key="path"
     isTree
+    :btnPermissions="btnPermissions"
     :table="state.table"
     :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     :columns="state.table.columns"
@@ -13,7 +14,11 @@
     height="100%"
   >
     <template #toolbar>
-      <el-button type="primary">新增</el-button>
+      <el-button type="primary" v-hasPermi="'root:web:sys:menu:import'" @click="importExcel">同步</el-button>
+      <el-tooltip class="item" effect="dark" content="请选择父级menuId导出" placement="top">
+        <el-button type="danger" v-hasPermi="'root:web:sys:menu:export'" @click="exportExcel">导出</el-button>
+      </el-tooltip>
+      <el-button type="primary" @click="createHandle" v-hasPermi="'root:web:sys:menu:add'">新增</el-button>
     </template>
   </t-adaptive-page>
 </template>
@@ -22,6 +27,9 @@
 import { ElMessageBox, ElMessage } from "element-plus";
 import TIcon from "./TIcon.vue";
 import useApi from "@/hooks/useApi";
+import { useAuthStore } from "@/store/modules/auth";
+const authStore = useAuthStore();
+const btnPermissions = authStore.authButtonListGet;
 const { proxy } = useApi();
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
@@ -40,6 +48,21 @@ const handleDelete = (row: any) => {
         message: "已取消删除"
       });
     });
+};
+const edit = (row: any) => {
+  console.log("编辑", row);
+};
+const handleAdd = (row: any) => {
+  console.log("表格内新增", row);
+};
+const importExcel = () => {
+  console.log("同步");
+};
+const exportExcel = () => {
+  console.log("导出");
+};
+const createHandle = () => {
+  console.log("新增");
 };
 const state: any = reactive({
   queryData: {
@@ -71,16 +94,19 @@ const state: any = reactive({
     ],
     operator: [
       {
-        text: "新增"
-        // fun: handleAdd
+        text: "新增",
+        fun: handleAdd,
+        hasPermi: "root:web:sys:menu:add"
       },
       {
-        text: "编辑"
-        // fun: edit
+        text: "编辑",
+        fun: edit,
+        hasPermi: "root:web:sys:menu:alter"
       },
       {
         text: "删除",
-        fun: handleDelete
+        fun: handleDelete,
+        hasPermi: "root:web:sys:menu:del"
       }
     ],
     // 操作列样式

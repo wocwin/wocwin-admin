@@ -7,6 +7,8 @@ import "@/assets/iconfont/iconfont.css";
 import router from "@/router";
 // 所有业务api接口
 import api from "@/api";
+// 按钮权限指令
+import directives from "@/directive";
 /**
  * element-plus
  */
@@ -49,6 +51,7 @@ function render(props: any = {}) {
   instance.use(router);
   instance.use(pinia);
   instance.use(I18n);
+  instance.use(directives);
   // instance.use(Antd);
   instance.component("ASelect", Select);
   instance.component("ATable", Table);

@@ -63,7 +63,7 @@ router.beforeEach(async (to, from, next) => {
         return next({ ...to, replace: true });
       }
       // 7.存储 routerName 做按钮权限筛选
-      authStore.setRouteName(to.name as string);
+      // authStore.setRouteName(to.name as string);
       // 8.正常访问页面
       next();
     } else {

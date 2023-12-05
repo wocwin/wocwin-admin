@@ -5,6 +5,7 @@
     isTree
     :table="state.table"
     :columns="state.table.columns"
+    :btnPermissions="btnPermissions"
     row-key="deptId"
     default-expand-all
     :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
@@ -14,16 +15,37 @@
     height="100%"
   >
     <template #toolbar>
-      <el-button type="primary">新增</el-button>
+      <el-button @click="downloadTemplate" v-hasPermi="'root:web:sys:dept:download'">下载模板</el-button>
+      <el-button type="primary" @click="importExcel" v-hasPermi="'root:web:sys:dept:import'">批量导入</el-button>
+      <el-button @click="exportExcel" v-hasPermi="'root:web:sys:dept:export'">导出</el-button>
+      <el-button type="primary" @click="handleAdd" v-hasPermi="'root:web:sys:dept:add'">新增</el-button>
     </template>
   </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="departmentManage">
 import useApi from "@/hooks/useApi";
+import { useAuthStore } from "@/store/modules/auth";
+const authStore = useAuthStore();
+const btnPermissions = authStore.authButtonListGet;
 const { proxy } = useApi();
 const handleDelete = (row: any) => {
   console.log("点击删除", row);
+};
+const edit = (row: any) => {
+  console.log("编辑", row);
+};
+const downloadTemplate = () => {
+  console.log("下载模板");
+};
+const importExcel = () => {
+  console.log("批量导入");
+};
+const exportExcel = () => {
+  console.log("导出");
+};
+const handleAdd = () => {
+  console.log("新增");
 };
 const state: any = reactive({
   queryData: {
@@ -57,12 +79,14 @@ const state: any = reactive({
     ],
     operator: [
       {
-        text: "编辑"
-        // fun: edit
+        text: "编辑",
+        fun: edit,
+        hasPermi: "root:web:sys:dept:alter"
       },
       {
         text: "删除",
-        fun: handleDelete
+        fun: handleDelete,
+        hasPermi: "root:web:sys:dept:del"
       }
     ],
     // 操作列样式

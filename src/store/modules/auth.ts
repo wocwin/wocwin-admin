@@ -1,17 +1,15 @@
 import { defineStore } from "pinia";
 import { AuthState } from "@/store/interface";
 import { getFlatMenuList, getShowMenuList, getAllBreadcrumbList } from "@/utils";
-import { getRouters, getUserRouters } from "@/api/modules/login";
+import { getRouters, getUserRouters, getPermBtm, getUserPermBtm } from "@/api/modules/login";
 import { useUserStore } from "@/store/modules/user";
 export const useAuthStore = defineStore({
   id: "wocwin-auth",
   state: (): AuthState => ({
     // 按钮权限列表
-    authButtonList: {},
+    authButtonList: [],
     // 菜单权限列表
-    authMenuList: [],
-    // 当前页面的 router name，用来做按钮权限筛选
-    routeName: ""
+    authMenuList: []
   }),
   getters: {
     // 按钮权限列表
@@ -27,15 +25,17 @@ export const useAuthStore = defineStore({
   },
   actions: {
     // Get AuthButtonList
-    // async getAuthButtonList() {
-    //   const { data } = await getAuthButtonListApi();
-    //   this.authButtonList = data;
-    // },
+    async getAuthButtonList() {
+      const useApi = useUserStore().loginName === "user" ? getUserPermBtm() : getPermBtm();
+      const res = await useApi;
+      if (res.success && res.data.length > 0) {
+        const permCode = res.data.map((item: { perms: any }) => item.perms || null);
+        this.authButtonList = permCode;
+      }
+    },
     // // Get AuthMenuList
     getAuthMenuList() {
-      // const { data } = GetMenuData;
-      // this.authMenuList = data;
-      console.log("useUserStore--", useUserStore().loginName);
+      // console.log("useUserStore--", useUserStore().loginName);
       const useApi = useUserStore().loginName === "user" ? getUserRouters() : getRouters();
       return new Promise((resolve, reject) => {
         useApi
@@ -47,10 +47,6 @@ export const useAuthStore = defineStore({
             reject(error);
           });
       });
-    },
-    // Set RouteName
-    async setRouteName(name: string) {
-      this.routeName = name;
     }
   }
 });
