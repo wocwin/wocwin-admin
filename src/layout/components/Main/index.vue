@@ -75,6 +75,9 @@ onBeforeUnmount(() => {
   :deep(.t_layout_page_item) {
     margin: 0;
     margin-bottom: 8px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 .el-footer {

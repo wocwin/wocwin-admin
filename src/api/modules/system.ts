@@ -16,6 +16,14 @@ export function deptList(params: any) {
     params
   });
 }
+// 部门--tree树
+export function treeselect(params: any) {
+  return request({
+    url: "/sys/treeselect",
+    method: "get",
+    params
+  });
+}
 // 角色管理list
 export function roleList(params: any) {
   return request({

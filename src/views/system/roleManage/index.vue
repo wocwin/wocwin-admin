@@ -23,7 +23,6 @@
 <script setup lang="tsx" name="roleManageList">
 import useApi from "@/hooks/useApi";
 import { useAuthStore } from "@/store/modules/auth";
-
 const { proxy } = useApi();
 const authStore = useAuthStore();
 const btnPermissions = authStore.authButtonListGet;

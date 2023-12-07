@@ -1,7 +1,6 @@
 <template>
   <t-adaptive-page
     class="menu_mange"
-    row-key="path"
     isCopy
     :table="state.table"
     :columns="state.table.columns"
@@ -12,6 +11,18 @@
     @submit="conditionEnter"
     title="用户管理列表"
   >
+    <template #leftContent>
+      <el-input v-model="deptName" placeholder="请输入部门名称" clearable size="small" prefix-icon="el-icon-search" />
+      <el-tree
+        ref="treeRef"
+        class="filter-tree"
+        :data="state.deptOptions"
+        :props="{ children: 'children', label: 'label' }"
+        default-expand-all
+        :filter-node-method="filterNode"
+        @node-click="handleNodeClick"
+      />
+    </template>
     <template #nickName="{ scope }">
       <div>{{ scope.row.nickName }}</div>
     </template>
@@ -24,7 +35,7 @@
   </t-adaptive-page>
 </template>
 
-<script setup lang="tsx" name="AccountManage">
+<script setup lang="tsx" name="accountManage">
 import useApi from "@/hooks/useApi";
 import { useAuthStore } from "@/store/modules/auth";
 const authStore = useAuthStore();
@@ -56,7 +67,10 @@ const resetHandle = (row: any) => {
 const view = (row: any) => {
   console.log("查看", row);
 };
+const deptName = ref("");
+const treeRef = ref();
 const state: any = reactive({
+  deptOptions: [], // 左侧tree
   queryData: {
     userName: null, // 登录名
     nickName: null, // 用户状态
@@ -85,7 +99,7 @@ const state: any = reactive({
   ],
   table: {
     currentPage: 1,
-    pageSize: 15,
+    pageSize: 10,
     total: 0,
     // 接口返回数据
     data: [],
@@ -128,7 +142,12 @@ const state: any = reactive({
     }
   }
 });
-
+watch(
+  () => deptName.value,
+  val => {
+    treeRef.value.filter(val);
+  }
+);
 const opts = computed(() => {
   return {
     userName: {
@@ -196,14 +215,33 @@ const conditionEnter = (data: any) => {
 };
 onMounted(() => {
   getData();
+  treeselect();
 });
-// 获取菜单数据
+// 获取用户数据
 const getData = async () => {
   const res = await proxy.$api.userList(getQueryData.value);
   if (res.success) {
     state.table.data = res?.data.rows;
     state.table.total = res.data.total;
   }
+};
+// 获取tree数据
+const treeselect = async () => {
+  const res = await proxy.$api.treeselect();
+  if (res.success) {
+    state.deptOptions = res.data;
+    if (state.deptOptions.length > 0) {
+      console.log("默认选中根节点", state.deptOptions[0].id);
+    }
+  }
+};
+const filterNode = (value: string, data: any) => {
+  if (!value) return true;
+  return data.label.includes(value);
+};
+// 节点单击事件
+const handleNodeClick = (data: { id: any }) => {
+  console.log("节点单击事件部门", data.id);
 };
 // 页面大小
 const handlesSizeChange = (val: any) => {
