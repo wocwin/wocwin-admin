@@ -99,6 +99,10 @@
       <span>标签栏图标</span>
       <el-switch v-model="tabsIcon" />
     </div>
+    <div class="theme-item">
+      <span>是否显示水印</span>
+      <el-switch v-model="isWatermark" />
+    </div>
   </el-drawer>
 </template>
 
@@ -115,7 +119,8 @@ import SwitchDark from "@/components/SwitchDark/index.vue";
 const { changePrimary, changeGreyOrWeak, setAsideTheme } = useTheme();
 
 const globalStore = useGlobalStore();
-const { layout, primary, isGrey, isWeak, isCollapse, breadcrumb, breadcrumbIcon, tabs, tabsIcon } = storeToRefs(globalStore);
+const { layout, primary, isGrey, isWeak, isCollapse, breadcrumb, breadcrumbIcon, tabs, tabsIcon, isWatermark } =
+  storeToRefs(globalStore);
 
 // 预定义主题颜色
 const colorList = [

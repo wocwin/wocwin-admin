@@ -1,14 +1,20 @@
 <template>
   <div id="app">
-    <!-- <div class="env_tag" v-if="ENV !== 'production'">{{ ENV }}</div> -->
-    <router-view v-if="isRouterAlive" />
+    <el-watermark class="water_mark" v-if="isWatermark" :font="font" :content="['wocwin', 'Wocwin-Admin']">
+      <router-view v-if="isRouterAlive" />
+    </el-watermark>
+    <template v-else>
+      <router-view v-if="isRouterAlive" />
+    </template>
   </div>
 </template>
 <script setup lang="ts">
-// const ENV = computed(() => {
-//   return import.meta.env.VITE_APP_ENV;
-// });
+import { storeToRefs } from "pinia";
+import { useGlobalStore } from "@/store/modules/global";
+const globalStore = useGlobalStore();
+const { isDark } = storeToRefs(globalStore);
 const isRouterAlive = ref(true);
+const isWatermark = computed(() => globalStore.isWatermark);
 const reload = () => {
   isRouterAlive.value = false;
   nextTick(() => {
@@ -16,6 +22,19 @@ const reload = () => {
   });
 };
 provide("reload", reload);
+const font = reactive({
+  color: "rgba(0, 0, 0, .15)"
+});
+
+watch(
+  isDark,
+  () => {
+    font.color = isDark.value ? "rgba(255, 255, 255, .15)" : "rgba(0, 0, 0, .15)";
+  },
+  {
+    immediate: true
+  }
+);
 </script>
 <style lang="scss">
 body {
@@ -42,6 +61,17 @@ body {
     color: #ffffff;
     background-color: red;
     border-radius: 0 0 0 4px;
+  }
+  .water_mark {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-variant: tabular-nums;
+    color: var(--el-text-color-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 </style>

@@ -36,7 +36,9 @@ export const useGlobalStore = defineStore({
     // 标签页图标
     tabsIcon: false,
     // 页脚
-    footer: true
+    footer: true,
+    // 水印
+    isWatermark: true
   }),
   getters: {},
   actions: {
