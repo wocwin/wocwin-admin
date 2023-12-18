@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useGlobalStore } from "@/store/modules/global";
+import { useTheme } from "@/hooks/useTheme";
 const globalStore = useGlobalStore();
 const { isDark } = storeToRefs(globalStore);
 const isRouterAlive = ref(true);
@@ -21,6 +22,9 @@ const reload = () => {
     isRouterAlive.value = true;
   });
 };
+// init theme
+const { initTheme } = useTheme();
+initTheme();
 provide("reload", reload);
 const font = reactive({
   color: "rgba(0, 0, 0, .15)"
