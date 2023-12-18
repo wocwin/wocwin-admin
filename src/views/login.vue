@@ -62,7 +62,12 @@ import type { FormInstance } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
 import { ElNotification } from "element-plus";
 import { getTimeState } from "@/utils";
+import { initDynamicRouter } from "@/router/modules/dynamicRouter";
+import { useTabsStore } from "@/store/modules/tabs";
+import { useKeepAliveStore } from "@/store/modules/keepAlive";
 
+const tabStore = useTabsStore();
+const keepAliveStore = useKeepAliveStore();
 const userStore = useUserStore();
 
 const loginForm = reactive({
@@ -107,8 +112,11 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     }
     userStore
       .Login(loginForm)
-      .then((res: any) => {
+      .then(async (res: any) => {
         if (res.success) {
+          await initDynamicRouter();
+          tabStore.closeMultipleTab();
+          keepAliveStore.setKeepAliveName();
           router.push({ path: "/" });
           ElNotification({
             title: getTimeState(),
