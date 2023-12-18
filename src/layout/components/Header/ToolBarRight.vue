@@ -13,7 +13,7 @@
         <Fullscreen id="fullscreen" />
       </el-tooltip>
     </div>
-    <span class="username">{{ username }}</span>
+    <span class="username">{{ loginName }}</span>
     <Avatar />
   </div>
 </template>
@@ -27,7 +27,7 @@ import Fullscreen from "./components/Fullscreen.vue";
 import Avatar from "./components/Avatar.vue";
 
 const userStore = useUserStore();
-const username = computed(() => userStore.name || "wocwin");
+const loginName = computed(() => userStore.loginName);
 // refresh current page
 // const reload: Function = inject("reload") as Function;
 // const refresh = () => {

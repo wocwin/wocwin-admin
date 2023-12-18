@@ -6,40 +6,40 @@
 
 ```html
 <t-antd-select-table
-    ref="tantdselecttable"
-    selectWidth="40%"
-    v-model="state.selectVal"
-    :table="state.table"
-    :columns="state.table.columns"
-    :scroll="{ x: 2000, y: 400 }"
-    isShowPagination
-    :keywords="{ label: 'materialName', value: 'materialCode' }"
-    @checked-change="checkedChange"
-    :defaultSelectVal="state.defaultSelectVal"
-    @change="tablePaginationChange"
-    placeholder="antd下拉选择表格"
-  ></t-antd-select-table>
+  ref="tantdselecttable"
+  selectWidth="40%"
+  v-model="state.selectVal"
+  :table="state.table"
+  :columns="state.table.columns"
+  :scroll="{ x: 2000, y: 400 }"
+  isShowPagination
+  :keywords="{ label: 'materialName', value: 'materialCode' }"
+  @checked-change="checkedChange"
+  :defaultSelectVal="state.defaultSelectVal"
+  @change="tablePaginationChange"
+  placeholder="antd下拉选择表格"
+></t-antd-select-table>
 ```
 
 ### 2、配置参数（Attributes）继承 a-table 及 a-select 属性
 
-| 参数             | 说明                                                                                        | 类型          | 默认值  |
-| :--------------- | :------------------------------------------------------------------------------------------ | :------------ | :------ |
-| v-model          | 绑定值 keywords.label                                                                       | Array         | -       |
-| table            | 表格数据对象                                                                                | Object        | {}      |
-| ---data          | 展示下拉数据源                                                                              | Array         | []      |
-| ---pagination    | 配合isShowPagination，其配置继承a-table                                                     | Array         | []      |
-| columns          | 表格列的配置描述，具体项[AntDesignVue文档](https://3x.antdv.com/components/table-cn#Column) | Array         | []      |
-| keywords         | 关键字配置                                                                                  | Object        | 无      |
-| ------label      | 选项的标签                                                                                  | String        | ‘label’ |
-| ------value      | 选项的值（（value-key 配置）  ）                                                            | String        | ‘value’ |
-| rowSelection     | 列表项是否可选择--具体查看AntDesignVue文档                                                  | Object        | -       |
-| isKeyup          | 单选是否开启键盘事件（上下选择高亮，回车选中）                                              | Boolean       | false    |
-| isShowPagination | 是否开启分页                                                                                | Boolean       | false   |
-| mode             | 是否多选（配置'multiple'）默认单选                                                          | String        | -       |
-| defaultSelectVal | 设置第一页默认选中项--keywords.value 值                                                     | Array         | -       |
-| selectWidth      | select宽度 （string设置百分比，number设置px）                                               | String/Number | 200     |
-| tableWidth       | table 宽度                                                                                  | Number        | 550     |
+| 参数             | 说明                                                                                         | 类型          | 默认值  |
+| :--------------- | :------------------------------------------------------------------------------------------- | :------------ | :------ |
+| v-model          | 绑定值 keywords.label                                                                        | Array         | -       |
+| table            | 表格数据对象                                                                                 | Object        | {}      |
+| ---data          | 展示下拉数据源                                                                               | Array         | []      |
+| ---pagination    | 配合 isShowPagination，其配置继承 a-table                                                    | Array         | []      |
+| columns          | 表格列的配置描述，具体项[AntDesignVue 文档](https://3x.antdv.com/components/table-cn#Column) | Array         | []      |
+| keywords         | 关键字配置                                                                                   | Object        | 无      |
+| ------label      | 选项的标签                                                                                   | String        | ‘label’ |
+| ------value      | 选项的值（（value-key 配置） ）                                                              | String        | ‘value’ |
+| rowSelection     | 列表项是否可选择--具体查看 AntDesignVue 文档                                                 | Object        | -       |
+| isKeyup          | 单选是否开启键盘事件（上下选择高亮，回车选中）                                               | Boolean       | false   |
+| isShowPagination | 是否开启分页                                                                                 | Boolean       | false   |
+| mode             | 是否多选（配置'multiple'）默认单选                                                           | String        | -       |
+| defaultSelectVal | 设置第一页默认选中项--keywords.value 值                                                      | Array         | -       |
+| selectWidth      | select 宽度 （string 设置百分比，number 设置 px）                                            | String/Number | 200     |
+| tableWidth       | table 宽度                                                                                   | Number        | 550     |
 
 ### 2-1、columns 配置参数（Attributes）继承 a-table columns 属性
 
@@ -53,7 +53,7 @@
 | customRender                  | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引                                   | Function({text, record, index, column}) {}             | -                     |
 | dataIndex                     | 列数据在数据项中对应的路径，支持通过数组查询嵌套路径                                               | string / string[]                                      | -                     |
 | defaultFilteredValue          | 默认筛选值                                                                                         | string[]                                               | -                     |
-| defaultSortOrder              | 默认排序顺序	ascend                                                                                | descend	-                                              |
+| defaultSortOrder              | 默认排序顺序 ascend                                                                                | descend -                                              |
 | ellipsis                      | 超过宽度将自动省略 设置为 true 或 { showTitle?: boolean } 时，表格布局将变成 tableLayout="fixed"。 | boolean / { showTitle?: boolean }                      | false                 |
 | filterDropdown                | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互                                     | VNode                                                  | -                     |
 | filterDropdownVisible         | 用于控制自定义筛选菜单是否可见                                                                     | boolean                                                | -                     |
@@ -76,10 +76,11 @@
 | sortOrder                     | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend' 'descend' false                          | boolean/string                                         | -                     |
 | title                         | 列头显示文字                                                                                       | string                                                 | -                     |
 | width                         | 列宽度                                                                                             | string/number                                          | -                     |
-| onFilter                      | 本地模式下，确定筛选的运行函数, 使用 template 或 jsx 时作为filter事件使用                          | Function                                               | -                     |
-| onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用，使用 template 或 jsx 时作为filterDropdownVisibleChange事件使用       | function(visible) {}                                   | -                     |
+| onFilter                      | 本地模式下，确定筛选的运行函数, 使用 template 或 jsx 时作为 filter 事件使用                        | Function                                               | -                     |
+| onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用，使用 template 或 jsx 时作为 filterDropdownVisibleChange 事件使用     | function(visible) {}                                   | -                     |
 
-### 2-2、a-pagination  配置参数（Attributes）继承 a-pagination属性(分页配置)
+### 2-2、a-pagination 配置参数（Attributes）继承 a-pagination 属性(分页配置)
+
 | 参数              | 说明                                                     | 类型                                                                       | 默认值                   |
 | :---------------- | :------------------------------------------------------- | :------------------------------------------------------------------------- | :----------------------- |
 | current(v-model)  | 当前页数                                                 | number                                                                     | -                        |
@@ -99,6 +100,7 @@
 | total             | 数据总数                                                 | number                                                                     | 0                        |
 
 ### 2-3、rowSelection 配置参数（Attributes）继承 a-table rowSelection 属性
+
 | 参数                    | 说明                                                         | 类型                                                  | 默认值   |
 | :---------------------- | :----------------------------------------------------------- | :---------------------------------------------------- | :------- |
 | checkStrictly           | checkable 状态下节点选择完全受控（父子数据选中状态不再关联） | boolean                                               | true     |
@@ -118,13 +120,12 @@
 | onSelectInvert          | 用户手动选择反选的回调                                       | Function(selectedRows)                                | -        |
 | onSelectNone            | 用户清空选择的回调                                           | function()                                            | -        |
 
-
 ### 3、事件（events）继承 a-table 及 a-select 事件
 
 | 事件名        | 说明       | 回调参数                                       |
 | :------------ | :--------- | :--------------------------------------------- |
 | checkedChange | 选中项事件 | 返回选中项的 keywords.value 集合与选中的项集合 |
- 
+
 ### 4、方法（a-select---Methods）
 
 | 方法名             | 说明                            | 回调参数 |

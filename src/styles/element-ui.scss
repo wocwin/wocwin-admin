@@ -83,7 +83,7 @@
   box-sizing: content-box;
 }
 
-.el-menu--collapse>div>.el-submenu>.el-submenu__title .el-submenu__icon-arrow {
+.el-menu--collapse > div > .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
   display: none;
 }
 
@@ -104,7 +104,6 @@
 
 /* 当前页面最大化 css */
 .main-maximize {
-
   .aside-split,
   .el-aside,
   .el-header,
@@ -210,7 +209,7 @@
   border: 1px solid var(--el-text-color-primary);
 }
 
-.el-table [class*=el-table__row--level] .el-table__expand-icon {
+.el-table [class*="el-table__row--level"] .el-table__expand-icon {
   line-height: 32px;
   height: 32px;
 }
