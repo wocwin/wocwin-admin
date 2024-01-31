@@ -108,8 +108,22 @@
       "name": "productionScreen",
       "component": "/productionScreen/index",
       "meta": {
-        "icon": "TrendCharts",
+        "icon": "DataLine",
         "title": "生产大屏",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
+    },
+    {
+      "path": "/echarts",
+      "name": "echarts",
+      "component": "/echarts/index",
+      "meta": {
+        "icon": "TrendCharts",
+        "title": "echarts图表",
         "isLink": "",
         "isHide": false,
         "isFull": false,

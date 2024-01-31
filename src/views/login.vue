@@ -12,7 +12,9 @@
       <div class="input-format">
         <div class="form_content">
           <img src="@/assets/images/logo.jpg" class="logon" />
-          <h2 class="title">Wocwin-Admin</h2>
+          <div class="title_box">
+            <h2 class="title">Wocwin-Admin</h2>
+          </div>
           <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
             <el-form-item prop="username">
               <el-input v-model="loginForm.username" clearable type="text" placeholder="wocwin/user">
@@ -174,6 +176,16 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     transform: translateY(-100vh);
   }
 }
+@keyframes expand {
+  from {
+    letter-spacing: -20px;
+    filter: blur(2px);
+  }
+  to {
+    letter-spacing: 0px;
+    filter: blur(0px);
+  }
+}
 $duration: 600s;
 $count: 1400;
 .login {
@@ -312,13 +324,18 @@ $count: 1400;
           height: 100px;
           border-radius: 50%;
         }
-        .title {
-          margin-top: 8px;
-          margin-bottom: 40px;
-          font-family: PingFangSC-Medium, "PingFang SC";
-          font-weight: 600;
-          color: var(--el-text-color-primary);
+        .title_box {
+          filter: contrast(10);
+          .title {
+            margin-top: 8px;
+            margin-bottom: 40px;
+            font-family: PingFangSC-Medium, "PingFang SC";
+            font-weight: 600;
+            color: var(--el-text-color-primary);
+            animation: expand 5s forwards infinite;
+          }
         }
+
         .login-form {
           box-sizing: border-box;
           padding: 0;

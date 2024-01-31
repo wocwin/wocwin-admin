@@ -1,0 +1,247 @@
+.overview_diagram {
+  .top_query {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dcdfe6;
+
+    .left {
+      margin-right: 10px;
+    }
+  }
+
+  .statistics {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 5px 30px;
+
+    .order_list,
+    .visit_list {
+      flex: 0 50%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .order_list_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 5px;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      margin-top: 5px;
+      min-width: 180px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f0f2f5;
+        color: #101010;
+      }
+
+      .num_content {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 8px;
+
+        .num {
+          font-weight: bold;
+          font-size: 30px;
+        }
+
+        .unit {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .visit_list {
+      margin-left: 30px;
+    }
+  }
+
+  .echarts_content {
+    display: flex;
+    flex-direction: column;
+
+    .content_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      >div {
+        flex: 0 calc(50% - 10px);
+        height: 300px;
+      }
+    }
+
+    .content_bottom {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+
+      >div {
+        flex: 0 calc(33.33% - 10px);
+        height: 300px;
+      }
+
+      .order_quantity_map {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        height: 300px;
+
+        .map_top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 30px;
+
+          div {
+            height: inherit;
+          }
+
+          .title {
+            font-weight: bold;
+            flex: 50%;
+          }
+
+          .tip {
+            font-size: 12px;
+            flex: 50%;
+            text-align: right;
+          }
+        }
+
+        .map {
+          flex: 0 calc(33.33% - 10px);
+          height: 270px;
+          position: relative;
+
+          >div {
+            height: 270px;
+          }
+
+          .replaceBox {
+            position: absolute;
+            z-index: 1;
+            background: #fff;
+            height: auto;
+            bottom: 10%;
+            padding: 5px 10px;
+            right: 5px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+          ::v-deep .amap-maps {
+            .amap-info-content {
+              border-radius: 8px;
+              font-size: 14px;
+            }
+          }
+
+          ::v-deep .custom-content-marker {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          ::v-deep .amap-demo {
+            .amap-marker-label {
+              /* min-width: 100px; */
+              line-height: 20px;
+              font-size: 10px;
+              padding: 0;
+              background: #fff;
+              border: none;
+              border-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .table_content {
+    margin-top: 15px;
+  }
+
+  .user_echarts_content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .accessPage {
+      position: relative;
+    }
+
+    >div {
+      flex: 0 calc(33.33% - 10px);
+      height: 300px;
+    }
+
+    .access_type {
+      position: absolute;
+      top: -135px;
+      left: 390px;
+    }
+
+    .access_type_user {
+      position: absolute;
+      top: -135px;
+      left: 920px;
+    }
+  }
+
+  .product_echarts_content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    >div {
+      flex: 0 calc(50% - 10px);
+      height: 300px;
+    }
+  }
+
+  .page_echarts_content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    >div {
+      flex: 0 calc(33.33% - 10px);
+      height: 300px;
+    }
+
+    .access_type {
+      position: absolute;
+      top: 1px;
+      right: 25px;
+    }
+  }
+}
+
+::v-deep .custom-content-marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::v-deep .amap-demo {
+  .amap-marker-label {
+    /* min-width: 100px; */
+    line-height: 20px;
+    font-size: 10px;
+    padding: 0;
+    background: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+}

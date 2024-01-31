@@ -35,6 +35,7 @@ import I18n from "@/languages/index";
 
 // pinia代替vuex
 import pinia from "@/store";
+import * as echarts from "echarts";
 
 import TuiPlus from "@wocwin/t-ui-plus";
 import "@wocwin/t-ui-plus/lib/style.css";
@@ -57,6 +58,7 @@ function render(props: any = {}) {
   instance.component("ATable", Table);
   // 注册全局api方法
   instance.config.globalProperties.$api = api;
+  instance.config.globalProperties.$echarts = echarts;
   // 注册所有图标
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     instance.component(key, component);
