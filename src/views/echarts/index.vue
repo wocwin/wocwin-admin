@@ -58,11 +58,11 @@
 </template>
 <script setup lang="tsx" name="echarts">
 import useApi from "@/hooks/useApi";
-const { proxy } = useApi();
 import OrderChart from "./components/orderChart.vue";
 import UserChart from "./components/userChart.vue";
 import ProductChart from "./components/productChart.vue";
 import PageChart from "./components/pageChart.vue";
+const { proxy } = useApi();
 const date = ref([]);
 const startTime = ref(null);
 const endTime = ref(null);
