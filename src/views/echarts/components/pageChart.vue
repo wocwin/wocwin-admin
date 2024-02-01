@@ -1,11 +1,12 @@
 <template>
   <div class="page_chart">
     <div class="user_echarts_content">
-      <t-chart :options="AccessDataOptions" class="accessPage" />
-      <el-radio-group class="access_type" v-model="accessPageType" size="small" @change="accessPageChage">
-        <el-radio-button :label="0">UV数据</el-radio-button>
-        <el-radio-button :label="1">PV数据</el-radio-button>
-      </el-radio-group>
+      <t-chart :options="AccessDataOptions" class="accessPage">
+        <el-radio-group class="access_type" v-model="accessPageType" size="small" @change="accessPageChage">
+          <el-radio-button :label="0">UV数据</el-radio-button>
+          <el-radio-button :label="1">PV数据</el-radio-button>
+        </el-radio-group>
+      </t-chart>
       <t-chart :options="PageAccessDataOptions" />
       <t-chart :options="PaymentOptions" />
     </div>

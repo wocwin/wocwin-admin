@@ -26,7 +26,7 @@
           <div
             class="order_list_item"
             v-for="(item, index) in visitList"
-            :key="index"
+            :key="index + 'i'"
             :style="{ flex: `0 1 calc((${100 / visitList.length}% - 5px))`, marginRight: '5px' }"
           >
             <div class="title">{{ item.title }}</div>
@@ -39,18 +39,18 @@
       </div>
     </t-layout-page-item>
     <t-layout-page-item>
-      <t-tabs :tabs="tabs" @tab-click="tabsChange">
+      <t-tabs v-model="tabName" :tabs="tabs" @tab-click="tabsChange">
         <template #tab1>
-          <order-chart ref="orderChartRef" />
+          <order-chart v-if="tabName === 'tab1'" ref="orderChartRef" />
         </template>
         <template #tab2>
-          <user-chart ref="userRef" />
+          <user-chart v-if="tabName === 'tab2'" ref="userRef" />
         </template>
         <template #tab3>
-          <product-chart ref="productRef" />
+          <product-chart v-if="tabName === 'tab3'" ref="productRef" />
         </template>
         <template #tab4>
-          <page-chart ref="pageRef" />
+          <page-chart v-if="tabName === 'tab4'" ref="pageRef" />
         </template>
       </t-tabs>
     </t-layout-page-item>
