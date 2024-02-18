@@ -107,6 +107,13 @@ Wocwin-Admin
 └─ vite.config.ts         # vite 全局配置文件
 ```
 
+### 项目后台接口 
+
+项目后台接口完全采用 Mock 数据，感谢以下 Mock 平台支持：
+
+- FastMock： https://www.fastmock.site(已停止服务)
+- EasyMock：https://mock.mengxuegu.com
+
 ### Git 提交规范
 
 - `ci`: ci 配置文件和脚本的变动;
