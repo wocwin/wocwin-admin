@@ -2,7 +2,7 @@
   <div class="user_echarts_content">
     <t-chart :options="AddUserOptions" />
     <t-chart :options="AccessPeriodOptions">
-      <el-radio-group class="access_type_user" v-model="accessType" size="small" @change="accessTypeChage">
+      <el-radio-group v-model="accessType" class="user_echarts_radio" size="small" @change="accessTypeChage">
         <el-radio-button :label="0">访问人数</el-radio-button>
         <el-radio-button :label="1">访问人次</el-radio-button>
       </el-radio-group>
@@ -170,3 +170,12 @@ const getCustOrderData = async () => {
   }
 };
 </script>
+<style lang="scss" scoped>
+.user_echarts {
+  &_radio {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+  }
+}
+</style>
