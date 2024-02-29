@@ -14,8 +14,8 @@ dependencies:
     specifier: ^5.1.12
     version: 5.1.12(@wangeditor/editor@5.1.23)(vue@3.2.47)
   '@wocwin/t-ui-plus':
-    specifier: ^1.2.9
-    version: 1.2.9
+    specifier: ^1.2.10
+    version: 1.2.10
   ant-design-vue:
     specifier: ^3.2.20
     version: 3.2.20(vue@3.2.47)
@@ -206,7 +206,7 @@ devDependencies:
     version: 1.0.0
   vite:
     specifier: ^4.3.9
-    version: 4.3.9(sass@1.62.0)
+    version: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
   vite-plugin-compression:
     specifier: ^0.5.1
     version: 0.5.1(vite@4.3.9)
@@ -1487,7 +1487,7 @@ packages:
       '@babel/core': 7.21.8
       '@babel/plugin-transform-typescript': 7.21.3(@babel/core@7.21.8)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.21.8)
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
       vue: 3.2.47
     transitivePeerDependencies:
       - supports-color
@@ -1500,7 +1500,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
       vue: 3.2.47
     dev: true
 
@@ -1849,8 +1849,8 @@ packages:
       snabbdom: 3.5.1
     dev: false
 
-  /@wocwin/t-ui-plus@1.2.9:
-    resolution: {integrity: sha512-A+c0K2K1LbGToe4SUYI+ke5KEelGB7awh4sgwfn3UpNzKt1fjWxGt/7SSbmYdGl/p58s/JAR6XhohoONpCDZ1g==}
+  /@wocwin/t-ui-plus@1.2.10:
+    resolution: {integrity: sha512-91mtxVpdDpno7F9ZWZQVAVAAGQZ+Us/X8IyLC/IjXZxS9gLB8+I2VxI1Pok8ayWhL12I2XuMO+J5Z+5hICm2rQ==}
     dev: false
 
   /JSONStream@1.3.5:
@@ -6787,7 +6787,7 @@ packages:
       chalk: 4.1.2
       debug: 4.3.4
       fs-extra: 10.1.0
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6802,7 +6802,7 @@ packages:
       '@types/eslint': 8.37.0
       eslint: 8.36.0
       rollup: 2.79.1
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
     dev: true
 
   /vite-plugin-html@3.2.0(vite@4.3.9):
@@ -6822,7 +6822,7 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
     dev: true
 
   /vite-plugin-qiankun@1.0.15(typescript@5.0.4)(vite@4.3.9):
@@ -6833,7 +6833,7 @@ packages:
     dependencies:
       cheerio: 1.0.0-rc.12
       typescript: 5.0.4
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
     dev: true
 
   /vite-plugin-resolve-externals@0.2.2:
@@ -6853,7 +6853,7 @@ packages:
       pathe: 0.2.0
       svg-baker: 1.7.0
       svgo: 2.8.0
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6865,10 +6865,10 @@ packages:
     dependencies:
       '@vue/compiler-sfc': 3.2.47
       magic-string: 0.25.9
-      vite: 4.3.9(sass@1.62.0)
+      vite: 4.3.9(@types/node@20.1.1)(sass@1.62.0)
     dev: true
 
-  /vite@4.3.9(sass@1.62.0):
+  /vite@4.3.9(@types/node@20.1.1)(sass@1.62.0):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6893,6 +6893,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.1.1
       esbuild: 0.17.18
       postcss: 8.4.24
       rollup: 3.21.5
