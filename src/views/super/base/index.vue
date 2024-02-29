@@ -1,26 +1,28 @@
 <template>
-  <t-adaptive-page
-    title="操作日志列表"
-    isCopy
-    :table="state.table"
-    :columns="state.table.columns"
-    @selection-change="selectionChange"
-    @size-change="handlesSizeChange"
-    @page-change="handlesCurrentChange"
-    :opts="opts"
-    @submit="conditionEnter"
-    height="100%"
-  >
-    <template #toolbar>
-      <el-button type="primary">清空</el-button>
-      <el-button type="danger" :disabled="state.ids.length < 1">删除</el-button>
-    </template>
-  </t-adaptive-page>
+  <t-layout-page>
+    <t-layout-page-item>
+      <t-query-condition :opts="opts" @submit="conditionEnter" />
+    </t-layout-page-item>
+    <t-layout-page-item>
+      <t-table
+        title="常规页面列表"
+        isCopy
+        :table="state.table"
+        :columns="state.table.columns"
+        @selection-change="selectionChange"
+        @size-change="handlesSizeChange"
+        @page-change="handlesCurrentChange"
+      />
+    </t-layout-page-item>
+  </t-layout-page>
 </template>
 
-<script setup lang="tsx" name="systemLog">
+<script setup lang="tsx" name="superDemo">
 import useApi from "@/hooks/useApi";
 const { proxy } = useApi();
+const details = () => {
+  console.log("点击table内详情按钮");
+};
 const state: any = reactive({
   ids: [],
   queryData: {
@@ -65,7 +67,7 @@ const state: any = reactive({
     currentPage: 1,
     pageSize: 10,
     total: 0,
-    firstColumn: { type: "selection" },
+    firstColumn: { type: "selection", fixed: true },
     // 接口返回数据
     data: [],
     // 表头数据
@@ -108,7 +110,7 @@ const state: any = reactive({
       { prop: "operIp", label: "主机地址", minWidth: 140 },
       {
         prop: "status",
-        label: "	操作状态",
+        label: "操作状态",
         minWidth: 120,
         render: (text: any) => {
           // （1正常 0异常）
@@ -127,7 +129,7 @@ const state: any = reactive({
           return <el-tag type={type}>{val}</el-tag>;
         }
       },
-      { prop: "operTime", label: "操作时间", minWidth: 200 },
+      { prop: "operTime", label: "操作时间", minWidth: 180 },
 
       {
         prop: "operatorType",
@@ -136,25 +138,29 @@ const state: any = reactive({
         render: (text: any) => {
           // （0其它 1后台用户 2手机端用户）
           let val = "";
+          let type = "";
           switch (text) {
             case 0:
               val = "其它";
+              type = "danger";
               break;
             case 1:
               val = "后台用户";
+              type = "success";
               break;
             case 2:
               val = "手机端用户";
+              type = "";
               break;
           }
-          return <el-tag>{val}</el-tag>;
+          return <el-tag type={type}>{val}</el-tag>;
         }
       }
     ],
     operator: [
       {
-        text: "详情"
-        // fun: edit
+        text: "详情",
+        fun: details
       }
     ],
     // 操作列样式

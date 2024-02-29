@@ -1,10 +1,11 @@
 <template>
   <t-adaptive-page
-    class="menu_mange"
+    class="account_mange"
     isCopy
     :table="state.table"
     :columns="state.table.columns"
     :opts="opts"
+    isPaginationCumulative
     :btnPermissions="btnPermissions"
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"
@@ -79,28 +80,32 @@ const state: any = reactive({
     date1: null,
     date: null
   },
-  multipleList: [
-    {
-      name: "前纺一车间",
-      id: "W1"
-    },
-    {
-      name: "前纺二车间",
-      id: "W2"
-    },
-    {
-      name: "前纺三车间",
-      id: "W3"
-    },
-    {
-      name: "前纺四车间",
-      id: "W4"
-    }
-  ],
+  listTypeInfo: {
+    multipleList: [
+      {
+        name: "前纺一车间",
+        id: "W1"
+      },
+      {
+        name: "前纺二车间",
+        id: "W2"
+      },
+      {
+        name: "前纺三车间",
+        id: "W3"
+      },
+      {
+        name: "前纺四车间",
+        id: "W4"
+      }
+    ]
+  },
+
   table: {
     currentPage: 1,
     pageSize: 10,
     total: 0,
+    firstColumn: { type: "index" },
     // 接口返回数据
     data: [],
     // 表头数据
@@ -174,11 +179,12 @@ const opts = computed(() => {
       placeholder: "请多选",
       span: 2,
       comp: "t-select",
+      isSelfCom: true,
       bind: {
-        valueKey: "id",
-        labelKey: "name",
+        valueCustom: "id",
+        labelCustom: "name",
         multiple: true,
-        optionSource: state.multipleList
+        optionSource: state.listTypeInfo.multipleList
       }
     },
     date: {

@@ -59,6 +59,7 @@ const opts = computed(() => {
       label: "t-select单选使用",
       comp: "t-select",
       defaultVal: "W1",
+      isSelfCom: true,
       bind: {
         optionSource: state.sexList
       }
@@ -75,9 +76,10 @@ const opts = computed(() => {
       placeholder: "请多选",
       span: 2,
       comp: "t-select",
+      isSelfCom: true,
       bind: {
-        valueKey: "id",
-        labelKey: "name",
+        valueCustom: "id",
+        labelCustom: "name",
         multiple: true,
         optionSource: state.multipleList
       }

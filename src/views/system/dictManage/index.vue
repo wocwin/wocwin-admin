@@ -135,6 +135,7 @@ const opts = computed(() => {
     status: {
       label: "状态",
       comp: "t-select",
+      isSelfCom: true,
       bind: {
         optionSource: state.listTypeInfo.statusList
       }

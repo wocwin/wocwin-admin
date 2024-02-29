@@ -56,3 +56,21 @@ export function logList(params: any) {
     params
   });
 }
+
+// 获取岗位
+export function getPost(params: any) {
+  return request({
+    url: "/sys/post",
+    method: "get",
+    params
+  });
+}
+
+// 获取角色
+export function getRoles(params: any) {
+  return request({
+    url: "/sys/roles",
+    method: "get",
+    params
+  });
+}

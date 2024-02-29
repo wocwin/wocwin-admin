@@ -6,6 +6,9 @@
       <el-tooltip content="暗黑模式切换" effect="dark" placement="top">
         <SwitchDark class="dark" />
       </el-tooltip>
+      <el-tooltip content="水印是否显示" effect="dark" placement="top">
+        <el-switch class="watermark" active-text="水印" v-model="isWatermark" />
+      </el-tooltip>
       <div class="login-left">
         <img class="login-left-img" src="@/assets/logo/login.png" alt="login" />
       </div>
@@ -67,7 +70,10 @@ import { getTimeState } from "@/utils";
 import { initDynamicRouter } from "@/router/modules/dynamicRouter";
 import { useTabsStore } from "@/store/modules/tabs";
 import { useKeepAliveStore } from "@/store/modules/keepAlive";
-
+import { storeToRefs } from "pinia";
+import { useGlobalStore } from "@/store/modules/global";
+const globalStore = useGlobalStore();
+const { isWatermark } = storeToRefs(globalStore);
 const tabStore = useTabsStore();
 const keepAliveStore = useKeepAliveStore();
 const userStore = useUserStore();
@@ -273,6 +279,11 @@ $count: 1400;
       position: absolute;
       top: 13px;
       right: 18px;
+    }
+    .watermark {
+      position: absolute;
+      top: 13px;
+      right: 128px;
     }
     .login-left {
       width: 660px;

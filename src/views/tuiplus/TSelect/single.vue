@@ -2,17 +2,18 @@
   <t-layout-page>
     <t-layout-page-item>
       <t-select
-        placeholder="请选择工序(单选)"
+        placeholder="请选择工序"
         v-model="selectVlaue"
         :optionSource="stepList"
-        valueKey="label"
+        valueCustom="label"
         @change="selectChange"
         width="200px"
       />
     </t-layout-page-item>
   </t-layout-page>
 </template>
-<script setup lang="ts">
+<script setup lang="ts" name="Single">
+import { ref } from "vue";
 const selectVlaue = ref<any>();
 const stepList = [
   { label: "开始" },

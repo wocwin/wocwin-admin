@@ -17,3 +17,11 @@ export function getCascaderList(params: any) {
     params
   });
 }
+// 用户编辑回显接口
+export function editUser(params: any) {
+  return request({
+    url: "/sys/user/edit",
+    method: "get",
+    params
+  });
+}

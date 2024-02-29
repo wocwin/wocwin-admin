@@ -70,7 +70,7 @@
       align-items: center;
       flex-wrap: wrap;
 
-      >div {
+      > div {
         flex: 0 calc(50% - 10px);
         height: 300px;
       }
@@ -82,7 +82,7 @@
       flex-wrap: wrap;
       margin-top: 15px;
 
-      >div {
+      > div {
         flex: 0 calc(33.33% - 10px);
         height: 300px;
       }
@@ -120,7 +120,7 @@
           height: 270px;
           position: relative;
 
-          >div {
+          > div {
             height: 270px;
           }
 
@@ -180,21 +180,21 @@
       position: relative;
     }
 
-    >div {
+    > div {
       flex: 0 calc(33.33% - 10px);
       height: 300px;
     }
 
     .access_type {
       position: absolute;
-      top: -135px;
-      left: 390px;
+      top: 1px;
+      right: 25px;
     }
 
     .access_type_user {
       position: absolute;
-      top: -135px;
-      right: 920px;
+      top: 1px;
+      right: 25px;
     }
   }
 
@@ -203,7 +203,7 @@
     align-items: center;
     flex-wrap: wrap;
 
-    >div {
+    > div {
       flex: 0 calc(50% - 10px);
       height: 300px;
     }
@@ -214,7 +214,7 @@
     align-items: center;
     flex-wrap: wrap;
 
-    >div {
+    > div {
       flex: 0 calc(33.33% - 10px);
       height: 300px;
     }
