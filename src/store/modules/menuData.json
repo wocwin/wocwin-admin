@@ -132,6 +132,20 @@
       }
     },
     {
+      "path": "/editor",
+      "name": "editor",
+      "component": "/editor/index",
+      "meta": {
+        "icon": "MessageBox",
+        "title": "富文本编辑器",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
+    },
+    {
       "path": "/auth",
       "name": "auth",
       "redirect": "/auth/menu",

@@ -13,7 +13,7 @@
             </div>
             <div class="flex-box flex-ver-v" style="margin-top: 5px">
               <a style="padding: 0 5px" href="https://github.com/vuejs/vue" target="_blank">
-                <img src="https://img.shields.io/badge/vue-3.2.47-brightgreen.svg" alt="vue3" />
+                <img src="https://img.shields.io/badge/vue-3.4.21-brightgreen.svg" alt="vue3" />
               </a>
               <a style="padding: 0 5px" href="https://github.com/vitejs/vite" target="_blank">
                 <img src="https://img.shields.io/badge/vite-4.3.9-brightgreen.svg" alt="vite4" />

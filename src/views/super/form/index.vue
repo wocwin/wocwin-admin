@@ -1,7 +1,7 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
+      <t-query-condition :opts="opts" @submit="conditionEnter" isExpansion />
     </t-layout-page-item>
     <t-layout-page-item>
       <t-table
@@ -92,30 +92,14 @@ const state: any = reactive({
   queryData: {
     userName: null, // 登录名
     nickName: null, // 用户状态
-    workshopNum: null,
+    postId: null,
+    postId1: null,
     phonenumber: null,
     date1: null,
     date: null
   },
   listTypeInfo: {
-    multipleList: [
-      {
-        name: "前纺一车间",
-        id: "W1"
-      },
-      {
-        name: "前纺二车间",
-        id: "W2"
-      },
-      {
-        name: "前纺三车间",
-        id: "W3"
-      },
-      {
-        name: "前纺四车间",
-        id: "W4"
-      }
-    ]
+    postOptions: [] // 岗位
   },
   table: {
     currentPage: 1,
@@ -330,18 +314,26 @@ const opts = computed(() => {
         isPickerOptions: true
       }
     },
-    workshopNum: {
-      label: "t-select使用",
-      placeholder: "请多选",
-      span: 2,
+    postId: {
+      label: "岗位",
+      defaultVal: null,
       comp: "t-select",
       isSelfCom: true,
       bind: {
-        valueCustom: "id",
-        labelCustom: "name",
-        multiple: true,
-        optionSource: state.listTypeInfo.multipleList
+        labelCustom: "postName",
+        valueCustom: "postId",
+        optionSource: state.listTypeInfo.postOptions
       }
+    },
+    postId1: {
+      label: "岗位22",
+      defaultVal: null,
+      comp: "el-select",
+      type: "select-arr",
+      list: "postOptions",
+      listTypeInfo: state.listTypeInfo,
+      arrLabel: "postName",
+      arrKey: "postId"
     },
     date: {
       label: "创建时间",
@@ -353,13 +345,15 @@ const opts = computed(() => {
     }
   };
 });
+
 // 最终参数获取
 const getQueryData = computed(() => {
-  const { userName, nickName, date, date1, workshopNum, phonenumber } = toRefs(state.queryData);
+  const { userName, nickName, date, date1, postId, postId1, phonenumber } = toRefs(state.queryData);
   return {
     userName: userName.value,
     nickName: nickName.value,
-    workshopNum: workshopNum.value,
+    postId: postId.value,
+    postId1: postId1.value,
     phonenumber: phonenumber.value,
     date1: date1.value,
     beginDate: date.value && date.value[0] ? date.value[0] : null,
@@ -403,6 +397,9 @@ const getPost = async () => {
   const res = await proxy.$api.getPost();
   if (res.success) {
     state.postOptions = res.data;
+    state.listTypeInfo.postOptions = res.data;
+    opts.value.postId.defaultVal = res.data[0].postId;
+    opts.value.postId1.defaultVal = res.data[0].postId;
     formOpts.fieldList.forEach((item: any) => {
       if (item.value === "postId") {
         item.bind.optionSource = res.data;
