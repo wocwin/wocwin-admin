@@ -1511,6 +1511,50 @@
           ]
         },
         {
+          "path": "/assembly/t-step-wizard",
+          "name": "TStepWizard",
+          "redirect": "/assembly/t-step-wizard/index",
+          "meta": {
+            "icon": "MessageBox",
+            "title": "步骤组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          },
+          "children": [
+            {
+              "path": "/assembly/t-step-wizard/index",
+              "name": "baseTDetail",
+              "component": "/tuiplus/TStepWizard/index",
+              "meta": {
+                "icon": "Menu",
+                "title": "基本使用",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            },
+            {
+              "path": "/assembly/t-step-wizard/demo",
+              "name": "borderTDetail",
+              "component": "/tuiplus/TStepWizard/demo",
+              "meta": {
+                "icon": "Menu",
+                "title": "element页面",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true
+              }
+            }
+          ]
+        },
+        {
           "path": "/assembly/draggable",
           "name": "draggable",
           "component": "/tuiplus/draggable/index",
