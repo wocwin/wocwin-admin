@@ -61,6 +61,11 @@ const edit = async (row: any) => {
       let formData = res.data;
       console.log("编辑接口数据返回", formData);
       formOpts.formData = formData;
+      formOpts.fieldList.map((item: any) => {
+        if (item.value === "deptCode") {
+          item.bind.defaultSelectVal = formData.deptCode;
+        }
+      });
     });
   }
 };
@@ -163,6 +168,14 @@ const handleEvent = (type: any, val: any) => {
       break;
   }
 };
+const tableData = ref([]);
+// 获取下拉选择表格数据
+const getSelectTableList = async () => {
+  const res = await proxy.$api.getSelectTableList();
+  if (res.success) {
+    tableData.value = res?.data.rows;
+  }
+};
 const handleAdd = () => {
   console.log("点击新增");
   addDialog.value = true;
@@ -176,6 +189,11 @@ const handleAdd = () => {
   if (!formOpts.rules.password) {
     formOpts.rules.password = rulesPassword;
   }
+  formOpts.fieldList.map((item: any) => {
+    if (item.value === "deptCode") {
+      item.bind.defaultSelectVal = null;
+    }
+  });
   nextTick(() => {
     formOpts?.ref?.resetFields();
     setTimeout(() => {
@@ -194,6 +212,7 @@ const formOpts: any = reactive({
     postId: null, // 岗位
     email: null, // 邮箱
     phonenumber: null, // 手机
+    deptCode: null, // 下拉选择表格
     roleIds: null, // 角色
     remark: null, // 备注
     status: true // 状态
@@ -244,6 +263,32 @@ const formOpts: any = reactive({
         options: []
       }
     },
+    {
+      label: "用户名称",
+      value: "deptCode",
+      placeholder: "t-select-table单选使用",
+      comp: "t-select-table",
+      isSelfCom: true,
+      bind: {
+        isKeyup: true,
+        maxHeight: 400,
+        selectWidth: 500,
+        defaultSelectVal: null,
+        keywords: { label: "userName", value: "userId" },
+        table: { data: tableData },
+        columns: [
+          { prop: "userName", label: "登录名", minWidth: "120" },
+          { prop: "nickName", label: "插槽使用", minWidth: "120" },
+          { prop: "deptName", label: "部门", minWidth: "120" },
+          { prop: "roleName", label: "角色", minWidth: "120" },
+          { prop: "descript", label: "描述", minWidth: "180" },
+          { prop: "createTime", label: "创建时间", minWidth: "180" }
+        ]
+      },
+      eventHandle: {
+        radioChange: (val: any) => radioChange(val)
+      }
+    },
     { label: "备注", value: "remark", type: "input", comp: "el-input", widthSize: 1 }
   ],
   rules: {
@@ -252,6 +297,7 @@ const formOpts: any = reactive({
     nickName: [{ required: true, message: "请输入姓名", trigger: "blur" }],
     deptId: [{ required: true, message: "请选择部门", trigger: "change" }],
     power: [{ required: true, message: "请选择功率", trigger: "change" }],
+    deptCode: [{ required: true, message: "请选择用户名称", trigger: "change" }],
     roleIds: [{ required: true, message: "请选择角色", trigger: "change" }],
     email: [
       {
@@ -279,6 +325,10 @@ const formOpts: any = reactive({
     ]
   }
 });
+const radioChange = (row: any) => {
+  console.log("下拉选择表格-单选", row);
+  formOpts.formData.deptCode = row.id;
+};
 // 弹窗确定提交
 const addConfirm = () => {
   formOpts.ref.validate((valid: any) => {
@@ -376,6 +426,7 @@ const selectionChange = (data: any[]) => {
 };
 onMounted(() => {
   getData();
+  getSelectTableList();
   treeselect();
   getPost();
   getRoles();
