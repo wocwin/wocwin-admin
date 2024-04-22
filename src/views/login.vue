@@ -88,9 +88,9 @@ const loginRules = reactive({
   password: [{ required: true, trigger: "blur", message: "密码不能为空" }]
 });
 // 获取cookie中记录用户信息
-const username = Cookies.get("username");
-const password = Cookies.get("password");
-const rememberMe = Cookies.get("rememberMe");
+const username = Cookies.get("wocwinUsername");
+const password = Cookies.get("wocwinPassword");
+const rememberMe = Cookies.get("wocwinRememberMe");
 loginForm.username = username ? username : loginForm.username;
 loginForm.password = password ? decrypt(password) : loginForm.password;
 loginForm.rememberMe = rememberMe ? Boolean(rememberMe) : false;
@@ -106,17 +106,17 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
     if (!valid) return;
     loading.value = true;
     if (loginForm.rememberMe) {
-      Cookies.set("username", loginForm.username, { expires: 30 });
-      Cookies.set("password", encrypt(loginForm.password), {
+      Cookies.set("wocwinUsername", loginForm.username, { expires: 30 });
+      Cookies.set("wocwinPassword", encrypt(loginForm.password), {
         expires: 30
       });
-      Cookies.set("rememberMe", String(loginForm.rememberMe), {
+      Cookies.set("wocwinRememberMe", String(loginForm.rememberMe), {
         expires: 30
       });
     } else {
-      Cookies.remove("username");
-      Cookies.remove("password");
-      Cookies.remove("rememberMe");
+      Cookies.remove("wocwinUsername");
+      Cookies.remove("wocwinPassword");
+      Cookies.remove("wocwinRememberMe");
     }
     userStore
       .Login(loginForm)
