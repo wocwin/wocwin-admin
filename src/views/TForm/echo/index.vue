@@ -8,7 +8,7 @@
             :columns="table.columns"
             :max-height="400"
             placeholder="使用下拉选择表格组件"
-            :defaultSelectVal="formOpts.formData.wechat"
+            :defaultSelectVal="[formOpts.formData.wechat]"
             :keywords="{ label: 'name', value: 'id' }"
             @radio-change="radioChange"
           ></t-select-table>

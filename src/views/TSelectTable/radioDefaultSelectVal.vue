@@ -5,7 +5,7 @@
         :table="table"
         :columns="table.columns"
         :max-height="400"
-        :defaultSelectVal="2"
+        :defaultSelectVal="[2]"
         :keywords="{ label: 'name', value: 'id' }"
         @radio-change="radioChange"
       ></t-select-table>

@@ -9,6 +9,7 @@
         @radio-change="radioChange"
         :tableWidth="1000"
         isShowQuery
+        isClearQuery
         :opts="opts"
         @submit="conditionEnter"
       ></t-select-table>
