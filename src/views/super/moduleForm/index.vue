@@ -1,19 +1,51 @@
 <template>
-  <t-layout-page>
-    <t-layout-page-item>
-      模块表单组件待完善 <el-button type="primary" @click="toDetail('edit')">编辑页面</el-button>
-      <el-button type="primary" @click="toDetail('detail')">详情页面</el-button></t-layout-page-item
-    >
-  </t-layout-page>
+  <t-adaptive-page
+    :opts="opts"
+    @submit="conditionEnter"
+    title="模块表单组件列表"
+    isCopy
+    isExpansion
+    :table="state.table"
+    :columns="state.table.columns"
+    :isPaginationCumulative="isPaginationCumulative"
+    @selection-change="selectionChange"
+    @size-change="handlesSizeChange"
+    @page-change="handlesCurrentChange"
+  >
+    <template #toolbar>
+      <el-button type="primary" @click="handleTableAdd">{{
+        state.table.firstColumn ? "清除复选序列号" : "新增复选序列号"
+      }}</el-button>
+      <el-button type="primary" @click="isPaginationCumulative = !isPaginationCumulative"
+        >序列号翻页{{ !isPaginationCumulative ? "累加" : "不累加" }}</el-button
+      >
+      <el-button type="primary" @click="handleAdd">新增</el-button>
+    </template>
+  </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="moduleFormDemo">
-const router = useRouter();
-const toDetail = (type: string) => {
-  console.log(`/t-ui-plus/module-form/${type}`);
-  router.push({
-    path: `/t-ui-plus/module-form/${type}`,
-    query: { type }
-  });
-};
+import { useAdaptivePage } from "./useAdaptivePage";
+const {
+  handlesSizeChange,
+  handlesCurrentChange,
+  getData,
+  getPost,
+  getRoles,
+  treeselect,
+  selectionChange,
+  conditionEnter,
+  handleAdd,
+  handleTableAdd,
+  state,
+  opts
+} = useAdaptivePage();
+const isPaginationCumulative = ref(false);
+
+onMounted(() => {
+  getData();
+  treeselect();
+  getPost();
+  getRoles();
+});
 </script>

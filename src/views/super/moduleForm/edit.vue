@@ -1,7 +1,13 @@
 <template>
   <t-layout-page class="t_module_form_demo">
     <t-layout-page-item isNoMargin>
-      <t-module-form title="模块表单组件编辑" ref="sourceForm" :formOpts="formOpts" :submit="submit">
+      <t-module-form
+        title="模块表单组件编辑"
+        ref="sourceForm"
+        :formOpts="formOpts"
+        :submit="submit"
+        @validate-error="validateError"
+      >
         <template #footer>
           <el-button type="primary" @click="clearValidate">清除校验</el-button>
           <el-button type="primary" @click="resetForm">重置</el-button>
@@ -12,22 +18,13 @@
   </t-layout-page>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ElMessage } from "element-plus";
 // 获取ref
 const sourceForm: any = ref<HTMLElement | null>(null);
 // 第一种：获取最终form表单数据
 const submit = (form: any) => {
   console.log("最终提交数据", form);
 };
-// 第二种：获取最终form表单数据-->显示loading
-// const submit = (form) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(form)
-//       console.log('最终提交数据', form)
-//     }, 1000)
-//   })
-// }
 // 重置表单
 const resetForm = () => {
   console.log("重置表单");
@@ -37,6 +34,14 @@ const resetForm = () => {
 const clearValidate = () => {
   console.log("清除校验");
   sourceForm.value.clearValidate();
+};
+// 校验失败抛出事件
+const validateError = (e: any) => {
+  for (let n in e) {
+    setTimeout(() => {
+      ElMessage.error(`${formOpts[n].title}存在错误,请检查输入是否正确`);
+    }, 200);
+  }
 };
 const save = () => {
   console.log("点击保存", sourceForm.value);
@@ -50,7 +55,6 @@ const formOpts: any = reactive({
     opts: {
       labelPosition: "top",
       formData: {
-        id: `${Math.floor(Math.random() * 10 + 1)}`, // *唯一ID
         account: null, // *用户账号
         password: null, // *用户密码
         name: null, // *用户昵称
@@ -111,10 +115,7 @@ const formOpts: any = reactive({
         }
       ],
       rules: {
-        account: [
-          { required: true, message: "请输入账号", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ],
+        account: [{ required: true, message: "请输入账号", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }],
         name: [{ required: true, message: "请输入昵称", trigger: "blur" }],
         sex: [{ required: true, message: "请选择性别", trigger: "change" }],
@@ -158,6 +159,7 @@ const formOpts: any = reactive({
     title: "运费信息",
     name: "freight",
     opts: {
+      labelPosition: "top",
       formData: {
         phone: null, // 手机号码
         createDate: null, // 创建时间
@@ -177,19 +179,6 @@ const formOpts: any = reactive({
           bind: { maxlength: 11 }
         },
         {
-          label: "element日期",
-          value: "valDate",
-          type: "daterange",
-          comp: "el-date-picker",
-          widthSize: 2,
-          bind: {
-            rangeSeparator: "-",
-            startPlaceholder: "开始日期",
-            endPlaceholder: "结束日期",
-            valueFormat: "YYYY-MM-DD"
-          }
-        },
-        {
           label: "创建时间",
           value: "createDate",
           type: "year",
@@ -205,6 +194,19 @@ const formOpts: any = reactive({
           type: "inputNumber",
           bind: { controls: false, min: 2, max: 99 },
           comp: "el-input-number"
+        },
+        {
+          label: "element日期",
+          value: "valDate",
+          type: "daterange",
+          comp: "el-date-picker",
+          widthSize: 2,
+          bind: {
+            rangeSeparator: "-",
+            startPlaceholder: "开始日期",
+            endPlaceholder: "结束日期",
+            valueFormat: "YYYY-MM-DD"
+          }
         },
         {
           label: "描述",

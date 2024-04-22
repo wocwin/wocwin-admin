@@ -42,7 +42,7 @@ onBeforeUnmount(() => {
   editor.destroy();
 });
 
-const handleCreated = editor => {
+const handleCreated = (editor: any) => {
   console.log("handleCreated--", editor);
   editorRef.value = editor; // 记录 editor 实例，重要！
 };
