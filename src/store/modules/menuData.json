@@ -289,7 +289,69 @@
             "isFull": false,
             "isAffix": false,
             "isKeepAlive": true
-          }
+          },
+          "children": [
+            {
+              "path": "/t-ui-plus/table/singleEdit",
+              "name": "singleEditDemo",
+              "component": "/super/table/singleEdit",
+              "meta": {
+                "icon": "Menu",
+                "title": "单元格编辑",
+                "isLink": "",
+                "isHide": true,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/super/table"
+              }
+            },
+            {
+              "path": "/t-ui-plus/table/multileHeadEdit",
+              "name": "multileHeadEditDemo",
+              "component": "/super/table/multileHeadEdit",
+              "meta": {
+                "icon": "Menu",
+                "title": "多级表头单元格编辑",
+                "isLink": "",
+                "isHide": true,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/super/table"
+              }
+            },
+            {
+              "path": "/t-ui-plus/table/singleEditRules",
+              "name": "singleEditRulesDemo",
+              "component": "/super/table/singleEditRules",
+              "meta": {
+                "icon": "Menu",
+                "title": "单元格编辑规则校验",
+                "isLink": "",
+                "isHide": true,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/super/table"
+              }
+            },
+            {
+              "path": "/t-ui-plus/table/treeTable",
+              "name": "treeTableDemo",
+              "component": "/super/table/treeTable",
+              "meta": {
+                "icon": "Menu",
+                "title": "Tree-Table",
+                "isLink": "",
+                "isHide": true,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/super/table"
+              }
+            }
+          ]
         }
       ]
     },

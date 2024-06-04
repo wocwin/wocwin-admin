@@ -208,7 +208,8 @@ const opts = computed(() => {
       comp: "t-date-picker",
       span: 2,
       bind: {
-        type: "datetimerange"
+        type: "datetimerange",
+        isPickerOptions: true
       }
     }
   };
