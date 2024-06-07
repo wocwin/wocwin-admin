@@ -2,7 +2,7 @@
   <t-adaptive-page
     :opts="opts"
     @submit="conditionEnter"
-    title="模块表单组件列表"
+    table-title="模块表单组件列表(禁用登录名不为2个字符的复选框)"
     isCopy
     isExpansion
     :table="state.table"

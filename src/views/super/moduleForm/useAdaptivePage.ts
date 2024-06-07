@@ -35,6 +35,11 @@ export function useAdaptivePage() {
         });
       });
   };
+  // 是否禁用复选框
+  const checkSelectable = (row: any) => {
+    // console.log("是否禁用", row);
+    return row.userName.length == 2;
+  };
   const state: any = reactive({
     deptOptions: [], // 左侧tree
     postOptions: [], // 岗位
@@ -55,6 +60,7 @@ export function useAdaptivePage() {
       currentPage: 1,
       pageSize: 10,
       total: 0,
+      firstColumn: [{ type: "selection", fixed: true, bind: { selectable: checkSelectable } }, { type: "index" }],
       // 接口返回数据
       data: [],
       // 表头数据
