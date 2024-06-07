@@ -12,7 +12,6 @@
         isShowFooterBtn
         @save="singleSave"
         @handle-event="handleEvent"
-        
       >
         <template #toolbar>
           <div class="add_data">
