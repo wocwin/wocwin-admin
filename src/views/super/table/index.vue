@@ -1,19 +1,17 @@
 <template>
-  <t-layout-page>
-    <t-adaptive-page
-      table-title="多级表头"
-      :opts="opts"
-      @submit="conditionEnter"
-      isCopy
-      :table="state.table"
-      :columns="state.table.columns"
-      @selection-change="selectionChange"
-      @size-change="handlesSizeChange"
-      @page-change="handlesCurrentChange"
-    >
-      <template #operName="{ scope }">{{ scope.row.operName }}</template>
-    </t-adaptive-page>
-  </t-layout-page>
+  <t-adaptive-page
+    table-title="多级表头"
+    :opts="opts"
+    @submit="conditionEnter"
+    isCopy
+    :table="state.table"
+    :columns="state.table.columns"
+    @selection-change="selectionChange"
+    @size-change="handlesSizeChange"
+    @page-change="handlesCurrentChange"
+  >
+    <template #operName="{ scope }">{{ scope.row.operName }}</template>
+  </t-adaptive-page>
 </template>
 
 <script setup lang="tsx" name="complexTableDemo">
@@ -170,25 +168,14 @@ const state: any = reactive({
         prop: "operatorType",
         label: "操作类别",
         minWidth: 160,
+        // （0其它 1后台用户 2手机端用户）
         render: (text: any) => {
-          // （0其它 1后台用户 2手机端用户）
-          let val = "";
-          let type = "";
-          switch (text) {
-            case 0:
-              val = "其它";
-              type = "danger";
-              break;
-            case 1:
-              val = "后台用户";
-              type = "success";
-              break;
-            case 2:
-              val = "手机端用户";
-              type = "";
-              break;
-          }
-          return <el-tag type={type}>{val}</el-tag>;
+          const typeMap: any = {
+            0: { name: "其它", type: "danger" },
+            1: { name: "后台用户", type: "success" },
+            2: { name: "手机端用户", type: "" }
+          };
+          return <el-tag type={typeMap[text].type}>{typeMap[text].name}</el-tag>;
         }
       }
     ],
@@ -196,14 +183,7 @@ const state: any = reactive({
       {
         render: (text: any, row: any) => {
           return (
-            <el-button
-              color="#626aef"
-              type="primary"
-              link={true}
-              text={true}
-              size="small"
-              onClick={() => jumpPage(row, "singleEdit")}
-            >
+            <el-button type="primary" link={true} text={true} size="small" onClick={() => jumpPage(row, "singleEdit")}>
               常规表格单元格编辑
             </el-button>
           );
@@ -212,14 +192,7 @@ const state: any = reactive({
       {
         render: (text: any, row: any) => {
           return (
-            <el-button
-              color="#626aef"
-              type="primary"
-              link={true}
-              text={true}
-              size="small"
-              onClick={() => jumpPage(row, "multileHeadEdit")}
-            >
+            <el-button type="primary" link={true} text={true} size="small" onClick={() => jumpPage(row, "multileHeadEdit")}>
               多级表头单元格编辑
             </el-button>
           );
@@ -228,14 +201,7 @@ const state: any = reactive({
       {
         render: (text: any, row: any) => {
           return (
-            <el-button
-              color="#626aef"
-              type="primary"
-              link={true}
-              text={true}
-              size="small"
-              onClick={() => jumpPage(row, "singleEditRules")}
-            >
+            <el-button type="primary" link={true} text={true} size="small" onClick={() => jumpPage(row, "singleEditRules")}>
               单元格编辑规则校验
             </el-button>
           );
@@ -244,14 +210,7 @@ const state: any = reactive({
       {
         render: (text: any, row: any) => {
           return (
-            <el-button
-              color="#626aef"
-              type="primary"
-              link={true}
-              text={true}
-              size="small"
-              onClick={() => jumpPage(row, "treeTable")}
-            >
+            <el-button type="primary" link={true} text={true} size="small" onClick={() => jumpPage(row, "treeTable")}>
               Tree-Table
             </el-button>
           );
