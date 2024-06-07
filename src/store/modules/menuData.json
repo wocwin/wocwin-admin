@@ -279,8 +279,8 @@
         },
         {
           "path": "/t-ui-plus/table",
-          "name": "tableDemo",
-          "component": "/super/table/index",
+          "name": "TuiPlusTableDemo",
+          "redirect": "/t-ui-plus/table/multilevelHeader",
           "meta": {
             "icon": "Menu",
             "title": "复杂Table页面",
@@ -292,6 +292,21 @@
           },
           "children": [
             {
+              "path": "/t-ui-plus/table/multilevelHeader",
+              "name": "baseDemo",
+              "component": "/super/table/index",
+              "meta": {
+                "icon": "Menu",
+                "title": "多级表头",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/super/table"
+              }
+            },
+            {
               "path": "/t-ui-plus/table/singleEdit",
               "name": "singleEditDemo",
               "component": "/super/table/singleEdit",
@@ -299,7 +314,7 @@
                 "icon": "Menu",
                 "title": "单元格编辑",
                 "isLink": "",
-                "isHide": true,
+                "isHide": false,
                 "isFull": false,
                 "isAffix": false,
                 "isKeepAlive": true,
@@ -314,7 +329,7 @@
                 "icon": "Menu",
                 "title": "多级表头单元格编辑",
                 "isLink": "",
-                "isHide": true,
+                "isHide": false,
                 "isFull": false,
                 "isAffix": false,
                 "isKeepAlive": true,
@@ -329,7 +344,7 @@
                 "icon": "Menu",
                 "title": "单元格编辑规则校验",
                 "isLink": "",
-                "isHide": true,
+                "isHide": false,
                 "isFull": false,
                 "isAffix": false,
                 "isKeepAlive": true,

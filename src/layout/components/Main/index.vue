@@ -72,13 +72,6 @@ onBeforeUnmount(() => {
   padding: 0;
   overflow-x: hidden;
   background-color: var(--el-bg-color-page);
-  :deep(.t_layout_page_item) {
-    margin: 0;
-    margin-bottom: 8px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
 .el-footer {
   height: auto;
