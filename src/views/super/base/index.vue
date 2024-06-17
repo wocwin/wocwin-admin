@@ -7,6 +7,8 @@
       <t-table
         title="常规页面列表"
         isCopy
+        columnSetting
+        name="baseTableDemo"
         :table="state.table"
         :columns="state.table.columns"
         @selection-change="selectionChange"
