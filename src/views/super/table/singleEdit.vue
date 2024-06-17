@@ -18,6 +18,7 @@
             <el-input-number v-model="num" clearable placeholder="请输入追加条数"></el-input-number>
             <el-button type="primary" @click="add">追加{{ num ? num : "" }}条数据</el-button>
           </div>
+          <el-button type="primary" v-if="state.table.data.length > 0" @click="reset">重置表单</el-button>
           <el-button type="primary" v-if="state.table.data.length > 0" @click="save">另一种获取table数据</el-button>
         </template>
       </t-table>
@@ -33,6 +34,10 @@ const save = () => {
   singleEdit.value.saveMethod((data: any) => {
     console.log("调用方法获取返回数据---saveMethod", data);
   });
+};
+// 重置表单
+const reset = () => {
+  singleEdit.value.resetFields();
 };
 // 添加数据
 const add = () => {
