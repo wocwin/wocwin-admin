@@ -215,6 +215,15 @@ const state: any = reactive({
             </el-button>
           );
         }
+      },
+      {
+        render: (text: any, row: any) => {
+          return (
+            <el-button type="primary" link={true} text={true} size="small" onClick={() => jumpPage(row, "cellEdite")}>
+              单元格单独编辑
+            </el-button>
+          );
+        }
       }
     ],
     // 操作列样式

@@ -293,7 +293,7 @@
           "children": [
             {
               "path": "/t-ui-plus/table/multilevelHeader",
-              "name": "baseDemo",
+              "name": "multilevelHeader",
               "component": "/super/table/index",
               "meta": {
                 "icon": "Menu",
@@ -313,6 +313,21 @@
               "meta": {
                 "icon": "Menu",
                 "title": "单元格编辑",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": true,
+                "activeMenu": "/super/table"
+              }
+            },
+            {
+              "path": "/t-ui-plus/table/cellEdite",
+              "name": "cellEditeDemo",
+              "component": "/super/table/cellEdite",
+              "meta": {
+                "icon": "Menu",
+                "title": "单元格单独编辑",
                 "isLink": "",
                 "isHide": false,
                 "isFull": false,
@@ -359,7 +374,7 @@
                 "icon": "Menu",
                 "title": "Tree-Table",
                 "isLink": "",
-                "isHide": true,
+                "isHide": false,
                 "isFull": false,
                 "isAffix": false,
                 "isKeepAlive": true,

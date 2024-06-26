@@ -25,3 +25,12 @@ export function editUser(params: any) {
     params
   });
 }
+
+// 列表
+export function getList(params: any) {
+  return request({
+    url: "/tui/List",
+    method: "get",
+    params
+  });
+}
