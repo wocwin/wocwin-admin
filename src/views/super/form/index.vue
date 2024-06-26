@@ -15,19 +15,6 @@
         :isShowWidthSize="isShowWidthSize"
         :widthSize="widthSize"
       >
-        <template #disabledDate="{ param }">
-          <el-date-picker
-            v-model="param.disabledDate"
-            type="daterange"
-            range-separator="-"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            format="YYYY-MM-DD"
-            value-format="YYYY-MM-DD"
-            :disabled-date="disabledDate"
-            @calendar-change="calendarChange"
-          />
-        </template>
         <template #querybar>
           <el-button type="danger" @click="isShowWidthSize = !isShowWidthSize"
             >{{ isShowWidthSize ? "关闭" : "开启" }}每行展示多少项</el-button
@@ -241,7 +228,14 @@ const opts: any = ref({
       return <label style="color:red">禁用时间</label>;
     },
     span: 2,
-    slotName: "disabledDate"
+    comp: "t-date-picker",
+    bind: {
+      type: "daterange",
+      "disabled-date": disabledDate
+    },
+    eventHandle: {
+      calendarChange: (val: any) => calendarChange(val)
+    }
   },
   date: {
     label: "创建时间",
