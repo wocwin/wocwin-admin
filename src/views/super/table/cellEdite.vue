@@ -84,7 +84,7 @@ const edit = (row: any) => {
   });
 };
 // 生产设备选择
-const equipmentChange = ({ val, scope }) => {
+const equipmentChange = ({ val, scope }: any) => {
   state.table.listTypeInfo.equipmentList.map((item: any) => {
     if (item.equipmentCode == val) {
       scope.row.equipmentName = item.equipmentName;
@@ -149,7 +149,7 @@ const state: any = reactive({
             };
           },
           eventHandle: {
-            change: val => equipmentChange(val)
+            change: (val: any) => equipmentChange(val)
           }
         }
       },

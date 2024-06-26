@@ -44,7 +44,7 @@ import TIcon from "../../system/menuMange/TIcon.vue";
 import useApi from "@/hooks/useApi";
 
 const { proxy } = useApi();
-const TreeTableRef = ref<HTMLElement | null>(null);
+const TreeTableRef: any = ref<HTMLElement | null>(null);
 // 选择复选框
 const selectionChange = (val: any) => {
   console.log("选择复选框", val);
@@ -70,7 +70,7 @@ const isSelectRow = ref(false);
 const toggleSelection = (rows?: any) => {
   isSelectRow.value = !isSelectRow.value;
   if (rows) {
-    rows.forEach(row => {
+    rows.forEach((row: any) => {
       TreeTableRef.value?.toggleRowSelection(row, isSelectRow.value);
       TreeTableRef.value?.toggleRowExpansion(row, isSelectRow.value);
     });
