@@ -1,0 +1,1 @@
+import{e,_ as o,o as s,P as n,Q as r,R as t}from"./@vue_runtime-core@3.2.47-c6dbaf88.js";const a=e({...e({name:"TIcon"}),props:{icon:{type:String,required:!0}},setup:e=>(a,c)=>{const i=o("el-icon");return s(),n(i,null,{default:r((()=>[(s(),n(t(e.icon)))])),_:1})}});export{a as _};

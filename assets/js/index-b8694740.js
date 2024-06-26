@@ -1,0 +1,5 @@
+import{e,_ as a,o as l,P as t,Q as r,c as o}from"./@vue_runtime-core@3.2.47-c6dbaf88.js";import{r as u,j as p,u as s}from"./@vue_reactivity@3.2.47-57d9983b.js";import"./@vue_shared@3.2.47-177e1703.js";const n=e({__name:"index",setup(e){const n=u(null),m=p({ref:null,formData:{account:null,
+// *用户账号
+password:null,
+// *用户密码
+name:null},fieldList:[{label:"账号",value:"account",placeholder:"账号设置isTrim，不去除前后空格",type:"input",comp:"el-input",isTrim:!0},{label:"密码",placeholder:"type为password，不去除前后空格",value:"password",type:"password",comp:"el-input",bind:{"show-password":!0}},{label:"昵称",value:"name",placeholder:"默认el-input去除前后空格",type:"input",comp:"el-input"}],operatorList:[{label:"提交",type:"danger",fun:()=>{m.ref.validate((e=>{}))}},{label:"重置",type:"primary",fun:()=>{m.formData={},n.value.clearValidate()}}]});return(e,u)=>{const p=a("t-form"),i=a("t-layout-page-item"),d=a("t-layout-page");return l(),t(d,null,{default:r((()=>[o(i,null,{default:r((()=>[o(p,{ref_key:"TFormDemo",ref:n,modelValue:s(m).ref,"onUpdate:modelValue":u[0]||(u[0]=e=>s(m).ref=e),formOpts:s(m)},null,8,["modelValue","formOpts"])])),_:1})])),_:1})}}});export{n as default};
