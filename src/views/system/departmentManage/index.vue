@@ -12,7 +12,6 @@
     :isShowPagination="false"
     :opts="opts"
     @submit="conditionEnter"
-    height="100%"
   >
     <template #toolbar>
       <el-button @click="downloadTemplate" v-hasPermi="'root:web:sys:dept:download'">下载模板</el-button>

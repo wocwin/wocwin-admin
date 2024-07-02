@@ -9,7 +9,6 @@
     @page-change="handlesCurrentChange"
     :opts="opts"
     @submit="conditionEnter"
-    height="100%"
   >
     <template #toolbar>
       <el-button type="primary">清空</el-button>
