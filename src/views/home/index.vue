@@ -32,7 +32,7 @@
         </el-card>
       </div>
     </t-layout-page-item>
-    <t-layout-page-item>
+    <t-layout-page-item style="display: flex; align-items: center">
       <div>
         当前登陆账号是：{{
           loginName === "user"
@@ -40,6 +40,7 @@
             : `${loginName}（即：超管账号）`
         }}
       </div>
+      <el-button type="danger" @click="handleRecordScreen">点击录制屏幕</el-button>
     </t-layout-page-item>
     <t-layout-page-item>
       <!-- Echarts 图表 -->
@@ -74,6 +75,34 @@ const { appContext } = getCurrentInstance() as any;
 const global = appContext.config.globalProperties;
 // 获取所有业务api接口
 console.log("获取所有业务api接口", global.$api);
+// 录制屏幕
+const handleRecordScreen = async () => {
+  const stream = await navigator.mediaDevices.getDisplayMedia({
+    video: true,
+    audio: true
+  });
+  console.log("stream", stream);
+  let chunks: BlobPart[] | undefined = [];
+  const recorder = new MediaRecorder(stream);
+  recorder.addEventListener("dataavailable", e => {
+    chunks.push(e.data);
+  });
+  recorder.addEventListener("stop", () => {
+    const blob = new Blob(chunks, { type: "video/mp4" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = url;
+    a.download = "test.mp4";
+    a.click();
+    a.remove();
+    // URL.revokeObjectURL(url);
+  });
+  recorder.start();
+  // setTimeout(() => {
+  //   recorder.stop();
+  // }, 3000);
+};
 </script>
 
 <style lang="scss" scoped>
