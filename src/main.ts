@@ -83,7 +83,11 @@ function render(props: any = {}) {
   console.log("开始加载相关内容");
 }
 renderWithQiankun({
-  mount(props: any) {
+  async mount(props: any) {
+    await props.onGlobalStateChange((state: any) => {
+      console.log("子应用接收的参数", state);
+      state.publicPath && window.localStorage.setItem("mainJumpPublicPath", state.publicPath);
+    }, true);
     render(props);
   },
   bootstrap() {
