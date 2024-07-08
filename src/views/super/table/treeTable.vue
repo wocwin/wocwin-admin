@@ -16,18 +16,6 @@
     @submit="conditionEnter"
     @selection-change="selectionChange"
   >
-    <template #title>
-      <el-alert :closable="false" type="success">
-        <template #title>
-          <div style="display: flex; align-items: center">
-            <div>{{ state.ids.length ? `已选择${state.ids.length}条数据` : "未选中任何记录" }}</div>
-            <el-button style="margin-left: 10px" type="primary" link :disabled="state.ids.length < 1" @click="cancelSelect"
-              >取消</el-button
-            >
-          </div>
-        </template>
-      </el-alert>
-    </template>
     <template #toolbar>
       <el-button size="default" type="danger" @click="toggleSelection([state.table.data[1], state.table.data[2]])"
         >{{ !isSelectRow ? "点击选中" : "点击取消" }}第二第三项</el-button
@@ -36,6 +24,16 @@
       <el-button size="default" type="primary" @click="expandRow(6, true)">展开第七行</el-button>
       <el-button size="default" type="primary" @click="expandRow(6, false)">收起第七行</el-button>
     </template>
+    <el-alert :closable="false" type="success">
+      <template #title>
+        <div style="display: flex; align-items: center">
+          <div>{{ state.ids.length ? `已选择${state.ids.length}条数据` : "未选中任何记录" }}</div>
+          <el-button style="margin-left: 10px" type="primary" link :disabled="state.ids.length < 1" @click="cancelSelect"
+            >取消</el-button
+          >
+        </div>
+      </template>
+    </el-alert>
   </t-adaptive-page>
 </template>
 

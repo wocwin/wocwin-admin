@@ -4,6 +4,7 @@
     isCopy
     :table="state.table"
     :columns="state.table.columns"
+    isTTableSelfFilling
     @selection-change="selectionChange"
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"

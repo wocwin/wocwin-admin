@@ -5,6 +5,7 @@
     :table="state.table"
     :columns="state.table.columns"
     :opts="opts"
+    isTTableSelfFilling
     isPaginationCumulative
     :btnPermissions="btnPermissions"
     @size-change="handlesSizeChange"
