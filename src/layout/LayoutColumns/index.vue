@@ -95,7 +95,9 @@ const changeSubMenu = (item: Menu.MenuOptions) => {
   router.push(item.path);
 };
 const goIndex = () => {
-  window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? window.localStorage.getItem("mainJumpPublicPath") || "/" : "/wocwin-admin/";
+  window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__
+    ? window.localStorage.getItem("mainJumpPublicPath") || "/"
+    : "/wocwin-admin/";
 };
 </script>
 

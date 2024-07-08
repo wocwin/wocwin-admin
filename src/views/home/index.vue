@@ -82,7 +82,7 @@ const handleRecordScreen = async () => {
     audio: true
   });
   console.log("stream", stream);
-  let chunks: BlobPart[] | undefined = [];
+  let chunks: any = [];
   const recorder = new MediaRecorder(stream);
   recorder.addEventListener("dataavailable", e => {
     chunks.push(e.data);

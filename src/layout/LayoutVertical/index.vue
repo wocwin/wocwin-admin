@@ -48,7 +48,9 @@ const isCollapse = computed(() => globalStore.isCollapse);
 const menuList = computed(() => authStore.showMenuListGet);
 const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path) as string);
 const goIndex = () => {
-  window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__ ? window.localStorage.getItem("mainJumpPublicPath") || "/" : "/wocwin-admin/";
+  window.location.href = qiankunWindow.__POWERED_BY_QIANKUN__
+    ? window.localStorage.getItem("mainJumpPublicPath") || "/"
+    : "/wocwin-admin/";
 };
 </script>
 
