@@ -132,6 +132,20 @@
       }
     },
     {
+      "path": "/workflow",
+      "name": "workflow",
+      "component": "/workflow/index",
+      "meta": {
+        "icon": "DataAnalysis",
+        "title": "工作流",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
+    },
+    {
       "path": "/editor",
       "name": "editor",
       "component": "/editor/index",
