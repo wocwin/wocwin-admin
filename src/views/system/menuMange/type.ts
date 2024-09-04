@@ -26,7 +26,7 @@ export interface FormData {
   menuType: string;
   title: string | null;
   orderNum: number;
-  icon: string | null;
+  icon: string | undefined;
   isShowLink: boolean;
   isLink: string | null;
   isHide: boolean;

@@ -55,7 +55,7 @@ const formOpts = reactive<FormOpts>({
     menuType: "M", // 菜单类型
     title: null, // 菜单名称
     orderNum: 0, // 显示排序
-    icon: "", // 菜单图标
+    icon: undefined, // 菜单图标
     isShowLink: false, // 是否外链
     isLink: null, // 外链地址
     isHide: true, // 是否隐藏
@@ -291,7 +291,7 @@ const resetForm = () => {
     menuType: "M", // 菜单类型
     title: null, // 菜单名称
     orderNum: 0, // 显示排序
-    icon: null, // 菜单图标
+    icon: undefined, // 菜单图标
     isShowLink: false, // 是否外链
     isLink: null, // 外链地址
     isHide: true, // 是否隐藏
