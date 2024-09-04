@@ -2,10 +2,10 @@
   <t-layout-page>
     <t-layout-page-item>
       <el-radio-group v-model="widthSize" size="small" style="margin-bottom: 15px">
-        <el-radio-button :label="1">一行展示</el-radio-button>
-        <el-radio-button :label="2">一行展示2项</el-radio-button>
-        <el-radio-button :label="3">一行展示3项</el-radio-button>
-        <el-radio-button :label="4">一行展示4项</el-radio-button>
+        <el-radio-button :value="1">一行展示</el-radio-button>
+        <el-radio-button :value="2">一行展示2项</el-radio-button>
+        <el-radio-button :value="3">一行展示3项</el-radio-button>
+        <el-radio-button :value="4">一行展示4项</el-radio-button>
       </el-radio-group>
       <t-form ref="TFormDemo" v-model="formOpts.ref" :formOpts="formOpts" :widthSize="widthSize" />
     </t-layout-page-item>
@@ -14,7 +14,7 @@
 
 <script setup lang="tsx">
 import { ref, reactive } from "vue";
-const widthSize = ref(1);
+const widthSize = ref(2);
 // 获取ref
 const TFormDemo: any = ref<HTMLElement | null>(null);
 // 提交formOpts.ref 方式form表单

@@ -45,6 +45,8 @@ const opts = computed(() => {
       changeEvent: "change",
       type: "select-arr",
       list: "sexList",
+      arrLabel: "dictLabel",
+      arrKey: "dictValue",
       listTypeInfo: state.listTypeInfo
     },
     date1: {
