@@ -12,6 +12,7 @@ export function useFormData() {
   };
   const formOpts: any = reactive({
     ref: null,
+    labelPosition: "top",
     formData: {
       userName: null, // 登录账号
       password: null, // 登录密码
@@ -42,8 +43,7 @@ export function useFormData() {
           "show-all-levels": false,
           props: { children: "children", label: "label", value: "id" },
           options: []
-        },
-        widthSize: 1
+        }
       },
       {
         label: "岗位",
@@ -61,7 +61,6 @@ export function useFormData() {
       {
         label: "角色",
         value: "roleIds",
-        widthSize: 1,
         placeholder: "请选择角色",
         comp: "el-cascader",
         isSelfCom: true,
@@ -98,7 +97,7 @@ export function useFormData() {
           radioChange: (val: any) => radioChange(val)
         }
       },
-      { label: "备注", value: "remark", type: "input", comp: "el-input", widthSize: 1 }
+      { label: "备注", value: "remark", type: "input", comp: "el-input" }
     ],
     rules: {
       userName: [{ required: true, message: "请输入登录账号", trigger: "blur" }],

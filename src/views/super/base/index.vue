@@ -1,16 +1,23 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
-      <t-query-condition :opts="opts" @submit="conditionEnter" />
+      <t-query-condition
+        :opts="state.opts"
+        @submit="conditionEnter"
+        isDropDownSelectMore
+        :moreCheckList="moreCheckList"
+        @get-check-list="getChildCheck"
+      />
     </t-layout-page-item>
     <t-layout-page-item>
       <t-table
-        title="常规页面列表"
+        title="条件查询组件--以下拉方式展示更多条件(默认全部选中)"
         isCopy
         columnSetting
         name="baseTableDemo"
         :table="state.table"
         :columns="state.table.columns"
+        ref="toggleSelectionTableRef"
         @selection-change="selectionChange"
         @size-change="handlesSizeChange"
         @page-change="handlesCurrentChange"
@@ -25,8 +32,53 @@ const { proxy } = useApi();
 const details = () => {
   console.log("点击table内详情按钮");
 };
+const toggleSelectionTableRef: any = ref<HTMLElement | null>(null);
+const listTypeInfo: any = ref({
+  businessTypeList: [
+    {
+      label: "其他",
+      key: 0
+    },
+    {
+      label: "新增",
+      key: 1
+    },
+    {
+      label: "修改",
+      key: 2
+    },
+    {
+      label: "删除",
+      key: 3
+    }
+  ],
+  statusList: [
+    {
+      label: "正常",
+      key: 1
+    },
+    {
+      label: "异常",
+      key: 0
+    }
+  ],
+  workshopNumList: [
+    {
+      label: "前纺一车间",
+      value: "W1"
+    },
+    {
+      label: "前纺二车间",
+      value: "W2"
+    }
+  ],
+  sexList: []
+});
 const state: any = reactive({
   ids: [],
+  hobbyList: [],
+  // 选中的查询条件
+  checkQuery: {},
   queryData: {
     systemName: null, // 业务系统
     title: null, // 业务模块
@@ -35,35 +87,44 @@ const state: any = reactive({
     status: null, // 状态
     date: null // 操作时间
   },
-  listTypeInfo: {
-    businessTypeList: [
-      {
-        label: "其他",
-        key: 0
-      },
-      {
-        label: "新增",
-        key: 1
-      },
-      {
-        label: "修改",
-        key: 2
-      },
-      {
-        label: "删除",
-        key: 3
+  opts: {
+    systemName: {
+      label: "业务系统",
+      comp: "el-input"
+    },
+    title: {
+      label: "业务模块",
+      comp: "el-input"
+    },
+    operName: {
+      label: "操作人员",
+      comp: "el-input"
+    },
+    businessType: {
+      label: "操作类型",
+      comp: "t-select",
+      isSelfCom: true,
+      bind: {
+        optionSource: listTypeInfo.value.businessTypeList
       }
-    ],
-    statusList: [
-      {
-        label: "正常",
-        key: 1
-      },
-      {
-        label: "异常",
-        key: 0
+    },
+    status: {
+      label: "状态",
+      comp: "t-select",
+      isSelfCom: true,
+      bind: {
+        optionSource: listTypeInfo.value.statusList
       }
-    ]
+    },
+    date: {
+      label: "操作时间",
+      comp: "t-date-picker",
+      span: 2,
+      bind: {
+        type: "datetimerange",
+        isPickerOptions: true
+      }
+    }
   },
   table: {
     currentPage: 1,
@@ -174,67 +235,66 @@ const state: any = reactive({
     }
   }
 });
-
-const opts = computed(() => {
-  return {
-    systemName: {
-      label: "业务系统",
-      comp: "el-input"
+// 动态新增查询条件
+const moreCheckList = computed(() => {
+  return [
+    { label: "姓名", comp: "el-input", prop: "name" },
+    { label: "年龄", comp: "el-input", prop: "age" },
+    {
+      label: "性别",
+      comp: "el-select",
+      prop: "sex",
+      arrKey: "value",
+      type: "select-arr",
+      changeEvent: "change",
+      list: "sexList",
+      listTypeInfo: listTypeInfo.value
     },
-    title: {
-      label: "业务模块",
-      comp: "el-input"
-    },
-    operName: {
-      label: "操作人员",
-      comp: "el-input"
-    },
-    businessType: {
-      label: "操作类型",
+    {
+      label: "爱好",
       comp: "t-select",
-      isSelfCom: true,
-      bind: {
-        optionSource: state.listTypeInfo.businessTypeList
-      }
+      prop: "hobby",
+      bind: { multiple: true, optionSource: state.hobbyList, valueCustom: "value" },
+      isSelfCom: true
     },
-    status: {
-      label: "状态",
-      comp: "t-select",
-      isSelfCom: true,
-      bind: {
-        optionSource: state.listTypeInfo.statusList
-      }
-    },
-    date: {
-      label: "操作时间",
-      comp: "t-date-picker",
-      span: 2,
-      bind: {
-        type: "datetimerange",
-        isPickerOptions: true
-      }
+    { label: "合同号", comp: "el-input", prop: "contractNo" },
+    { label: "供应商", comp: "el-input", prop: "supplier" },
+    { label: "磅单号", comp: "el-input", prop: "balanceCode" },
+    { label: "车牌号", comp: "el-input", prop: "license" },
+    { label: "备注", comp: "el-input", prop: "remark" },
+    { label: "检验员", comp: "el-input", prop: "inspector" },
+    { label: "取样人", comp: "el-input", prop: "sampler" },
+    { label: "审核人", comp: "el-input", prop: "reviewer" },
+    { label: "其他检验项", comp: "el-input", prop: "physicsInspection" },
+    { label: "实际数量", comp: "el-input", prop: "factQuantity" }
+  ];
+});
+watch(
+  () => state.checkQuery,
+  (nval, oval) => {
+    // console.log("旧值", oval)
+    // console.log("新值", nval)
+    for (let i = 0; i < Object.keys(oval).length; i++) {
+      delete state.opts[Object.keys(oval)[i]];
     }
-  };
-});
-// 最终参数获取
-const getQueryData = computed(() => {
-  const { title, systemName, operName, businessType, status, date } = toRefs(state.queryData);
-  return {
-    title: title.value,
-    systemName: systemName.value,
-    operName: operName.value,
-    businessType: businessType.value,
-    status: status.value,
-    beginTime: date.value && date.value[0] ? date.value[0] : null,
-    endTime: date.value && date.value[1] ? date.value[1] : null,
-    pageNum: state.table.currentPage,
-    pageSize: state.table.pageSize
-  };
-});
+    state.opts = {
+      ...state.opts,
+      ...nval
+    };
+    for (let i = 0; i < Object.keys(state.opts).length; i++) {
+      state.queryData[Object.keys(state.opts)[i]] = null;
+    }
+  },
+  { deep: true }
+);
+// 获取选中的查询条件
+const getChildCheck = (val: any) => {
+  state.checkQuery = val;
+};
 // 点击查询按钮
 const conditionEnter = (data: any) => {
   state.queryData = data;
-  console.log("最终参数", getQueryData.value);
+  console.log("最终参数", state.queryData);
   getData();
 };
 // 复选框选中
@@ -243,15 +303,35 @@ const selectionChange = (data: any[]) => {
   state.ids = data.map((item: { operId: any }) => item.operId);
 };
 onMounted(() => {
+  getList();
   getData();
 });
 // 获取菜单数据
 const getData = async () => {
-  const res = await proxy.$api.logList(getQueryData.value);
+  const res = await proxy.$api.logList();
   if (res.success) {
-    state.table.data = res.data.rows;
+    const rows = res.data.rows;
+    state.table.data = rows;
+    nextTick(() => {
+      state.table.data.map((item: any) => {
+        toggleSelectionTableRef.value.toggleRowSelection(item, true);
+      });
+    });
     state.table.total = res.data.total;
   }
+};
+const getList = () => {
+  listTypeInfo.value.sexList = [
+    { label: "男", value: "1" },
+    { label: "女", value: "2" }
+  ];
+  state.hobbyList = [
+    { label: "吉他", value: "0" },
+    { label: "看书", value: "1" },
+    { label: "美剧", value: "2" },
+    { label: "旅游", value: "3" },
+    { label: "音乐", value: "4" }
+  ];
 };
 // 页面大小
 const handlesSizeChange = (val: any) => {
