@@ -47,8 +47,14 @@ git clone https://github.com/wocwin/wocwin-admin.git
 
 npm install pnpm -g
 
+
 # 安装依赖
-pnpm install
+pnpm install --registry=https://registry.npmjs.org/
+>pnpm config get registry 查看当前指向源
+
+# 如果安装依赖失败，可以尝试使用淘宝镜像
+>pnpm config set registry https://registry.npmmirror.com/ 切换淘宝镜像源
+>pnpm install
 
 # 启动服务
 pnpm serve
