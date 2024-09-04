@@ -25,7 +25,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue", ".mjs"]
     },
     define: {
-      __APP_INFO__: JSON.stringify(__APP_INFO__)
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
+      __VUE_PROD_DEVTOOLS__: true,
     },
     css: {
       preprocessorOptions: {
