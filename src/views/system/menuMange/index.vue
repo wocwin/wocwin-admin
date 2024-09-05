@@ -6,9 +6,9 @@
     isTree
     align="left"
     :btnPermissions="btnPermissions"
-    :table="state.table"
+    :table="table"
     :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-    :columns="state.table.columns"
+    :columns="table.columns"
     :isShowPagination="false"
     :opts="opts"
     @submit="conditionEnter"
@@ -18,11 +18,7 @@
       <el-button type="primary" @click="createHandle" v-hasPermi="'root:web:sys:menu:add'">新增菜单</el-button>
     </template>
     <el-dialog :title="title" width="70%" draggable v-model="addDialog">
-      <t-form v-model="formOpts.ref" :formOpts="formOpts" :widthSize="2" @handle-event="handleEvent">
-        <template #TSelectIcon>
-          <t-select-icon v-model="formOpts.formData.icon"></t-select-icon>
-        </template>
-      </t-form>
+      <t-form v-model="formOpts.ref" :formOpts="formOpts" :widthSize="2" @handle-event="handleEvent" />
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="addDialog = false">取消</el-button>
@@ -36,10 +32,9 @@
 <script setup lang="tsx" name="menuMange">
 import { ElMessageBox, ElMessage } from "element-plus";
 import { Warning } from "@element-plus/icons-vue";
-import { MenuOptions, FormOpts, TypeMap } from "./type";
+import { MenuOptions, TypeMap } from "./type";
 import TIcon from "./TIcon.vue";
 import useApi from "@/hooks/useApi";
-import TSelectIcon from "@/components/TSelectIcon/index.vue";
 import { useAuthStore } from "@/store/modules/auth";
 const authStore = useAuthStore();
 const btnPermissions = authStore.authButtonListGet;
@@ -48,7 +43,7 @@ const { proxy } = useApi();
 const title = ref("新增菜单");
 const addDialog = ref(false);
 const menuOptions = ref<MenuOptions[]>([]);
-const formOpts = reactive<FormOpts>({
+const formOpts = reactive<FormTypes.FormOpts>({
   ref: null,
   formData: {
     parentId: 0, // 上级菜单
@@ -58,7 +53,7 @@ const formOpts = reactive<FormOpts>({
     icon: undefined, // 菜单图标
     isShowLink: false, // 是否外链
     isLink: null, // 外链地址
-    isHide: true, // 是否隐藏
+    isHide: false, // 是否隐藏
     isFull: false, // 是否全屏
     isAffix: false, // 是否固定
     isKeepAlive: false, // 是否缓存
@@ -105,7 +100,7 @@ const formOpts = reactive<FormOpts>({
       comp: "el-input-number",
       bind: { "controls-position": "right", min: 0 }
     },
-    { label: "菜单图标", value: "icon", slotName: "TSelectIcon" },
+    { label: "菜单图标", value: "icon", comp: "t-select-icon", isSelfCom: true },
     { label: "是否外链", value: "isShowLink", type: "radio", list: "whetherList", comp: "el-radio-group", event: "isShowLink" },
     { label: "是否全屏", value: "isFull", type: "radio", list: "whetherList", comp: "el-radio-group" },
     {
@@ -171,19 +166,19 @@ const formOpts = reactive<FormOpts>({
       { label: "否", value: false }
     ],
     isHideList: [
-      { label: "显示", value: true },
-      { label: "隐藏", value: false }
+      { label: "隐藏", value: true },
+      { label: "显示", value: false }
     ],
     menuTypeList: [
       { label: "目录", value: "M" },
-      { label: "菜单", value: "C" },
-      { label: "按钮", value: "F" }
+      { label: "菜单", value: "C" }
+      // { label: "按钮", value: "F" }
     ]
   }
 });
 // 表单输入--触发change事件
 const handleEvent = (type: any, val: any) => {
-  // console.log("handleEvent", type, val);
+  console.log("handleEvent", type, val);
   if (type === "isShowLink") {
     formOpts.fieldList.map((item: { value: string; isHideItem: any }) => {
       if (item.value === "isLink") {
@@ -237,7 +232,7 @@ const edit = (row: any) => {
   const { parentId, menuType, label, orderNum, isShowLink, path, component, remark, meta } = row;
   const { fieldList } = formOpts;
   fieldList.forEach((item: { value: string; isHideItem: any }) => {
-    const shouldShow = menuType === "C" || isShowLink;
+    const shouldShow = (item.value === "component" && menuType === "C") || (item.value === "isLink" && isShowLink);
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;
     }
@@ -294,7 +289,7 @@ const resetForm = () => {
     icon: undefined, // 菜单图标
     isShowLink: false, // 是否外链
     isLink: null, // 外链地址
-    isHide: true, // 是否隐藏
+    isHide: false, // 是否隐藏
     isFull: false, // 是否全屏
     isAffix: false, // 是否固定
     isKeepAlive: false, // 是否缓存
@@ -310,71 +305,68 @@ const state: any = reactive({
   queryData: {
     title: null, // 菜单名称
     path: null // 菜单路径
-  },
-  table: {
-    // 接口返回数据
-    data: [],
-    // 表头数据
-    columns: [
-      {
-        label: "菜单名称",
-        render: (text: any, row: any) => {
-          return <div>{row.meta.title}</div>;
-        },
-        minWidth: 180
-      },
-      {
-        label: "菜单图标",
-        render: (text: any, row: any) => {
-          return <TIcon icon={row.meta.icon}></TIcon>;
-        },
-        minWidth: 80
-      },
-      {
-        prop: "menuType",
-        label: "菜单类型",
-        minWidth: 120,
-        render: (text: string) => {
-          const typeMap: TypeMap = {
-            M: { type: "info", val: "目录" },
-            C: { type: "success", val: "菜单" },
-            F: { type: "warning", val: "按钮" }
-          };
-          const { type, val } = typeMap[text] || {};
-          return <el-tag type={type}>{val}</el-tag>;
-        }
-      },
-      { prop: "name", label: "菜单 name", minWidth: 180 },
-      { prop: "path", label: "菜单路径", minWidth: 180 },
-      { prop: "component", label: "组件路径", minWidth: 180 }
-    ],
-    operator: [
-      {
-        text: "新增",
-        fun: handleAdd,
-        hasPermi: "root:web:sys:menu:add"
-      },
-      {
-        text: "编辑",
-        fun: edit,
-        hasPermi: "root:web:sys:menu:alter"
-      },
-      {
-        text: "删除",
-        fun: handleDelete,
-        hasPermi: "root:web:sys:menu:del"
-      }
-    ],
-    // 操作列样式
-    operatorConfig: {
-      fixed: "right", // 固定列表右边（left则固定在左边）
-      align: "left",
-      width: "160",
-      label: "操作"
-    }
   }
 });
-
+const table = reactive<TableTypes.Table>({
+  data: [],
+  columns: [
+    {
+      label: "菜单名称",
+      render: (text: any, row: any) => {
+        return <div>{row.meta.title}</div>;
+      },
+      minWidth: 180
+    },
+    {
+      label: "菜单图标",
+      render: (text: any, row: any) => {
+        return <TIcon icon={row.meta.icon}></TIcon>;
+      },
+      minWidth: 80
+    },
+    {
+      prop: "menuType",
+      label: "菜单类型",
+      minWidth: 120,
+      render: (text: string) => {
+        const typeMap: TypeMap = {
+          M: { type: "info", val: "目录" },
+          C: { type: "success", val: "菜单" },
+          F: { type: "warning", val: "按钮" }
+        };
+        const { type, val } = typeMap[text] || {};
+        return <el-tag type={type}>{val}</el-tag>;
+      }
+    },
+    { prop: "name", label: "菜单 name", minWidth: 180 },
+    { prop: "path", label: "菜单路径", minWidth: 180 },
+    { prop: "component", label: "组件路径", minWidth: 180 }
+  ],
+  operator: [
+    {
+      text: "新增",
+      fun: handleAdd,
+      hasPermi: "root:web:sys:menu:add"
+    },
+    {
+      text: "编辑",
+      fun: edit,
+      hasPermi: "root:web:sys:menu:alter"
+    },
+    {
+      text: "删除",
+      fun: handleDelete,
+      hasPermi: "root:web:sys:menu:del"
+    }
+  ],
+  // 操作列样式
+  operatorConfig: {
+    fixed: "right", // 固定列表右边（left则固定在左边）
+    align: "left",
+    width: "160",
+    label: "操作"
+  }
+});
 const opts = computed(() => {
   return {
     title: {
@@ -410,7 +402,7 @@ const getMenuData = async () => {
   const res = await proxy.$api.getRouters();
   console.log(999, res);
   if (res.success) {
-    state.table.data = res.data;
+    table.data = res.data;
     let arr = [];
     const menu = {
       parentId: 0,

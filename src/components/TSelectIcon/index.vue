@@ -3,18 +3,26 @@
     <el-input
       ref="inputRef"
       v-model="valueIcon"
-      :placeholder="placeholder"
-      :prefix-icon="Icons.Search"
-      v-bind="{ clearable: true, ...$attrs }"
+      v-bind="attrs"
       @clear="clearIcon"
-      @click="openDialog"
+      @click="
+        () => {
+          (dialogVisible = true), (inputValue = '');
+        }
+      "
     >
-      <template #append>
+      <template #append v-if="isShowIcon">
         <el-button :icon="customIcons[modelValue]" />
       </template>
     </el-input>
-    <el-dialog v-model="dialogVisible" :title="placeholder || '请选择图标'" draggable width="50%">
-      <el-input v-model="inputValue" placeholder="搜索图标" clearable :prefix-icon="Icons.Search" />
+    <el-dialog v-model="dialogVisible" :title="attrs.dialogTitle" draggable :width="attrs.width">
+      <el-input
+        v-model="inputValue"
+        v-if="isShowSearch"
+        :placeholder="attrs.searchPlaceholder"
+        clearable
+        :prefix-icon="Icons.Search"
+      />
       <el-scrollbar v-if="Object.keys(iconsList).length">
         <div class="icon-list">
           <div
@@ -29,13 +37,13 @@
           </div>
         </div>
       </el-scrollbar>
-      <el-empty description="未搜索到您要找的图标~" v-else />
+      <el-empty :description="attrs.emptyDescription" v-else />
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts" name="TSelectIcon">
-import { ref, computed } from "vue";
+import { ref, computed, useAttrs } from "vue";
 import * as Icons from "@element-plus/icons-vue";
 
 const props = defineProps({
@@ -43,12 +51,21 @@ const props = defineProps({
     type: String,
     default: ""
   },
-  placeholder: {
+  prefixIcon: {
     type: String,
-    default: "请选择图标"
+    default: "Search"
+  },
+  selectBind: Object,
+  isShowSearch: {
+    type: Boolean,
+    default: true
+  },
+  isShowIcon: {
+    type: Boolean,
+    default: true
   }
 });
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "select"]);
 // v-model简写
 let valueIcon = computed({
   get() {
@@ -59,16 +76,29 @@ let valueIcon = computed({
     emit("update:modelValue", val);
   }
 });
-
+const $attrs: any = useAttrs();
+const attrs = computed(() => {
+  const selectBind = {
+    "prefix-icon": customIcons[props.prefixIcon],
+    placeholder: "请选择图标",
+    dialogTitle: "请选择图标",
+    searchPlaceholder: "搜索图标",
+    emptyDescription: "未搜索到您要找的图标",
+    clearable: true,
+    width: "50%",
+    ...props.selectBind
+  };
+  return { ...$attrs, ...selectBind };
+});
 // open Dialog
 const dialogVisible = ref(false);
-const openDialog = () => (dialogVisible.value = true);
 
-// 选择图标(触发更新父组件数据)
+// 选择图标
 const selectIcon = (item: any) => {
   dialogVisible.value = false;
   valueIcon.value = item.name;
   emit("update:modelValue", item.name);
+  emit("select", item.name);
 };
 
 // 清空图标

@@ -41,6 +41,7 @@ import TuiPlus from "@wocwin/t-ui-plus";
 import "@wocwin/t-ui-plus/lib/style.css";
 // svg渲染
 import SvgIcon from "@/components/SvgIcon/index.vue";
+import TSelectIcon from "@/components/TSelectIcon/index.vue";
 /**
  * 配置qiankun
  */
@@ -78,6 +79,11 @@ function render(props: any = {}) {
     "SvgIcon",
     // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
     SvgIcon.default || SvgIcon
+  );
+  instance.component(
+    "TSelectIcon",
+    // 如果这个组件选项是通过 `export default` 导出的，那么就会优先使用 `.default`，否则回退到使用模块的根
+    TSelectIcon.default || TSelectIcon
   );
   instance?.mount(container ? container.querySelector("#app") : "#app");
   console.log("开始加载相关内容");
