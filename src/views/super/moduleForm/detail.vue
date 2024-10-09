@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from "vue";
 // 具体详情模块回显源
-const descData: any = reactive({
+const descData = reactive({
   goods: {
     name: "goods",
     title: "货品信息",
@@ -100,7 +100,7 @@ const descData: any = reactive({
   }
 });
 onMounted(() => {
-  const goodsData: any = {
+  const goodsData = {
     cargoName: "汽车总动员",
     cargoType: "玩具",
     cargoMoneyCentPerTon: "500",
@@ -111,7 +111,7 @@ onMounted(() => {
     cargoRemark: "汽车总动员备注"
   };
   descData.goods.data.map((val: { value: any; fieldName: string | number }) => {
-    val.value = goodsData[val.fieldName];
+    val.value = goodsData[val.fieldName as keyof typeof goodsData];
   });
 });
 </script>

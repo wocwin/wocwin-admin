@@ -10,7 +10,7 @@ export function useFormData() {
     }
     callback();
   };
-  const formOpts: any = reactive({
+  const formOpts = reactive<FormTypes.FormOpts>({
     ref: null,
     labelPosition: "top",
     formData: {
@@ -25,6 +25,7 @@ export function useFormData() {
       deptCode: null, // 下拉选择表格
       roleIds: null, // 角色
       remark: null, // 备注
+      date: null, // 日期
       status: true // 状态
     },
     fieldList: [
@@ -32,6 +33,12 @@ export function useFormData() {
       { label: "登录密码", value: "password", type: "input", comp: "el-input", bind: { "show-password": true } },
       { label: "姓名", value: "nickName", type: "input", comp: "el-input" },
       { label: "性别", value: "sex", type: "select-arr", list: "sexList", comp: "el-select", arrLabel: "label", arrKey: "key" },
+      {
+        label: "日期",
+        value: "date",
+        placeholder: "TDatePicker选择日期",
+        comp: "t-date-picker"
+      },
       {
         label: "部门",
         value: "deptId",
@@ -162,6 +169,7 @@ export function useFormData() {
       nextTick(() => {
         console.log("formOpts.ref", formOpts.ref);
         formOpts.ref.clearValidate();
+        res.data.date = "2024-09-06";
         let formData = res.data;
         formOpts.formData = formData;
         console.log("编辑接口数据返回", formData);

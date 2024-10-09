@@ -32,7 +32,7 @@
 <script setup lang="tsx" name="menuMange">
 import { ElMessageBox, ElMessage } from "element-plus";
 import { Warning } from "@element-plus/icons-vue";
-import { MenuOptions, TypeMap } from "./type";
+import { MenuOptions } from "./type";
 import TIcon from "./TIcon.vue";
 import useApi from "@/hooks/useApi";
 import { useAuthStore } from "@/store/modules/auth";
@@ -180,7 +180,7 @@ const formOpts = reactive<FormTypes.FormOpts>({
 const handleEvent = (type: any, val: any) => {
   console.log("handleEvent", type, val);
   if (type === "isShowLink") {
-    formOpts.fieldList.map((item: { value: string; isHideItem: any }) => {
+    formOpts.fieldList.map((item: { value: string; isHideItem?: boolean }) => {
       if (item.value === "isLink") {
         item.isHideItem = !val;
       }
@@ -190,7 +190,7 @@ const handleEvent = (type: any, val: any) => {
 // 菜单类型--change事件
 const menuTypeChange = (val: string) => {
   const shouldShowComponent = val === "C";
-  formOpts.fieldList.forEach((item: { value: string; isHideItem: any }) => {
+  formOpts.fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
     if (item.value === "component") {
       item.isHideItem = !shouldShowComponent;
     }
@@ -231,7 +231,7 @@ const edit = (row: any) => {
   title.value = "编辑菜单";
   const { parentId, menuType, label, orderNum, isShowLink, path, component, remark, meta } = row;
   const { fieldList } = formOpts;
-  fieldList.forEach((item: { value: string; isHideItem: any }) => {
+  fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
     const shouldShow = (item.value === "component" && menuType === "C") || (item.value === "isLink" && isShowLink);
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;
@@ -260,7 +260,7 @@ const handleAdd = (row: any) => {
   addDialog.value = true;
   title.value = "新增菜单";
   resetForm();
-  formOpts.fieldList.forEach((item: { value: string; isHideItem: any }) => {
+  formOpts.fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
     const shouldShow = formOpts.formData.menuType === "C" || formOpts.formData.isShowLink;
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;
@@ -273,7 +273,7 @@ const createHandle = () => {
   addDialog.value = true;
   title.value = "新增菜单";
   resetForm();
-  formOpts.fieldList.forEach((item: { value: string; isHideItem: any }) => {
+  formOpts.fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
     const shouldShow = formOpts.formData.menuType === "C" || formOpts.formData.isShowLink;
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;

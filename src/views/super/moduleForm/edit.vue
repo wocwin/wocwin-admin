@@ -39,7 +39,7 @@ const clearValidate = () => {
 const validateError = (e: any) => {
   for (let n in e) {
     setTimeout(() => {
-      ElMessage.error(`${formOpts[n].title}存在错误,请检查输入是否正确`);
+      ElMessage.error(`${formOpts[n as keyof typeof formOpts].title}存在错误,请检查输入是否正确`);
     }, 200);
   }
 };
@@ -47,7 +47,7 @@ const save = () => {
   console.log("点击保存", sourceForm.value);
   sourceForm.value.saveHandle();
 };
-const formOpts: any = reactive({
+const formOpts = reactive({
   goodsInformation: {
     title: "货品信息",
     name: "goodsInformation",

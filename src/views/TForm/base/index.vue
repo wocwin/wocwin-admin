@@ -42,7 +42,7 @@ const accountClear = () => {
 const accountBlur = (val: { type: any }) => {
   console.log("账号失焦事件", val.type);
 };
-const formOpts: any = reactive({
+const formOpts = reactive<FormTypes.FormOpts>({
   ref: null,
   formData: {
     account: null, // *用户账号
@@ -138,8 +138,8 @@ const formOpts: any = reactive({
     }
   ],
   operatorList: [
-    { label: "提交", type: "danger", fun: submitForm },
-    { label: "重置", type: "primary", fun: resetForm }
+    { label: "提交", bind: { type: "danger" }, fun: submitForm },
+    { label: "重置", bind: { type: "primary" }, fun: resetForm }
   ],
   // 相关列表
   listTypeInfo: {

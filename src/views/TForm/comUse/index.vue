@@ -76,7 +76,7 @@ const selectionChangeHandler = (row: any, ids: any) => {
   console.log("下拉选择表格--复选框", row, ids);
   formOpts.formData.createDeptCode = ids;
 };
-const formOpts: any = reactive({
+const formOpts = reactive<FormTypes.FormOpts>({
   ref: null,
   labelWidth: "140px",
   formData: {
@@ -188,8 +188,8 @@ const formOpts: any = reactive({
     }
   ],
   operatorList: [
-    { label: "提交", type: "danger", fun: submitForm },
-    { label: "重置", type: "primary", fun: resetForm }
+    { label: "提交", bind: { type: "danger" }, fun: submitForm },
+    { label: "重置", bind: { type: "primary" }, fun: resetForm }
   ]
 });
 </script>

@@ -5,17 +5,15 @@
     table-title="模块表单组件列表(禁用登录名不为2个字符的复选框)"
     isCopy
     isExpansion
-    :table="state.table"
-    :columns="state.table.columns"
+    :table="table"
+    :columns="table.columns"
     :isPaginationCumulative="isPaginationCumulative"
     @selection-change="selectionChange"
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"
   >
     <template #toolbar>
-      <el-button type="primary" @click="handleTableAdd">{{
-        state.table.firstColumn ? "清除复选序列号" : "新增复选序列号"
-      }}</el-button>
+      <el-button type="primary" @click="handleTableAdd">{{ table.firstColumn ? "清除复选序列号" : "新增复选序列号" }}</el-button>
       <el-button type="primary" @click="isPaginationCumulative = !isPaginationCumulative"
         >序列号翻页{{ !isPaginationCumulative ? "累加" : "不累加" }}</el-button
       >
@@ -33,11 +31,11 @@ const {
   getPost,
   getRoles,
   treeselect,
-  selectionChange,
   conditionEnter,
   handleAdd,
   handleTableAdd,
-  state,
+  selectionChange,
+  table,
   opts
 } = useAdaptivePage();
 const isPaginationCumulative = ref(false);

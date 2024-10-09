@@ -47,6 +47,6 @@ export interface FormOpts {
   listTypeInfo: any;
 }
 
-export interface TypeMap {
-  [key: string]: { type: string; val: string };
-}
+// export interface TypeMap {
+//   [key: string]: { type: string; val: string };
+// }

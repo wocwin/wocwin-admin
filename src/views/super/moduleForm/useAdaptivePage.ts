@@ -40,7 +40,8 @@ export function useAdaptivePage() {
     // console.log("是否禁用", row);
     return row.userName.length == 2;
   };
-  const state: any = reactive({
+  const state = reactive({
+    ids: [] as any[], // 复选框选中的id
     deptOptions: [], // 左侧tree
     postOptions: [], // 岗位
     rolesOptions: [], // 角色
@@ -55,51 +56,50 @@ export function useAdaptivePage() {
     },
     listTypeInfo: {
       postOptions: [] // 岗位
-    },
-    table: {
-      currentPage: 1,
-      pageSize: 10,
-      total: 0,
-      firstColumn: [{ type: "selection", fixed: true, bind: { selectable: checkSelectable } }, { type: "index" }],
-      // 接口返回数据
-      data: [],
-      // 表头数据
-      columns: [
-        { prop: "userName", label: "登录名", minWidth: "120" },
-        { prop: "nickName", label: "用户名", minWidth: "120" },
-        { prop: "deptName", label: "部门", minWidth: "120" },
-        { prop: "roleName", label: "角色", minWidth: "120" },
-        { prop: "descript", label: "描述", minWidth: "180" },
-        { prop: "createTime", label: "创建时间", minWidth: "180" }
-      ],
-      operator: [
-        {
-          text: "编辑",
-          fun: edit
-        },
-        {
-          text: "详情",
-          fun: onDetail
-        },
-        {
-          text: "删除",
-          fun: handleDelete
-        }
-      ],
-      // 操作列样式
-      operatorConfig: {
-        fixed: "right", // 固定列表右边（left则固定在左边）
-        width: 180,
-        label: "操作"
-      }
     }
   });
-
+  const table = ref<TableTypes.Table>({
+    currentPage: 1,
+    pageSize: 10,
+    total: 0,
+    firstColumn: [{ type: "selection", fixed: true, bind: { selectable: checkSelectable } }, { type: "index" }],
+    // 接口返回数据
+    data: [],
+    // 表头数据
+    columns: [
+      { prop: "userName", label: "登录名", minWidth: "120" },
+      { prop: "nickName", label: "用户名", minWidth: "120" },
+      { prop: "deptName", label: "部门", minWidth: "120" },
+      { prop: "roleName", label: "角色", minWidth: "120" },
+      { prop: "descript", label: "描述", minWidth: "180" },
+      { prop: "createTime", label: "创建时间", minWidth: "180" }
+    ],
+    operator: [
+      {
+        text: "编辑",
+        fun: edit
+      },
+      {
+        text: "详情",
+        fun: onDetail
+      },
+      {
+        text: "删除",
+        fun: handleDelete
+      }
+    ],
+    // 操作列样式
+    operatorConfig: {
+      fixed: "right", // 固定列表右边（left则固定在左边）
+      width: 180,
+      label: "操作"
+    }
+  });
   const handleTableAdd = () => {
-    if (state.table?.firstColumn) {
-      delete state.table.firstColumn;
+    if (table.value?.firstColumn) {
+      delete table.value.firstColumn;
     } else {
-      state.table.firstColumn = [{ type: "selection", fixed: true }, { type: "index" }];
+      table.value.firstColumn = [{ type: "selection", fixed: true, bind: { selectable: checkSelectable } }, { type: "index" }];
     }
   };
 
@@ -111,57 +111,55 @@ export function useAdaptivePage() {
     });
   };
 
-  const opts = computed(() => {
-    return {
-      userName: {
-        label: "登录名称",
-        comp: "el-input"
-      },
-      nickName: {
-        label: "姓名",
-        comp: "el-input"
-      },
-      phonenumber: {
-        label: "手机号码",
-        comp: "el-input"
-      },
-      date1: {
-        label: "日期组件使用",
-        comp: "t-date-picker",
-        bind: {
-          isPickerOptions: true
-        }
-      },
-      postId: {
-        label: "岗位",
-        defaultVal: null,
-        comp: "t-select",
-        isSelfCom: true,
-        bind: {
-          labelCustom: "postName",
-          valueCustom: "postId",
-          optionSource: state.listTypeInfo.postOptions
-        }
-      },
-      postId1: {
-        label: "岗位22",
-        defaultVal: null,
-        comp: "el-select",
-        type: "select-arr",
-        list: "postOptions",
-        listTypeInfo: state.listTypeInfo,
-        arrLabel: "postName",
-        arrKey: "postId"
-      },
-      date: {
-        label: "创建时间",
-        comp: "t-date-picker",
-        span: 2,
-        bind: {
-          type: "daterange"
-        }
+  const opts = ref<QueryTypes.Opts>({
+    userName: {
+      label: "登录名称",
+      comp: "el-input"
+    },
+    nickName: {
+      label: "姓名",
+      comp: "el-input"
+    },
+    phonenumber: {
+      label: "手机号码",
+      comp: "el-input"
+    },
+    date1: {
+      label: "日期组件使用",
+      comp: "t-date-picker",
+      bind: {
+        isPickerOptions: true
       }
-    };
+    },
+    postId: {
+      label: "岗位",
+      defaultVal: null,
+      comp: "t-select",
+      isSelfCom: true,
+      bind: {
+        labelCustom: "postName",
+        valueCustom: "postId",
+        optionSource: []
+      }
+    },
+    postId1: {
+      label: "岗位22",
+      defaultVal: null,
+      comp: "el-select",
+      type: "select-arr",
+      list: "postOptions",
+      listTypeInfo: state.listTypeInfo,
+      arrLabel: "postName",
+      arrKey: "postId"
+    },
+    date: {
+      label: "创建时间",
+      comp: "t-date-picker",
+      span: 2,
+      bind: {
+        type: "daterange"
+      }
+    }
   });
 
   // 最终参数获取
@@ -176,8 +174,8 @@ export function useAdaptivePage() {
       date1: date1.value,
       beginDate: date.value && date.value[0] ? date.value[0] : null,
       endDate: date.value && date.value[1] ? date.value[1] : null,
-      pageNum: state.table.currentPage,
-      pageSize: state.table.pageSize
+      pageNum: table.value.currentPage,
+      pageSize: table.value.pageSize
     };
   });
 
@@ -186,11 +184,6 @@ export function useAdaptivePage() {
     state.queryData = data;
     console.log("最终参数", getQueryData.value);
     getData();
-  };
-  // 复选框选中
-  const selectionChange = (data: any[]) => {
-    console.log("复选框选中", data);
-    state.ids = data.map((item: { operId: any }) => item.operId);
   };
   // 获取tree数据
   const treeselect = async () => {
@@ -204,6 +197,7 @@ export function useAdaptivePage() {
     const res = await proxy.$api.getPost();
     if (res.success) {
       state.postOptions = res.data;
+      opts.value.postId.bind.optionSource = res.data;
       state.listTypeInfo.postOptions = res.data;
       opts.value.postId.defaultVal = res.data[0].postId;
       opts.value.postId1.defaultVal = res.data[0].postId;
@@ -220,18 +214,23 @@ export function useAdaptivePage() {
   const getData = async () => {
     const res = await proxy.$api.userList(getQueryData.value);
     if (res.success) {
-      state.table.data = res.data.rows;
-      state.table.total = res.data.total;
+      table.value.data = res.data.rows;
+      table.value.total = res.data.total;
     }
+  };
+  // 复选框选中
+  const selectionChange = (data: any[]) => {
+    console.log("复选框选中", data);
+    state.ids = data.map((item: { userId: any }) => item.userId);
   };
   // 页面大小
   const handlesSizeChange = (val: any) => {
-    state.table.pageSize = val;
+    table.value.pageSize = val;
     getData();
   };
   // 页码
   const handlesCurrentChange = (val: any) => {
-    state.table.currentPage = val;
+    table.value.currentPage = val;
     getData();
   };
   return {
@@ -241,11 +240,12 @@ export function useAdaptivePage() {
     getPost,
     getRoles,
     treeselect,
-    selectionChange,
     conditionEnter,
     handleAdd,
     handleTableAdd,
+    selectionChange,
     state,
+    table,
     opts
   };
 }

@@ -25,8 +25,8 @@ const jumpPage = (row: any, type: String) => {
     query: { id: row.id }
   });
 };
-const state: any = reactive({
-  ids: [],
+const state = reactive({
+  ids: [] as any[],
   queryData: {
     systemName: null, // 业务系统
     title: null, // 业务模块
@@ -102,28 +102,14 @@ const state: any = reactive({
                 label: "操作类型",
                 minWidth: 80,
                 render: (text: any) => {
-                  // 0其它 1新增 2修改 3删除
-                  let type = "";
-                  let val = "";
-                  switch (text) {
-                    case 0:
-                      type = "info";
-                      val = "其它";
-                      break;
-                    case 1:
-                      type = "success";
-                      val = "新增";
-                      break;
-                    case 2:
-                      type = "warning";
-                      val = "修改";
-                      break;
-                    case 3:
-                      type = "danger";
-                      val = "删除";
-                      break;
-                  }
-                  return <el-tag type={type}>{val}</el-tag>;
+                  const typeMap: TypeMap = {
+                    0: { type: "info", label: "其它" },
+                    1: { type: "success", label: "新增" },
+                    2: { type: "warning", label: "修改" },
+                    3: { type: "danger", label: "删除" }
+                  };
+                  const { type, label } = typeMap[text] || { type: "info", label: "其它" };
+                  return <el-tag type={type}>{label}</el-tag>;
                 }
               },
               { prop: "requestMethod", label: "请求方式", minWidth: 120 },
@@ -146,20 +132,12 @@ const state: any = reactive({
         label: "操作状态",
         minWidth: 120,
         render: (text: any) => {
-          // （1正常 0异常）
-          let type = "";
-          let val = "";
-          switch (text) {
-            case true:
-              type = "success";
-              val = "正常";
-              break;
-            case false:
-              type = "danger";
-              val = "异常";
-              break;
-          }
-          return <el-tag type={type}>{val}</el-tag>;
+          const statusMap: TypeMap = {
+            true: { type: "success", label: "正常" },
+            false: { type: "danger", label: "异常" }
+          };
+          const { type, label } = statusMap[text] || { type: "info", label: "其它" };
+          return <el-tag type={type}>{label}</el-tag>;
         }
       },
       { prop: "operTime", label: "操作时间", minWidth: 180 },

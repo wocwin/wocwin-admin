@@ -4,9 +4,9 @@
     title="treeTable列表"
     row-key="path"
     isTree
-    :table="state.table"
+    :table="table"
     :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-    :columns="state.table.columns"
+    :columns="table.columns"
     :isShowPagination="false"
     :opts="opts"
     align="left"
@@ -17,7 +17,7 @@
     @selection-change="selectionChange"
   >
     <template #toolbar>
-      <el-button size="default" type="danger" @click="toggleSelection([state.table.data[1], state.table.data[2]])"
+      <el-button size="default" type="danger" @click="toggleSelection([table.data[1], table.data[2]])"
         >{{ !isSelectRow ? "点击选中" : "点击取消" }}第二第三项</el-button
       >
       <el-button size="default" type="primary" @click="expandAll">全部{{ !isExpandAll ? "展开" : "收起" }}</el-button>
@@ -42,7 +42,7 @@ import TIcon from "../../system/menuMange/TIcon.vue";
 import useApi from "@/hooks/useApi";
 
 const { proxy } = useApi();
-const TreeTableRef: any = ref<HTMLElement | null>(null);
+const TreeTableRef = ref<HTMLElement | any>(null);
 // 选择复选框
 const selectionChange = (val: any) => {
   console.log("选择复选框", val);
@@ -58,7 +58,7 @@ const expandAll = () => {
 };
 // 展开或收起第七行
 const expandRow = (index: number, isExpand: boolean) => {
-  const row = state.table.data[index];
+  const row = table.value.data[index];
   if (row) {
     TreeTableRef.value.toggleRowExpansion(row, isExpand);
   }
@@ -88,54 +88,53 @@ const cancelSelect = () => {
     TreeTableRef.value.clearSelection();
   }
 };
-const state: any = reactive({
-  ids: [],
+const state = reactive({
+  ids: [] as any[],
   queryData: {
     title: null, // 菜单名称
     path: null // 菜单路径
-  },
-  table: {
-    data: [],
-    firstColumn: { type: "selection", fixed: true },
-    columns: [
-      {
-        label: "菜单名称",
-        render: (text: any, row: any) => {
-          return <div>{row.meta.title}</div>;
-        },
-        minWidth: 180
-      },
-      {
-        label: "菜单图标",
-        render: (text: any, row: any) => {
-          return <TIcon icon={row.meta.icon}></TIcon>;
-        },
-        minWidth: 80
-      },
-      { prop: "name", label: "菜单 name", minWidth: 180 },
-      { prop: "path", label: "菜单路径", minWidth: 180 },
-      { prop: "component", label: "组件路径", minWidth: 180 }
-    ],
-    operator: [
-      {
-        text: "新增",
-        fun: handleAdd
-      },
-      {
-        text: "编辑",
-        fun: edit
-      }
-    ],
-    // 操作列样式
-    operatorConfig: {
-      fixed: "right", // 固定列表右边（left则固定在左边）
-      align: "left",
-      width: "160",
-      label: "操作"
-    }
   }
 });
-
+const table = ref<TableTypes.Table>({
+  data: [],
+  firstColumn: { type: "selection", fixed: true },
+  columns: [
+    {
+      label: "菜单名称",
+      render: (text: any, row: any) => {
+        return <div>{row.meta.title}</div>;
+      },
+      minWidth: 180
+    },
+    {
+      label: "菜单图标",
+      render: (text: any, row: any) => {
+        return <TIcon icon={row.meta.icon}></TIcon>;
+      },
+      minWidth: 80
+    },
+    { prop: "name", label: "菜单 name", minWidth: 180 },
+    { prop: "path", label: "菜单路径", minWidth: 180 },
+    { prop: "component", label: "组件路径", minWidth: 180 }
+  ],
+  operator: [
+    {
+      text: "新增",
+      fun: handleAdd
+    },
+    {
+      text: "编辑",
+      fun: edit
+    }
+  ],
+  // 操作列样式
+  operatorConfig: {
+    fixed: "right", // 固定列表右边（left则固定在左边）
+    align: "left",
+    width: "160",
+    label: "操作"
+  }
+});
 const opts = computed(() => {
   return {
     title: {
@@ -158,7 +157,6 @@ const getQueryData = computed(() => {
 });
 // 点击查询按钮
 const conditionEnter = (data: any) => {
-  console.log(1122, data);
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
 };
@@ -170,7 +168,7 @@ const getMenuData = async () => {
   const res = await proxy.$api.getRouters();
   // console.log(999, res);
   if (res.success) {
-    state.table.data = res.data;
+    table.value.data = res.data;
   }
 };
 </script>

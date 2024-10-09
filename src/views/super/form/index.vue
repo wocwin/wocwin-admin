@@ -27,8 +27,9 @@
       <t-table
         title="弹窗新增列表"
         isCopy
-        :table="state.table"
-        :columns="state.table.columns"
+        border
+        :table="table"
+        :columns="table.columns"
         :isPaginationCumulative="isPaginationCumulative"
         @selection-change="selectionChange"
         @size-change="handlesSizeChange"
@@ -36,10 +37,10 @@
       >
         <template #toolbar>
           <el-button type="primary" @click="handleTableAdd">
-            {{ state.table.firstColumn ? "清除序列号" : "新增序列号" }}
+            {{ table.firstColumn ? "清除复选序号列" : "新增复选序号列" }}
           </el-button>
           <el-button type="primary" @click="isPaginationCumulative = !isPaginationCumulative"
-            >序列号翻页{{ !isPaginationCumulative ? "累加" : "不累加" }}</el-button
+            >序号翻页{{ !isPaginationCumulative ? "累加" : "不累加" }}</el-button
           >
           <el-button type="primary" @click="handleAdd">新增</el-button>
         </template>
@@ -64,7 +65,7 @@ import useApi from "@/hooks/useApi";
 const { proxy } = useApi();
 const { formOpts, getSelectTableList, handleAdd, edit, handleEvent, addConfirm, addDialog, title } = useFormData();
 // 禁用日期（只能选择7天内）
-const firstChooseDate: any = ref("");
+const firstChooseDate = ref<number | any>();
 const disabledDate = (time: Date) => {
   if (firstChooseDate.value) {
     const timeRange = 1 * 24 * 60 * 60 * 1000; // 1天时间戳
@@ -106,7 +107,8 @@ const handleDelete = (row: any) => {
       });
     });
 };
-const state: any = reactive({
+const state = reactive({
+  ids: [] as any[], // 复选框
   deptOptions: [], // 左侧tree
   postOptions: [], // 岗位
   rolesOptions: [], // 角色
@@ -125,53 +127,52 @@ const state: any = reactive({
   },
   listTypeInfo: {
     postOptions: [] // 岗位
-  },
-  table: {
-    currentPage: 1,
-    pageSize: 10,
-    total: 0,
-    // 接口返回数据
-    data: [],
-    // 表头数据
-    columns: [
-      { prop: "userName", label: "登录名", minWidth: "120" },
-      { prop: "nickName", label: "用户名", minWidth: "120" },
-      { prop: "deptName", label: "部门", minWidth: "120" },
-      { prop: "roleName", label: "角色", minWidth: "120" },
-      { prop: "descript", label: "描述", minWidth: "180" },
-      { prop: "createTime", label: "创建时间", minWidth: "180" }
-    ],
-    operator: [
-      {
-        text: "编辑",
-        fun: edit
-      },
-      {
-        text: "重置密码",
-        fun: resetHandle
-      },
-      {
-        text: "删除",
-        fun: handleDelete
-      }
-    ],
-    // 操作列样式
-    operatorConfig: {
-      fixed: "right", // 固定列表右边（left则固定在左边）
-      width: 180,
-      label: "操作"
-    }
   }
 });
-
+const table = ref<TableTypes.Table>({
+  currentPage: 1,
+  pageSize: 10,
+  total: 0,
+  // 接口返回数据
+  data: [],
+  // 表头数据
+  columns: [
+    { prop: "userName", label: "登录名", minWidth: 80 },
+    { prop: "nickName", label: "用户名", minWidth: "80" },
+    { prop: "deptName", label: "部门", minWidth: "120" },
+    { prop: "roleName", label: "角色", minWidth: "120" },
+    { prop: "descript", label: "描述", minWidth: "180" },
+    { prop: "createTime", label: "创建时间", minWidth: "180" }
+  ],
+  operator: [
+    {
+      text: "编辑",
+      fun: edit
+    },
+    {
+      text: "重置密码",
+      fun: resetHandle
+    },
+    {
+      text: "删除",
+      fun: handleDelete
+    }
+  ],
+  // 操作列样式
+  operatorConfig: {
+    fixed: "right", // 固定列表右边（left则固定在左边）
+    width: 180,
+    label: "操作"
+  }
+});
 const handleTableAdd = () => {
-  if (state.table?.firstColumn) {
-    delete state.table.firstColumn;
+  if (table.value?.firstColumn) {
+    delete table.value.firstColumn;
   } else {
-    state.table.firstColumn = { type: "index", lable: "序列" };
+    table.value.firstColumn = [{ type: "selection", fixed: true }, { type: "index" }];
   }
 };
-const opts: any = ref({
+const opts = ref<QueryTypes.Opts>({
   userName: {
     label: "登录名称",
     comp: "el-input"
@@ -271,9 +272,6 @@ const handleBranchCode = (val: number) => {
       ...opts.value,
       ...add
     };
-    // Object.keys(add).forEach(key => {
-    //   state.queryData[key] = null;
-    // });
   } else {
     Object.keys(add).forEach(key => {
       delete opts.value[key];
@@ -282,8 +280,7 @@ const handleBranchCode = (val: number) => {
 };
 watch(
   () => state.queryData.postId2,
-  val => {
-    console.log("watch---val", val);
+  (val: any) => {
     handleBranchCode(val);
   },
   {
@@ -307,8 +304,8 @@ const getQueryData = computed(() => {
     end_time: disabledDate.value && disabledDate.value[1] ? disabledDate.value[1] : null,
     beginDate: date.value && date.value[0] ? date.value[0] : null,
     endDate: date.value && date.value[1] ? date.value[1] : null,
-    pageNum: state.table.currentPage,
-    pageSize: state.table.pageSize
+    pageNum: table.value.currentPage,
+    pageSize: table.value.pageSize
   };
 });
 
@@ -375,18 +372,18 @@ const getRoles = async () => {
 const getData = async () => {
   const res = await proxy.$api.userList(getQueryData.value);
   if (res.success) {
-    state.table.data = res.data.rows;
-    state.table.total = res.data.total;
+    table.value.data = res.data.rows;
+    table.value.total = res.data.total;
   }
 };
 // 页面大小
 const handlesSizeChange = (val: any) => {
-  state.table.pageSize = val;
+  table.value.pageSize = val;
   getData();
 };
 // 页码
 const handlesCurrentChange = (val: any) => {
-  state.table.currentPage = val;
+  table.value.currentPage = val;
   getData();
 };
 </script>
