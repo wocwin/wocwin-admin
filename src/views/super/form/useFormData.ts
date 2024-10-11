@@ -2,7 +2,12 @@ import useApi from "@/hooks/useApi";
 import { ElMessage } from "element-plus";
 export function useFormData() {
   const { proxy } = useApi();
-  const tableData = ref([]);
+  const table = ref({
+    total: 0,
+    currentPage: 1, // 当前页
+    pageSize: 10, // 每页条数
+    data: []
+  });
   // 邮箱校验
   const validatorEmail = (rule: { message: string | undefined }, value: string, callback: any) => {
     if (value && !/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(value)) {
@@ -86,11 +91,12 @@ export function useFormData() {
         isSelfCom: true,
         bind: {
           isKeyup: true,
+          isShowPagination: true,
           maxHeight: 400,
           selectWidth: 500,
           defaultSelectVal: [],
           keywords: { label: "userName", value: "userId" },
-          table: { data: tableData },
+          table: table,
           columns: [
             { prop: "userName", label: "登录名", minWidth: "120" },
             { prop: "nickName", label: "插槽使用", minWidth: "120" },
@@ -101,7 +107,8 @@ export function useFormData() {
           ]
         },
         eventHandle: {
-          radioChange: (val: any) => radioChange(val)
+          radioChange: (val: any) => radioChange(val),
+          "page-change": (val: any) => pageChange(val)
         }
       },
       { label: "备注", value: "remark", type: "input", comp: "el-input" }
@@ -144,8 +151,14 @@ export function useFormData() {
   const getSelectTableList = async () => {
     const res = await proxy.$api.getSelectTableList();
     if (res.success) {
-      tableData.value = res?.data.rows;
+      table.value.data = res?.data.rows;
+      table.value.total = res?.data.total;
     }
+  };
+  const pageChange = (page: any) => {
+    console.log("pageChange", page);
+    table.value.currentPage = page;
+    getSelectTableList();
   };
   const radioChange = (row: any) => {
     console.log("下拉选择表格-单选", row);
@@ -224,5 +237,5 @@ export function useFormData() {
   const handleEvent = (type: any, val: any) => {
     console.log("handleEvent", type, val);
   };
-  return { getSelectTableList, formOpts, tableData, handleAdd, edit, handleEvent, addConfirm, addDialog, title };
+  return { getSelectTableList, formOpts, handleAdd, edit, handleEvent, addConfirm, addDialog, title };
 }
