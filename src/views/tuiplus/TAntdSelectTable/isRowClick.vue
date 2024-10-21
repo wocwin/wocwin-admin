@@ -1,6 +1,10 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
+      <el-radio-group v-model="mode" size="small" style="margin-bottom: 15px">
+        <el-radio-button value="radio">单选</el-radio-button>
+        <el-radio-button value="multiple">多选</el-radio-button>
+      </el-radio-group>
       <t-antd-select-table
         ref="tantdselecttable"
         selectWidth="40%"
@@ -8,13 +12,15 @@
         :table="state.table"
         :columns="state.table.columns"
         :scroll="{ x: 2000, y: 400 }"
-        mode="multiple"
+        :mode="mode"
         isShowPagination
         :keywords="{ label: 'materialName', value: 'materialCode' }"
         @checked-change="checkedChange"
         :defaultSelectVal="state.defaultSelectVal"
         @change="tablePaginationChange"
-        placeholder="多选--分页"
+        disabledPorp="materialCode"
+        disabledValue="555"
+        placeholder="开启禁用模式，不支持点击整行选中"
       ></t-antd-select-table>
     </t-layout-page-item>
   </t-layout-page>
@@ -24,7 +30,8 @@ import TAntdSelectTable from "@/components/TAntdSelectTable/index.vue";
 import data from "./getData.json";
 import data1 from "./getData2.json";
 import { onMounted, reactive, ref } from "vue";
-const tantdselecttable: any = ref<HTMLElement | null>(null);
+const tantdselecttable = ref<HTMLElement | any>(null);
+const mode = ref("multiple");
 const state: any = reactive({
   selectVal: null,
   defaultSelectVal: [], // "02.21", "LONG02"
@@ -69,8 +76,12 @@ const getList = async (pageNum: number | undefined) => {
 };
 const tablePaginationChange = (pagination: { current: any; pageSize: any }) => {
   state.table.pagination.current = pagination?.current || 1; // 重新设置当前页
-  state.table.pagination.pageSize = pagination?.pageSize || 10;
+  state.table.pagination.pageSize = pagination?.pageSize || 20;
+  // console.log("tantdselecttable", tantdselecttable.value);
   getList(state.table.pagination.current);
+  setTimeout(() => {
+    tantdselecttable.value.openSelectDropdown();
+  }, 300);
 };
 
 onMounted(() => {

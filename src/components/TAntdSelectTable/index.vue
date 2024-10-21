@@ -1,50 +1,106 @@
 <template>
-  <a-select
-    ref="selectRef"
-    v-model:value="childSelectedValue"
-    class="t-antd-select-table"
-    dropdownClassName="t_antd_select_dropdown"
-    :style="`width:${typeof selectWidth === 'number' ? `${selectWidth}px` : `${selectWidth}`}`"
-    :mode="mode"
-    :open="open"
-    v-bind="selectAttr"
-    :value-key="keywords.value"
-    :filterOption="false"
-    @search="filterMethodHandle"
-    @dropdown-visible-change="visibleChange"
-    @deselect="removeTag"
-    @clear="clear"
-    @input-key-down="selectKeyup"
-  >
-    <template #notFoundContent>
-      <div class="t-table-select__table" :style="{ width: `${tableWidth}px` }">
-        <a-table
-          ref="selectTable"
-          :data-source="state.tableData"
-          :columns="columns"
-          bordered
-          :row-key="getRowKey"
-          :row-class-name="getRowClass"
-          :pagination="isShowPagination && table.pagination"
-          :row-selection="
-            rowSelection || {
-              selectedRowKeys: state.selectedRowKeys,
-              onChange: onSelectChange,
-              onSelectNone: onSelectNone,
-              type: mode === 'multiple' ? 'checkbox' : 'radio'
-            }
-          "
-          :customRow="rowClick"
-          v-bind="$attrs"
+  <div class="t-antd-select-table">
+    <a-select
+      ref="selectRef"
+      v-model:value="childSelectedValue"
+      popupClassName="t_antd_select_dropdown"
+      :style="`width:${typeof selectWidth === 'number' ? `${selectWidth}px` : `${selectWidth}`}`"
+      :mode="mode"
+      :open="open"
+      v-bind="selectAttr"
+      :value-key="keywords.value"
+      :filterOption="false"
+      @search="filterMethodHandle"
+      @dropdown-visible-change="visibleChange"
+      @deselect="removeTag"
+      @clear="clear"
+      @input-key-down="selectKeyup"
+    >
+      <template #notFoundContent>
+        <div class="t-table-select__table" :style="{ width: `${tableWidth}px` }">
+          <slot name="search"></slot>
+          <a-table
+            ref="selectTable"
+            :data-source="state.tableData"
+            :columns="columns"
+            bordered
+            :row-key="getRowKey"
+            :row-class-name="getRowClass"
+            :pagination="isShowPagination && table.pagination"
+            :row-selection="
+              rowSelection || {
+                selectedRowKeys: state.selectedRowKeys,
+                onChange: onSelectChange,
+                onSelectNone: onSelectNone,
+                getCheckboxProps: getCheckboxProps,
+                type: mode === 'multiple' ? 'checkbox' : 'radio'
+              }
+            "
+            :customRow="rowClick"
+            v-bind="$attrs"
+          >
+            <template #[item]="scope" v-for="item in slotsArr">
+              <slot :name="item" :scope="scope" v-bind="scope || {}"></slot>
+            </template>
+            <slot name="footer"></slot>
+          </a-table>
+          <slot />
+        </div>
+      </template>
+    </a-select>
+    <a-button v-if="isShowSelectBtn" @click="selectBtnClick" v-bind="btnBind">{{ btnBind.btnTxt }}</a-button>
+    <a-modal
+      v-model:open="openModal"
+      wrapClassName="t_select_modal"
+      v-bind="modalBind"
+      :title="modalBind.modalTxt"
+      @ok="handleOk"
+    >
+      <div class="modal_search">
+        <div class="search_label">{{ inputBind.searchTxt }}：</div>
+        <a-input
+          :placeholder="`请输入${inputBind.searchTxt}`"
+          v-bind="inputBind"
+          :style="{ width: inputBind.inputWidth }"
+          v-model:value="searchModalValue"
+          @change="searchModalChange"
         >
-          <template #[item]="scope" v-for="item in renderArr">
+          <template #[item]="scope" v-for="item in slotsArr">
             <slot :name="item" :scope="scope" v-bind="scope || {}"></slot>
           </template>
-          <slot></slot>
-        </a-table>
+        </a-input>
       </div>
-    </template>
-  </a-select>
+      <a-table
+        ref="selectTable"
+        :data-source="state.tableData"
+        :columns="columns"
+        bordered
+        :row-key="getRowKey"
+        :row-class-name="getRowClass"
+        :pagination="isShowPagination && table.pagination"
+        :row-selection="
+          rowSelection || {
+            selectedRowKeys: state.selectedRowKeys,
+            onChange: onSelectChange,
+            onSelectNone: onSelectNone,
+            getCheckboxProps: getCheckboxProps,
+            preserveSelectedRowKeys: preserveSelectedRowKeys,
+            type: mode === 'multiple' ? 'checkbox' : 'radio'
+          }
+        "
+        :customRow="rowClick"
+        v-bind="$attrs"
+      >
+        <template #[item]="scope" v-for="item in slotsArr">
+          <slot :name="item" :scope="scope" v-bind="scope || {}"></slot>
+        </template>
+        <slot></slot>
+      </a-table>
+      <template #[item]="scope" v-for="item in slotsArr">
+        <slot :name="item" :scope="scope" v-bind="scope || {}"></slot>
+      </template>
+    </a-modal>
+  </div>
 </template>
 <script lang="ts">
 export default {
@@ -69,11 +125,12 @@ const props = defineProps({
     type: Array as unknown as any[],
     default: () => []
   },
-  // 单选框--是否开启点击整行选中
-  rowClickRadio: {
+  // 是否开启点击整行选中
+  isRowClick: {
     type: Boolean,
     default: true
   },
+
   // 列表项是否可选择
   rowSelection: {
     type: Object
@@ -105,16 +162,49 @@ const props = defineProps({
   // select宽度
   selectWidth: {
     type: [String, Number],
-    default: 200
+    default: "100%"
   },
   // table宽度
   tableWidth: {
     type: Number,
     default: 550
   },
-  // 设置默认选中项--keywords.value值（单选是String, Number类型；多选时是数组）
+  // 设置默认选中项--keywords.value值
   defaultSelectVal: {
     type: Array as unknown as any[]
+  },
+  // 当数据被删除时仍然保留选项的 key
+  preserveSelectedRowKeys: {
+    type: Boolean,
+    default: false
+  },
+  // 是否显示选择按钮
+  isShowSelectBtn: {
+    type: Boolean,
+    default: false
+  },
+  // 选择按钮属性设置
+  btnSetBind: {
+    type: Object,
+    default: () => {}
+  },
+  // 弹窗属性设置
+  modalSetBind: {
+    type: Object,
+    default: () => {}
+  },
+  // 弹窗搜索配置
+  inputSetBind: {
+    type: Object,
+    default: () => {}
+  },
+  // 禁用的属性
+  disabledPorp: {
+    type: String
+  },
+  // 禁用的值
+  disabledValue: {
+    type: [String, Number]
   }
 });
 
@@ -126,8 +216,28 @@ const selectAttr = computed(() => {
     ...useAttrs()
   };
 });
+// 选择按钮配置
+const btnBind = computed(() => {
+  const btnSetBind = { btnTxt: "选择", modalTxt: "选择", ...props.btnSetBind };
+  return { size: "middle", ...btnSetBind };
+});
+// 弹窗搜索配置
+const inputBind = computed(() => {
+  const inputSetBind = { searchTxt: "关键词", inputWidth: "40%", ...props.inputSetBind };
+  return { allowClear: true, ...inputSetBind };
+});
+// 选择弹窗配置
+const modalBind = computed(() => {
+  const modalSetBind = { modalTxt: "选择", ...props.modalSetBind };
+  return { cancelText: "取消", okText: "确定", width: 700, ...modalSetBind };
+});
 const slots = useSlots();
-const renderArr = Object.keys(slots);
+const slotsArr = Object.keys(slots);
+const attrs: any = useAttrs();
+// 是否显示选择table弹窗
+const openModal = ref(false);
+// 弹窗搜索输入框值
+const searchModalValue = ref("");
 
 const isDefaultSelectVal = ref(true); // 是否已经重新选择了
 const open = ref(false);
@@ -139,11 +249,12 @@ const state: any = reactive({
   // 选中KEY
   selectedRowKeys: [] as (string | number)[],
   // 选中行
-  selectedRows: []
+  selectedRows: [],
+  rowClickSelected: props.isRowClick // 是否点击行选中
 });
 // 获取ref
-const selectRef: any = ref<HTMLElement | null>(null);
-const selectTable: any = ref<HTMLElement | null>(null);
+const selectRef = ref<HTMLElement | any>(null);
+const selectTable = ref<HTMLElement | any>(null);
 // 抛出事件
 const emits = defineEmits(["checkedChange", "update:modelValue"]);
 watch(
@@ -164,8 +275,8 @@ watch(
   },
   { deep: true }
 );
-// vue3 v-model简写
-let childSelectedValue = computed({
+// v-model方式
+const childSelectedValue = computed({
   get() {
     return props.modelValue;
   },
@@ -179,6 +290,10 @@ onMounted(() => {
   if (state.defaultSelectValue && isDefaultSelectVal.value) {
     // console.log("state.defaultSelectValue--", state.defaultSelectValue);
     defaultSelect(state.defaultSelectValue);
+  }
+  // 开启禁用模式，不支持点击整行选中
+  if (props.disabledPorp && props.disabledValue) {
+    state.rowClickSelected = false;
   }
 });
 // 单选or 多选
@@ -204,13 +319,17 @@ const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
     emits("checkedChange", state.selectedRowKeys, state.selectedRows);
   }, 10);
 };
-
+// 复选框禁用
+const getCheckboxProps = (record: any) => ({
+  disabled: props.disabledPorp && record[props.disabledPorp] === props.disabledValue
+});
 const rowClick = (record: { [x: string]: any }) => {
   return {
     // 鼠标单击行
     onClick: () => {
+      // console.log("鼠标单击行");
       if (props.mode !== "multiple") {
-        if (!props.rowClickRadio) return;
+        if (!state.rowClickSelected) return;
         // 单选
         const keys = [];
         const items = [];
@@ -218,6 +337,7 @@ const rowClick = (record: { [x: string]: any }) => {
         items.push(record);
         onSelectChange(keys, items);
       } else {
+        if (!state.rowClickSelected) return;
         // 多选
         const indexRow = state.selectedRowKeys.indexOf(record[props.keywords.value]);
         indexRow === -1 ? state.selectedRowKeys.push(record[props.keywords.value]) : state.selectedRowKeys.splice(indexRow, 1);
@@ -228,39 +348,40 @@ const rowClick = (record: { [x: string]: any }) => {
         }
         onSelectChange(state.selectedRowKeys, state.selectedRows);
       }
+    },
+    // 鼠标双击行
+    onDblclick: () => {
+      handleOk();
     }
   };
 };
 // 单选键盘事件
 const selectKeyup = (e: { keyCode: any }) => {
-  if (!(props.mode === "multiple")) {
-    if (!props.isKeyup) return;
-    if (state.tableData.length === 0) return;
-    switch (e.keyCode) {
+  if (props.mode !== "multiple" && props.isKeyup && state.tableData.length > 0) {
+    const { keyCode } = e;
+    const nextIndex = keyCode === 40 ? nowIndex.value + 1 : keyCode === 38 ? nowIndex.value - 1 : nowIndex.value;
+    const activeTableRow = state.tableData[nextIndex] || state.tableData[0];
+
+    switch (keyCode) {
       case 40: // 下键
-        if (state.tableData[nowIndex.value + 1] !== undefined) {
-          state.activeTableRow = state.tableData[nowIndex.value + 1];
-          nowIndex.value = nowIndex.value + 1;
-        } else {
-          nowIndex.value = 0;
-          state.activeTableRow = state.tableData[0];
-        }
-        break;
       case 38: // 上键
-        if (state.tableData[nowIndex.value - 1] !== undefined && nowIndex.value > 0) {
-          state.activeTableRow = state.tableData[nowIndex.value - 1];
-          nowIndex.value = nowIndex.value - 1;
-        } else {
-          nowIndex.value = 0;
-          state.activeTableRow = state.tableData[0];
+        nowIndex.value = nextIndex;
+        state.activeTableRow = activeTableRow;
+        // 键盘向上/下滚动条根据移动的选择区域而滚动
+        const headerHeight = selectTable.value.$el.querySelectorAll(".ant-table-header")[0]?.clientHeight || 0;
+        const attrsMaxHeight = attrs.scroll.y || 0;
+        const maxHeight = attrsMaxHeight ? attrsMaxHeight - headerHeight : 0;
+        const height = 55 * (nextIndex + 3);
+        const scrollTop = height > maxHeight ? height - maxHeight : 0;
+        const scrollContainer = selectTable.value.$el.querySelector(".ant-table-body");
+        if (scrollContainer) {
+          scrollContainer.scrollTop = scrollTop;
         }
         break;
       case 13: // 回车
-        if (state.tableData[nowIndex.value]) {
-          const keys = [];
-          const items = [];
-          keys.push(state.tableData[nowIndex.value][props.keywords.value]);
-          items.push(state.tableData[nowIndex.value]);
+        if (activeTableRow) {
+          const keys = [activeTableRow[props.keywords.value]];
+          const items = [activeTableRow];
           onSelectChange(keys, items);
         }
         break;
@@ -327,6 +448,11 @@ const defaultSelect = (defaultSelectVal: any[]) => {
 const getRowKey = (row: { [x: string]: any }) => {
   return row[props.keywords.value];
 };
+// 弹窗table搜索过滤
+const searchModalChange = (_e: any) => {
+  // console.log("searchModalChange", e.target.value, searchModalValue.value);
+  filterMethodHandle(searchModalValue.value);
+};
 // 搜索过滤
 const filterMethodHandle = (input: string) => {
   setTimeout(() => {
@@ -351,6 +477,7 @@ const filterMethodHandle = (input: string) => {
     }
   }, 0);
 };
+
 // 表格显示隐藏回调
 const visibleChange = (visible: boolean) => {
   // console.log("表格显示隐藏回调", visible);
@@ -384,6 +511,7 @@ const onSelectNone = () => {
   nextTick(() => {
     state.selectedRowKeys = [];
     state.selectedRows = [];
+    state.activeTableRow = {};
     childSelectedValue.value = [];
   });
 };
@@ -393,11 +521,8 @@ const clear = () => {
     onSelectNone();
   } else {
     console.log("单选");
-    nextTick(() => {
-      state.selectedRowKeys = [];
-      state.selectedRows = [];
-      state.activeTableRow = {};
-    });
+    emits("checkedChange", {}, null); // 取消勾选就把回传数据清除
+    onSelectNone();
   }
 };
 // 触发select隐藏
@@ -412,12 +537,30 @@ const focus = () => {
 const openSelectDropdown = () => {
   open.value = true;
 };
+// 点击选择按钮
+const selectBtnClick = () => {
+  console.log("点击选择按钮");
+  openModal.value = true;
+};
+// 弹窗点击确定
+const handleOk = () => {
+  console.log("弹窗点击确定");
+  openModal.value = false;
+  searchModalValue.value = "";
+};
+
 // 暴露方法出去
-defineExpose({ focus, blur, openSelectDropdown, state });
+defineExpose({ focus, blur, openSelectDropdown, clear, state, childSelectedValue });
 </script>
 
 <style lang="scss">
+.t-antd-select-table {
+  .ant-btn {
+    margin-left: 2px;
+  }
+}
 .t_antd_select_dropdown {
+  min-width: auto !important;
   .t-table-select__table {
     padding: 10px;
 
@@ -440,6 +583,37 @@ defineExpose({ focus, blur, openSelectDropdown, state });
   }
   .ant-pagination {
     flex-wrap: nowrap;
+  }
+}
+.t_select_modal {
+  .ant-modal-content {
+    padding: 10px 20px;
+    .ant-modal-body {
+      padding: 10px 0;
+      .modal_search {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        .search_label {
+          width: fit-content;
+        }
+        .ant-input-affix-wrapper {
+          margin-right: 10px;
+        }
+      }
+      .ant-table-body {
+        .ant-table-tbody {
+          .ant-table-row {
+            cursor: pointer;
+          }
+          .ant-table-row-selected,
+          .active-selected-row {
+            color: #409eff;
+            background-color: #ecf5ff;
+          }
+        }
+      }
+    }
   }
 }
 </style>

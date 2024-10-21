@@ -15,7 +15,6 @@
   isShowPagination
   :keywords="{ label: 'materialName', value: 'materialCode' }"
   @checked-change="checkedChange"
-  :defaultSelectVal="state.defaultSelectVal"
   @change="tablePaginationChange"
   placeholder="antd下拉选择表格"
 ></t-antd-select-table>
@@ -23,23 +22,30 @@
 
 ### 2、配置参数（Attributes）继承 a-table 及 a-select 属性
 
-| 参数             | 说明                                                                                         | 类型          | 默认值  |
-| :--------------- | :------------------------------------------------------------------------------------------- | :------------ | :------ |
-| v-model          | 绑定值 keywords.label                                                                        | Array         | -       |
-| table            | 表格数据对象                                                                                 | Object        | {}      |
-| ---data          | 展示下拉数据源                                                                               | Array         | []      |
-| ---pagination    | 配合 isShowPagination，其配置继承 a-table                                                    | Array         | []      |
-| columns          | 表格列的配置描述，具体项[AntDesignVue 文档](https://3x.antdv.com/components/table-cn#Column) | Array         | []      |
-| keywords         | 关键字配置                                                                                   | Object        | 无      |
-| ------label      | 选项的标签                                                                                   | String        | ‘label’ |
-| ------value      | 选项的值（（value-key 配置） ）                                                              | String        | ‘value’ |
-| rowSelection     | 列表项是否可选择--具体查看 AntDesignVue 文档                                                 | Object        | -       |
-| isKeyup          | 单选是否开启键盘事件（上下选择高亮，回车选中）                                               | Boolean       | false   |
-| isShowPagination | 是否开启分页                                                                                 | Boolean       | false   |
-| mode             | 是否多选（配置'multiple'）默认单选                                                           | String        | -       |
-| defaultSelectVal | 设置第一页默认选中项--keywords.value 值                                                      | Array         | -       |
-| selectWidth      | select 宽度 （string 设置百分比，number 设置 px）                                            | String/Number | 200     |
-| tableWidth       | table 宽度                                                                                   | Number        | 550     |
+| 参数                    | 说明                                                                                         | 类型          | 默认值  |
+| :---------------------- | :------------------------------------------------------------------------------------------- | :------------ | :------ |
+| v-model                 | 绑定值 keywords.label                                                                        | Array         | -       |
+| table                   | 表格数据对象                                                                                 | Object        | {}      |
+| ---data                 | 展示下拉数据源                                                                               | Array         | []      |
+| ---pagination           | 配合 isShowPagination，其配置继承 a-table                                                    | Array         | []      |
+| columns                 | 表格列的配置描述，具体项[AntDesignVue 文档](https://3x.antdv.com/components/table-cn#Column) | Array         | []      |
+| keywords                | 关键字配置                                                                                   | Object        | 无      |
+| ------label             | 选项的标签                                                                                   | String        | ‘label’ |
+| ------value             | 选项的值（（value-key 配置） ）                                                              | String        | ‘value’ |
+| rowSelection            | 列表项是否可选择--具体查看 AntDesignVue 文档                                                 | Object        | -       |
+| isKeyup                 | 单选是否开启键盘事件（上下选择高亮，回车选中）                                               | Boolean       | false   |
+| isShowPagination        | 是否开启分页                                                                                 | Boolean       | false   |
+| mode                    | 是否多选（配置'multiple'）默认单选                                                           | String        | -       |
+| defaultSelectVal        | 设置第一页默认选中项--keywords.value 值                                                      | Array         | -       |
+| selectWidth             | select 宽度 （string 设置百分比，number 设置 px）                                            | String/Number | 100%    |
+| tableWidth              | table 宽度                                                                                   | Number        | 550     |
+| preserveSelectedRowKeys | 当数据被删除时仍然保留选项的 key (多选翻页选中功能)                                          | Boolean       | false   |
+| isShowSelectBtn         | 是否显示选择按钮                                                                             | Boolean       | false   |
+| btnSetBind              | 选择按钮属性设置`{ btnTxt: "选择", modalTxt: "选择",size: "middle"}`                         | Object        | -       |
+| modalSetBind            | 弹窗属性设置   `{ modalTxt: "选择", cancelText: "取消",okText: "确定",width: 700}`           | Object        | -       |
+| inputSetBind            | 弹窗搜索配置 `{ searchTxt: "关键词", inputWidth: "40%",allowClear: true}`                    | Object        | -       |
+| disabledPorp            | 禁用的属性                                                                                   | String        | -       |
+| disabledValue           | 禁用的值                                                                                     | String/Number | -       |
 
 ### 2-1、columns 配置参数（Attributes）继承 a-table columns 属性
 
@@ -133,3 +139,4 @@
 | focus              | 使 input 获取焦点               | -        |
 | blur               | 使 input 失去焦点，并隐藏下拉框 | -        |
 | openSelectDropdown | 显示下拉框                      | -        |
+| clear              | 清空                            | -        |

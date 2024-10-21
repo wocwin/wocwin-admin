@@ -26,8 +26,8 @@ import locale from "element-plus/es/locale/lang/zh-cn";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 // import Antd from "ant-design-vue";
-import { Table, Select } from "ant-design-vue";
-import "ant-design-vue/dist/antd.css";
+import { Table, Select, Button, Modal, Input, Pagination } from "ant-design-vue";
+import "ant-design-vue/dist/reset.css";
 
 import MarqueeText from "vue-marquee-text-component";
 // vue i18n
@@ -56,6 +56,10 @@ function render(props: any = {}) {
   // instance.use(Antd);
   instance.component("ASelect", Select);
   instance.component("ATable", Table);
+  instance.component("AButton", Button);
+  instance.component("AModal", Modal);
+  instance.component("AInput", Input);
+  instance.component("APagination", Pagination);
   // 注册全局api方法
   instance.config.globalProperties.$api = api;
   instance.config.globalProperties.$echarts = echarts;

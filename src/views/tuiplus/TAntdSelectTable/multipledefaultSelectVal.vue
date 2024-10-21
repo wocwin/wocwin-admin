@@ -1,6 +1,7 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
+      <el-button type="danger" style="margin-bottom: 10px; width: 200px" @click="mod">动态赋值</el-button>
       <t-antd-select-table
         ref="tantdselecttable"
         selectWidth="40%"
@@ -49,5 +50,8 @@ const state: any = reactive({
 const checkedChange = (keys: any, row: any) => {
   console.log("传给后台的值", keys, row);
   console.log("传给v-model", state.selectVal);
+};
+const mod = () => {
+  state.defaultSelectVal = [7, 8];
 };
 </script>

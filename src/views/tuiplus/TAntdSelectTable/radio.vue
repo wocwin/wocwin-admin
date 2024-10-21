@@ -1,6 +1,7 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
+      <el-button style="margin-bottom: 10px" type="primary" @click="clear">清空选中</el-button>
       <t-antd-select-table
         ref="tantdselecttable"
         selectWidth="40%"
@@ -31,7 +32,12 @@ const state: any = reactive({
       { id: 6, code: 6, name: "物料名称6", spec: "物料规格6", unitName: "吨" },
       { id: 7, code: 7, name: "物料名称7", spec: "物料规格7", unitName: "吨" },
       { id: 8, code: 8, name: "物料名称8", spec: "物料规格8", unitName: "吨" },
-      { id: 9, code: 9, name: "物料名称9", spec: "物料规格9", unitName: "吨" }
+      { id: 9, code: 9, name: "物料名称9", spec: "物料规格9", unitName: "吨" },
+      { id: 10, code: 10, name: "物料名称10", spec: "物料规格10", unitName: "吨" },
+      { id: 11, code: 11, name: "物料名称11", spec: "物料规格11", unitName: "吨" },
+      { id: 12, code: 12, name: "物料名称12", spec: "物料规格12", unitName: "吨" },
+      { id: 13, code: 13, name: "物料名称13", spec: "物料规格13", unitName: "吨" },
+      { id: 14, code: 14, name: "物料名称14", spec: "物料规格14", unitName: "吨" }
     ],
     columns: [
       { title: "物料编号", minWidth: 60, dataIndex: "code" },
@@ -46,5 +52,8 @@ const state: any = reactive({
 const checkedChange = (keys: any, row: any) => {
   console.log("传给后台的值", keys, row);
   console.log("传给v-model", state.selectVal);
+};
+const clear = () => {
+  tantdselecttable.value.clear();
 };
 </script>

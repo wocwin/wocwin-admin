@@ -1,6 +1,10 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
+      <div style="margin-bottom: 10px">
+        <el-button type="danger" @click="mod">动态赋值</el-button>
+        <el-button style="margin-left: 15px" type="primary" @click="clear">清空选中</el-button>
+      </div>
       <t-antd-select-table
         ref="tantdselecttable"
         selectWidth="40%"
@@ -19,7 +23,7 @@
 <script setup lang="ts">
 import TAntdSelectTable from "@/components/TAntdSelectTable/index.vue";
 import { reactive, ref } from "vue";
-const tantdselecttable: any = ref<HTMLElement | null>(null);
+const tantdselecttable = ref<HTMLElement | any>(null);
 const state: any = reactive({
   selectVal: null,
   defaultSelectVal: [5],
@@ -48,5 +52,12 @@ const state: any = reactive({
 const checkedChange = (keys: any, row: any) => {
   console.log("传给后台的值", keys, row);
   console.log("传给v-model", state.selectVal);
+};
+const mod = () => {
+  state.defaultSelectVal = [7];
+};
+const clear = () => {
+  state.defaultSelectVal = [];
+  tantdselecttable.value.clear();
 };
 </script>

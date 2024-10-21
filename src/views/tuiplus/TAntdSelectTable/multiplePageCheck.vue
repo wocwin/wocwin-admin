@@ -14,7 +14,7 @@
         @checked-change="checkedChange"
         :defaultSelectVal="state.defaultSelectVal"
         @change="tablePaginationChange"
-        placeholder="多选--分页"
+        placeholder="多选--翻页选中"
       ></t-antd-select-table>
     </t-layout-page-item>
   </t-layout-page>
@@ -68,8 +68,10 @@ const getList = async (pageNum: number | undefined) => {
   }
 };
 const tablePaginationChange = (pagination: { current: any; pageSize: any }) => {
+  console.log("tablePaginationChange", pagination);
   state.table.pagination.current = pagination?.current || 1; // 重新设置当前页
   state.table.pagination.pageSize = pagination?.pageSize || 10;
+  // console.log("tantdselecttable", tantdselecttable.value);
   getList(state.table.pagination.current);
 };
 

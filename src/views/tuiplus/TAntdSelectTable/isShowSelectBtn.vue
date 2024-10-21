@@ -8,13 +8,12 @@
         :table="state.table"
         :columns="state.table.columns"
         :scroll="{ x: 2000, y: 400 }"
-        mode="multiple"
         isShowPagination
+        isShowSelectBtn
         :keywords="{ label: 'materialName', value: 'materialCode' }"
         @checked-change="checkedChange"
-        :defaultSelectVal="state.defaultSelectVal"
         @change="tablePaginationChange"
-        placeholder="多选--分页"
+        placeholder="显示选择按钮"
       ></t-antd-select-table>
     </t-layout-page-item>
   </t-layout-page>
@@ -24,15 +23,14 @@ import TAntdSelectTable from "@/components/TAntdSelectTable/index.vue";
 import data from "./getData.json";
 import data1 from "./getData2.json";
 import { onMounted, reactive, ref } from "vue";
-const tantdselecttable: any = ref<HTMLElement | null>(null);
+const tantdselecttable = ref<HTMLElement | any>(null);
 const state: any = reactive({
   selectVal: null,
-  defaultSelectVal: [], // "02.21", "LONG02"
   table: {
     pagination: {
       current: 1,
       total: 0, // 总数
-      showSizeChanger: true,
+      showSizeChanger: false,
       pageSizeOptions: ["10", "20", "40", "80", "100"],
       showTotal: (total: any) => `共 ${total} 条`, // 分页中显示总的数据
       pageSize: 10 // 每页条数，所有页设置统一的条数
@@ -67,9 +65,11 @@ const getList = async (pageNum: number | undefined) => {
     state.table.data = res.data.records;
   }
 };
+// 切换分页
 const tablePaginationChange = (pagination: { current: any; pageSize: any }) => {
   state.table.pagination.current = pagination?.current || 1; // 重新设置当前页
-  state.table.pagination.pageSize = pagination?.pageSize || 10;
+  state.table.pagination.pageSize = pagination?.pageSize || 20;
+  // console.log("tantdselecttable", tantdselecttable.value);
   getList(state.table.pagination.current);
 };
 

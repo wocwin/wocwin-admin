@@ -2275,7 +2275,7 @@
             "isHide": false,
             "isFull": false,
             "isAffix": false,
-            "isKeepAlive": true
+            "isKeepAlive": false
           },
           "children": [
             {
@@ -2294,7 +2294,7 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
               }
             },
             {
@@ -2313,7 +2313,7 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
               }
             },
             {
@@ -2332,7 +2332,7 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
               }
             },
             {
@@ -2351,7 +2351,7 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
               }
             },
             {
@@ -2370,7 +2370,7 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
               }
             },
             {
@@ -2389,7 +2389,7 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
               }
             },
             {
@@ -2408,7 +2408,83 @@
                 "isHide": false,
                 "isFull": false,
                 "isAffix": false,
-                "isKeepAlive": true
+                "isKeepAlive": false
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/isRowClick",
+              "name": "isRowClickTAntdSelectTable",
+              "parentId": 119,
+              "menuId": 127,
+              "orderNum": 8,
+              "menuType": "C",
+              "isShowLink": false,
+              "component": "/tuiplus/TAntdSelectTable/isRowClick",
+              "meta": {
+                "icon": "Menu",
+                "title": "禁用状态",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": false
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/isShowSelectBtn",
+              "name": "isShowSelectBtnTAntdSelectTable",
+              "parentId": 119,
+              "menuId": 128,
+              "orderNum": 9,
+              "menuType": "C",
+              "isShowLink": false,
+              "component": "/tuiplus/TAntdSelectTable/isShowSelectBtn",
+              "meta": {
+                "icon": "Menu",
+                "title": "显示选择按钮",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": false
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/multiplePageCheck",
+              "name": "multiplePageCheckTAntdSelectTable",
+              "parentId": 119,
+              "menuId": 129,
+              "orderNum": 9,
+              "menuType": "C",
+              "isShowLink": false,
+              "component": "/tuiplus/TAntdSelectTable/multiplePageCheck",
+              "meta": {
+                "icon": "Menu",
+                "title": "多选翻页选中",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": false
+              }
+            },
+            {
+              "path": "/assembly/t-antd-select-table/slotUse",
+              "name": "slotUseTAntdSelectTable",
+              "parentId": 119,
+              "menuId": 130,
+              "orderNum": 9,
+              "menuType": "C",
+              "isShowLink": false,
+              "component": "/tuiplus/TAntdSelectTable/slotUse",
+              "meta": {
+                "icon": "Menu",
+                "title": "下拉框插槽使用",
+                "isLink": "",
+                "isHide": false,
+                "isFull": false,
+                "isAffix": false,
+                "isKeepAlive": false
               }
             }
           ]

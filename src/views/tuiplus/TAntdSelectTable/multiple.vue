@@ -1,6 +1,7 @@
 <template>
   <t-layout-page>
     <t-layout-page-item>
+      <el-button style="margin-bottom: 10px" type="primary" @click="clear">清空选中</el-button>
       <t-antd-select-table
         ref="tantdselecttable"
         selectWidth="40%"
@@ -47,5 +48,8 @@ const state: any = reactive({
 const checkedChange = (keys: any, row: any) => {
   console.log("传给后台的值", keys, row);
   console.log("传给v-model", state.selectVal);
+};
+const clear = () => {
+  tantdselecttable.value.clear();
 };
 </script>
