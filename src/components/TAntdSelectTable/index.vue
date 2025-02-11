@@ -308,7 +308,7 @@ const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
         childSelectedValue.value =
           state.selectedRows.length > 0 && state.selectedRows.map((item: { [x: string]: any }) => item[props.keywords.label]);
       } else {
-        // console.log("单选", state.selectedRows[0]);
+        // console.log("单选--onSelectChange", state.selectedRows, state.selectedRowKeys);
         state.activeTableRow = state.selectedRows[0];
         childSelectedValue.value = state.selectedRows[0][props.keywords.label];
         blur();
@@ -391,7 +391,7 @@ const selectKeyup = (e: { keyCode: any }) => {
 // 动态添加类
 const getRowClass = (record: any) => {
   // console.log("record--", state.activeTableRow);
-  return state.activeTableRow[props.keywords.value] === record[props.keywords.value] && props.isKeyup
+  return state.activeTableRow && state.activeTableRow[props.keywords.value] === record[props.keywords.value] && props.isKeyup
     ? "active-selected-row"
     : "";
 };
@@ -474,6 +474,21 @@ const filterMethodHandle = (input: string) => {
           return item;
         }
       });
+      // 解决选中后，在过滤后，没有选中问题
+      if (childSelectedValue.value) {
+        state.activeTableRow = state.tableData.filter((item: { [x: string]: string | number | unknown[] | undefined }) => {
+          return item[props.keywords.label] === childSelectedValue.value;
+        })[0];
+        state.selectedRows = state.tableData.filter((item: { [x: string]: string | number | unknown[] | undefined }) => {
+          return item[props.keywords.label] === childSelectedValue.value;
+        });
+        state.selectedRowKeys = state.selectedRows.length > 0 && [state.selectedRows[0][props.keywords.value]];
+        state.tableData = tableData.filter((item: { [x: string]: string | any[] }) => {
+          if (item[props.keywords.label].includes(input)) {
+            return item;
+          }
+        });
+      }
     }
   }, 0);
 };
@@ -544,9 +559,10 @@ const selectBtnClick = () => {
 };
 // 弹窗点击确定
 const handleOk = () => {
-  console.log("弹窗点击确定");
-  openModal.value = false;
+  // console.log("弹窗点击确定");
   searchModalValue.value = "";
+  openModal.value = false;
+  filterMethodHandle(""); // 关闭弹窗后刷新表格
 };
 
 // 暴露方法出去

@@ -42,7 +42,7 @@
 | preserveSelectedRowKeys | 当数据被删除时仍然保留选项的 key (多选翻页选中功能)                                          | Boolean       | false   |
 | isShowSelectBtn         | 是否显示选择按钮                                                                             | Boolean       | false   |
 | btnSetBind              | 选择按钮属性设置`{ btnTxt: "选择", modalTxt: "选择",size: "middle"}`                         | Object        | -       |
-| modalSetBind            | 弹窗属性设置   `{ modalTxt: "选择", cancelText: "取消",okText: "确定",width: 700}`           | Object        | -       |
+| modalSetBind            | 弹窗属性设置 `{ modalTxt: "选择", cancelText: "取消",okText: "确定",width: 700}`             | Object        | -       |
 | inputSetBind            | 弹窗搜索配置 `{ searchTxt: "关键词", inputWidth: "40%",allowClear: true}`                    | Object        | -       |
 | disabledPorp            | 禁用的属性                                                                                   | String        | -       |
 | disabledValue           | 禁用的值                                                                                     | String/Number | -       |
