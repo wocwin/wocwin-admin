@@ -170,7 +170,7 @@ export const getAllBreadcrumbList = (menuList: Menu.MenuOptions[], parent = [], 
 };
 
 /**
- * @description 使用递归处理路由菜单 path，生成一维数组 (第一版本地路由鉴权会用到，该函数暂未使用)
+ * @description 使用递归处理路由菜单 path，生成一维数组
  * @param {Array} menuList 所有菜单列表
  * @param {Array} menuPathArr 菜单地址的一维数组 ['**','**']
  * @returns {Array}
@@ -201,7 +201,7 @@ export function findMenuByPath(menuList: Menu.MenuOptions[], path: string): Menu
 }
 
 /**
- * @description 使用递归过滤需要缓存的菜单 name (该函数暂未使用)
+ * @description 使用递归过滤需要缓存的菜单 name
  * @param {Array} menuList 所有菜单列表
  * @param {Array} keepAliveNameArr 缓存的菜单 name ['**','**']
  * @returns {Array}
@@ -215,19 +215,6 @@ export function getKeepAliveRouterName(menuList: Menu.MenuOptions[], keepAliveNa
 }
 
 /**
- * @description 格式化表格单元格默认值 (el-table-column)
- * @param {Number} row 行
- * @param {Number} col 列
- * @param {*} callValue 当前单元格值
- * @returns {String}
- * */
-export function formatTableColumn(row: number, col: number, callValue: any) {
-  // 如果当前值为数组，使用 / 拼接（根据需求自定义）
-  if (isArray(callValue)) return callValue.length ? callValue.join(" / ") : "--";
-  return callValue ?? "--";
-}
-
-/**
  * @description 处理值无数据情况
  * @param {*} callValue 需要处理的值
  * @returns {String}
@@ -236,38 +223,4 @@ export function formatValue(callValue: any) {
   // 如果当前值为数组，使用 / 拼接（根据需求自定义）
   if (isArray(callValue)) return callValue.length ? callValue.join(" / ") : "--";
   return callValue ?? "--";
-}
-
-/**
- * @description 处理 prop 为多级嵌套的情况，返回的数据 (列如: prop: user.name)
- * @param {Object} row 当前行数据
- * @param {String} prop 当前 prop
- * @returns {*}
- * */
-export function handleRowAccordingToProp(row: { [key: string]: any }, prop: string) {
-  if (!prop.includes(".")) return row[prop] ?? "--";
-  prop.split(".").forEach(item => (row = row[item] ?? "--"));
-  return row;
-}
-
-/**
- * @description 处理 prop，当 prop 为多级嵌套时 ==> 返回最后一级 prop
- * @param {String} prop 当前 prop
- * @returns {String}
- * */
-export function handleProp(prop: string) {
-  const propArr = prop.split(".");
-  if (propArr.length == 1) return prop;
-  return propArr[propArr.length - 1];
-}
-
-/**
- * @description 递归查找 callValue 对应的 enum 值
- * */
-export function findItemNested(enumData: any, callValue: any, value: string, children: string) {
-  return enumData.reduce((accumulator: any, current: any) => {
-    if (accumulator) return accumulator;
-    if (current[value] === callValue) return current;
-    if (current[children]) return findItemNested(current[children], callValue, value, children);
-  }, null);
 }

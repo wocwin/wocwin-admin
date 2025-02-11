@@ -12,6 +12,7 @@
     "types": [ // 用来指定需要包含的模块，并将其包含在全局范围内。
       "vite/client",
       "element-plus/global",
+      "@wocwin/t-ui-plus/global.d.ts", // 引入全局类型
       "@wocwin/t-ui-plus/lib/components.d.ts"
     ],
     /* 严格检查选项 */
