@@ -12,20 +12,21 @@
     :isShowPagination="false"
     :opts="opts"
     @submit="conditionEnter"
-    height="100%"
   >
     <template #toolbar>
-      <el-button type="primary" @click="createHandle" v-hasPermi="'root:web:sys:menu:add'">新增菜单</el-button>
+      <el-button type="primary" @click="createHandle">新增菜单</el-button>
     </template>
-    <el-dialog :title="title" width="70%" draggable v-model="addDialog">
-      <t-form v-model="formOpts.ref" :formOpts="formOpts" :widthSize="2" @handle-event="handleEvent" />
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="addDialog = false">取消</el-button>
-          <el-button type="primary" @click="addConfirm">确定</el-button>
-        </div>
-      </template>
-    </el-dialog>
+    <template #footer>
+      <el-dialog :title="title" width="50%" draggable v-model="addDialog">
+        <t-form v-model="formOpts.ref" :formOpts="formOpts" :widthSize="2" @handle-event="handleEvent" />
+        <template #footer>
+          <div class="dialog-footer">
+            <el-button @click="addDialog = false">取消</el-button>
+            <el-button type="primary" @click="addConfirm">确定</el-button>
+          </div>
+        </template>
+      </el-dialog>
+    </template>
   </t-adaptive-page>
 </template>
 
@@ -35,11 +36,10 @@ import { Warning } from "@element-plus/icons-vue";
 import { MenuOptions } from "./type";
 import TIcon from "./TIcon.vue";
 import useApi from "@/hooks/useApi";
+const { proxy } = useApi();
 import { useAuthStore } from "@/store/modules/auth";
 const authStore = useAuthStore();
 const btnPermissions = authStore.authButtonListGet;
-const { proxy } = useApi();
-
 const title = ref("新增菜单");
 const addDialog = ref(false);
 const menuOptions = ref<MenuOptions[]>([]);
@@ -87,11 +87,19 @@ const formOpts = reactive<FormTypes.FormOpts>({
       type: "radio",
       list: "menuTypeList",
       comp: "el-radio-group",
+      arrKey: "value",
       eventHandle: {
         change: (val: any) => menuTypeChange(val)
       }
     },
-    { label: "是否隐藏", value: "isHide", type: "radio", list: "isHideList", comp: "el-radio-group" },
+    {
+      label: "是否隐藏",
+      value: "isHide",
+      type: "radio",
+      list: "isHideList",
+      comp: "el-radio-group",
+      arrKey: "value"
+    },
     { label: "菜单名称", value: "title", type: "input", comp: "el-input" },
     {
       label: "显示排序",
@@ -101,8 +109,23 @@ const formOpts = reactive<FormTypes.FormOpts>({
       bind: { "controls-position": "right", min: 0 }
     },
     { label: "菜单图标", value: "icon", comp: "t-select-icon", isSelfCom: true },
-    { label: "是否外链", value: "isShowLink", type: "radio", list: "whetherList", comp: "el-radio-group", event: "isShowLink" },
-    { label: "是否全屏", value: "isFull", type: "radio", list: "whetherList", comp: "el-radio-group" },
+    {
+      label: "是否外链",
+      value: "isShowLink",
+      type: "radio",
+      list: "whetherList",
+      comp: "el-radio-group",
+      event: "isShowLink",
+      arrKey: "value"
+    },
+    {
+      label: "是否全屏",
+      value: "isFull",
+      type: "radio",
+      list: "whetherList",
+      comp: "el-radio-group",
+      arrKey: "value"
+    },
     {
       label: "是否固定",
       labelRender: () => {
@@ -120,9 +143,18 @@ const formOpts = reactive<FormTypes.FormOpts>({
       value: "isAffix",
       type: "radio",
       list: "whetherList",
-      comp: "el-radio-group"
+      comp: "el-radio-group",
+      arrKey: "value"
     },
-    { label: "是否缓存", value: "isKeepAlive", type: "radio", list: "whetherList", comp: "el-radio-group", widthSize: 1 },
+    {
+      label: "是否缓存",
+      value: "isKeepAlive",
+      type: "radio",
+      list: "whetherList",
+      comp: "el-radio-group",
+      arrKey: "value",
+      widthSize: 1
+    },
     {
       label: "外链地址",
       value: "isLink",
@@ -149,7 +181,14 @@ const formOpts = reactive<FormTypes.FormOpts>({
       comp: "el-input"
     },
     { label: "路由地址", value: "path", type: "input", comp: "el-input", widthSize: 1 },
-    { label: "组件路径", value: "component", type: "input", comp: "el-input", isHideItem: true, widthSize: 1 },
+    {
+      label: "组件路径",
+      value: "component",
+      type: "input",
+      comp: "el-input",
+      isHideItem: true,
+      widthSize: 1
+    },
     { label: "备注", value: "remark", type: "input", comp: "el-input", widthSize: 1 }
   ],
   rules: {
@@ -180,7 +219,7 @@ const formOpts = reactive<FormTypes.FormOpts>({
 const handleEvent = (type: any, val: any) => {
   console.log("handleEvent", type, val);
   if (type === "isShowLink") {
-    formOpts.fieldList.map((item: { value: string; isHideItem?: boolean }) => {
+    formOpts.fieldList.map(item => {
       if (item.value === "isLink") {
         item.isHideItem = !val;
       }
@@ -190,7 +229,7 @@ const handleEvent = (type: any, val: any) => {
 // 菜单类型--change事件
 const menuTypeChange = (val: string) => {
   const shouldShowComponent = val === "C";
-  formOpts.fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
+  formOpts.fieldList.forEach(item => {
     if (item.value === "component") {
       item.isHideItem = !shouldShowComponent;
     }
@@ -231,7 +270,7 @@ const edit = (row: any) => {
   title.value = "编辑菜单";
   const { parentId, menuType, label, orderNum, isShowLink, path, component, remark, meta } = row;
   const { fieldList } = formOpts;
-  fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
+  fieldList.forEach(item => {
     const shouldShow = (item.value === "component" && menuType === "C") || (item.value === "isLink" && isShowLink);
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;
@@ -260,7 +299,7 @@ const handleAdd = (row: any) => {
   addDialog.value = true;
   title.value = "新增菜单";
   resetForm();
-  formOpts.fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
+  formOpts.fieldList.forEach(item => {
     const shouldShow = formOpts.formData.menuType === "C" || formOpts.formData.isShowLink;
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;
@@ -273,7 +312,7 @@ const createHandle = () => {
   addDialog.value = true;
   title.value = "新增菜单";
   resetForm();
-  formOpts.fieldList.forEach((item: { value: string; isHideItem?: boolean }) => {
+  formOpts.fieldList.forEach(item => {
     const shouldShow = formOpts.formData.menuType === "C" || formOpts.formData.isShowLink;
     if (item.value === "component" || item.value === "isLink") {
       item.isHideItem = !shouldShow;
@@ -300,13 +339,39 @@ const resetForm = () => {
   };
   formOpts.ref?.resetFields();
 };
-
-const state: any = reactive({
+const state = reactive({
   queryData: {
     title: null, // 菜单名称
     path: null // 菜单路径
   }
 });
+const opts = computed(() => {
+  return {
+    title: {
+      label: "菜单名称",
+      comp: "el-input"
+    },
+    path: {
+      label: "菜单路径",
+      comp: "el-input"
+    }
+  };
+});
+// 最终参数获取
+const getQueryData = computed(() => {
+  const { title, path } = toRefs(state.queryData);
+  return {
+    title: title.value,
+    path: path.value
+  };
+});
+// 点击查询按钮
+const conditionEnter = (data: any) => {
+  // console.log(1122, data);
+  state.queryData = data;
+  console.log("最终参数", getQueryData.value);
+  getMenuData();
+};
 const table = reactive<TableTypes.Table>({
   data: [],
   columns: [
@@ -367,33 +432,6 @@ const table = reactive<TableTypes.Table>({
     label: "操作"
   }
 });
-const opts = computed(() => {
-  return {
-    title: {
-      label: "菜单名称",
-      comp: "el-input"
-    },
-    path: {
-      label: "菜单路径",
-      comp: "el-input"
-    }
-  };
-});
-// 最终参数获取
-const getQueryData = computed(() => {
-  const { title, path } = toRefs(state.queryData);
-  return {
-    title: title.value,
-    path: path.value
-  };
-});
-// 点击查询按钮
-const conditionEnter = (data: any) => {
-  // console.log(1122, data);
-  state.queryData = data;
-  console.log("最终参数", getQueryData.value);
-  getMenuData();
-};
 onMounted(() => {
   getMenuData();
 });
@@ -403,8 +441,8 @@ const getMenuData = async () => {
   console.log(999, res);
   if (res.success) {
     table.data = res.data;
-    let arr = [];
-    const menu = {
+    let arr: MenuOptions[] = [];
+    const menu: MenuOptions = {
       parentId: 0,
       menuId: 0,
       orderNum: 0,
@@ -421,7 +459,29 @@ const getMenuData = async () => {
       },
       children: []
     };
-    menu.children = res.data;
+    menu.children = res.data.map((item: any) => {
+      return {
+        menuId: item.menuId,
+        parentId: item.parentId,
+        orderNum: item.orderNum,
+        menuType: item.menuType,
+        path: item.path,
+        component: item.component,
+        name: item.name,
+        meta: {
+          title: item.menuName,
+          icon: item.icon,
+          isHide: item.visible === "0",
+          isFull: item.isFrame === "1",
+          isAffix: item.isAffix === "1",
+          isKeepAlive: item.isKeepAlive === "1",
+          isLink: item.isLink,
+          activeMenu: item.activeMenu,
+          isShowLink: item.isShowLink === "1"
+        },
+        children: item.children
+      };
+    });
     arr.push(menu);
     const data = await handleTreeData(arr);
     menuOptions.value = data;
