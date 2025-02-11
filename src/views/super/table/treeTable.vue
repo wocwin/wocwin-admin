@@ -42,8 +42,8 @@
 
 <script setup lang="tsx">
 import useApi from "@/hooks/useApi";
-const { proxy } = useApi();
 import TIcon from "@/views/system/menuMange/TIcon.vue";
+const { proxy } = useApi();
 
 const TreeTableRef = ref<HTMLElement | any>(null);
 // 选择复选框

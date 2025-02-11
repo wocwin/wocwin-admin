@@ -34,10 +34,10 @@
 import { ElMessageBox, ElMessage } from "element-plus";
 import { Warning } from "@element-plus/icons-vue";
 import { MenuOptions } from "./type";
+import { useAuthStore } from "@/store/modules/auth";
 import TIcon from "./TIcon.vue";
 import useApi from "@/hooks/useApi";
 const { proxy } = useApi();
-import { useAuthStore } from "@/store/modules/auth";
 const authStore = useAuthStore();
 const btnPermissions = authStore.authButtonListGet;
 const title = ref("新增菜单");
