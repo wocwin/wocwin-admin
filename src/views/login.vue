@@ -142,25 +142,9 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
   }
 }
 @keyframes animate {
-  0% {
-    transform: translateY(-40px);
-    -webkit-transform: translateY(-40px);
-  }
-  25% {
-    transform: translateY(-20px);
-    -webkit-transform: translateY(-20px);
-  }
-  50% {
-    transform: translateY(0px);
-    -webkit-transform: translateY(0px);
-  }
-  75% {
-    transform: translateY(20px);
-    -webkit-transform: translateY(20px);
-  }
   100% {
-    transform: translateY(40px);
-    -webkit-transform: translateY(40px);
+    transform: translateY(100vh);
+    -webkit-transform: translateY(100vh);
   }
 }
 @function getShadows($n) {

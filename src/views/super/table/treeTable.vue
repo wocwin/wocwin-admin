@@ -41,8 +41,8 @@
 </template>
 
 <script setup lang="tsx">
-import useApi from "@/hooks/useApi";
 import TIcon from "@/views/system/menuMange/TIcon.vue";
+import useApi from "@/hooks/useApi";
 const { proxy } = useApi();
 
 const TreeTableRef = ref<HTMLElement | any>(null);

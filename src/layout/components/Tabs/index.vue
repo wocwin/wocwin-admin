@@ -162,6 +162,7 @@ const tabRemove = (fullPath: TabPaneName) => {
       align-items: center;
       :deep(.el-divider) {
         margin: 0;
+        height: 14px;
       }
       :deep(.tabs_icon) {
         width: 36px;
@@ -171,6 +172,9 @@ const tabRemove = (fullPath: TabPaneName) => {
         justify-content: center;
         color: var(--el-text-color-primary);
         cursor: pointer;
+        .el-icon {
+          font-size: 16px;
+        }
       }
       :deep(.el-button) {
         height: 39px;

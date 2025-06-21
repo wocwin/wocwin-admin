@@ -86,10 +86,11 @@ export function useFormData() {
       {
         label: "用户名称",
         value: "deptCode",
-        placeholder: "t-select-table单选使用",
+        placeholder: "t-select-table多选使用",
         comp: "t-select-table",
         isSelfCom: true,
         bind: {
+          multiple: true,
           isKeyup: true,
           isShowPagination: true,
           maxHeight: 400,
@@ -107,7 +108,7 @@ export function useFormData() {
           ]
         },
         eventHandle: {
-          radioChange: (val: any) => radioChange(val),
+          selectionChange: (val: any) => selectionChange(val),
           "page-change": (val: any) => pageChange(val)
         }
       },
@@ -149,7 +150,7 @@ export function useFormData() {
   });
   // 获取下拉选择表格数据
   const getSelectTableList = async () => {
-    const res = await proxy.$api.getSelectTableList();
+    const res = await proxy.$api.getSelectTableList({ page: table.value.currentPage, size: 10 });
     if (res.success) {
       table.value.data = res?.data.rows;
       table.value.total = res?.data.total;
@@ -160,7 +161,7 @@ export function useFormData() {
     table.value.currentPage = page;
     getSelectTableList();
   };
-  const radioChange = (row: any) => {
+  const selectionChange = (row: any) => {
     console.log("下拉选择表格-单选", row);
     formOpts.formData.deptCode = row.userId;
   };
@@ -188,7 +189,8 @@ export function useFormData() {
         console.log("编辑接口数据返回", formData);
         formOpts.fieldList.map((item: any) => {
           if (item.value === "deptCode") {
-            item.bind.defaultSelectVal = [formData.deptCode];
+            // item.bind.defaultSelectVal = [formData.deptCode];
+            item.bind.defaultSelectVal = formData.deptCode;
           }
         });
       });

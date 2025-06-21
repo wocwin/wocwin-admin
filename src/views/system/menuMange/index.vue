@@ -31,10 +31,10 @@
 </template>
 
 <script setup lang="tsx" name="menuMange">
+import { useAuthStore } from "@/store/modules/auth";
 import { ElMessageBox, ElMessage } from "element-plus";
 import { Warning } from "@element-plus/icons-vue";
 import { MenuOptions } from "./type";
-import { useAuthStore } from "@/store/modules/auth";
 import TIcon from "./TIcon.vue";
 import useApi from "@/hooks/useApi";
 const { proxy } = useApi();

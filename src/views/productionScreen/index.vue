@@ -1,6 +1,6 @@
 <template>
   <div class="largeScreen_page" ref="productionScreen">
-    <t-screen title="生产运行监控大屏" @trans-forma-tion="transFormaTionFuc">
+    <t-screen title="生产运行监控大屏(双击页面，全屏预览！)" @trans-forma-tion="transFormaTionFuc">
       <div class="largeScreen_page_main">
         <div class="selectDiv">
           <div v-for="(item, index) of statusList" :key="index" class="item">
@@ -280,12 +280,6 @@ onMounted(() => {
   getDeptList();
   monitorHei();
   window.addEventListener("resize", monitorHei);
-  ElMessage({
-    message: "双击页面，全屏预览！",
-    showClose: true,
-    type: "success",
-    duration: 30000
-  });
 });
 onUnmounted(() => {
   clearInterval(refreshTimeValue.value);

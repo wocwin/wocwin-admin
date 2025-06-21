@@ -95,7 +95,6 @@ const state = reactive({
           {
             prop: "",
             label: "第二级表头",
-            minWidth: 620,
             children: [
               {
                 prop: "businessType",
