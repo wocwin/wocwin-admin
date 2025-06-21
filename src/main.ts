@@ -38,7 +38,7 @@ import pinia from "@/store";
 import * as echarts from "echarts";
 
 import TuiPlus from "@wocwin/t-ui-plus";
-import "@wocwin/t-ui-plus/lib/style.css";
+import "@wocwin/t-ui-plus/index.css";
 // svg渲染
 import SvgIcon from "@/components/SvgIcon/index.vue";
 /**

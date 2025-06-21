@@ -13,7 +13,7 @@
       "vite/client",
       "element-plus/global",
       "@wocwin/t-ui-plus/global.d.ts", // 引入全局类型
-      "@wocwin/t-ui-plus/lib/components.d.ts"
+      "@wocwin/t-ui-plus/index.d.ts"
     ],
     /* 严格检查选项 */
     "strict": true, // 开启所有严格的类型检查
