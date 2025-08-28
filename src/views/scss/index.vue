@@ -43,7 +43,6 @@ $count: 1400;
 .scss {
   display: flex;
   align-items: center;
-  justify-content: center;
   height: 100vh;
   overflow: hidden;
   background-image: linear-gradient(#4d3af9, #255fff, #3f89fb, #5088ff, #1a68ff);
@@ -111,39 +110,28 @@ $count: 1400;
       right: 45%;
     }
   }
-  .content {
-    position: relative;
-    @for $i from 1 through 6 {
-      $duration: floor(calc($duration / 2));
-      $count: floor(calc($count / 2));
-      .star#{$i} {
-        $size: #{$i}px;
+  @for $i from 1 through 6 {
+    $duration: floor(calc($duration / 2));
+    $count: floor(calc($count / 2));
+    .star#{$i} {
+      $size: #{$i}px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $size;
+      height: $size;
+      border-radius: 50%;
+      box-shadow: getShadows($count);
+      animation: moveUp $duration linear infinite;
+      &::after {
         position: absolute;
-        top: 0;
+        top: 100vh;
         left: 0;
         width: $size;
         height: $size;
-        border-radius: 50%;
-        box-shadow: getShadows($count);
-        animation: moveUp $duration linear infinite;
-        &::after {
-          position: absolute;
-          top: 100vh;
-          left: 0;
-          width: $size;
-          height: $size;
-          content: "";
-          border-radius: inherit;
-          box-shadow: inherit;
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 1150px) {
-    .content {
-      justify-content: center;
-      .login-left {
-        display: none;
+        content: "";
+        border-radius: inherit;
+        box-shadow: inherit;
       }
     }
   }
