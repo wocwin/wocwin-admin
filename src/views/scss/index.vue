@@ -1,10 +1,12 @@
 <template>
-  <div class="scss">
-    <div class="square" v-for="index in 10" :key="index" :style="`--i: ${index - 1}`"></div>
-    <div class="content">
-      <div :class="`star${index}`" v-for="index in 6" :key="index"></div>
+  <t-layout-page>
+    <div class="scss">
+      <div class="square" v-for="index in 10" :key="index" :style="`--i: ${index - 1}`"></div>
+      <div class="content">
+        <div :class="`star${index}`" v-for="index in 6" :key="index"></div>
+      </div>
     </div>
-  </div>
+  </t-layout-page>
 </template>
 
 <style lang="scss">
@@ -110,12 +112,13 @@ $count: 1400;
     }
   }
   .content {
+    position: relative;
     @for $i from 1 through 6 {
       $duration: floor(calc($duration / 2));
       $count: floor(calc($count / 2));
       .star#{$i} {
         $size: #{$i}px;
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: $size;
@@ -124,7 +127,7 @@ $count: 1400;
         box-shadow: getShadows($count);
         animation: moveUp $duration linear infinite;
         &::after {
-          position: fixed;
+          position: absolute;
           top: 100vh;
           left: 0;
           width: $size;
