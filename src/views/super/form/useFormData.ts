@@ -172,7 +172,7 @@ export function useFormData() {
     console.log("edit", row);
     title.value = "编辑页面";
     addDialog.value = true;
-    formOpts.fieldList.map((item: { value: string }, index: any) => {
+    formOpts.fieldList.map((item: any, index: any) => {
       if (item.value === "password") {
         formOpts.fieldList.splice(index, 1);
       }
@@ -200,7 +200,7 @@ export function useFormData() {
   const handleAdd = () => {
     console.log("点击新增");
     addDialog.value = true;
-    let flag = formOpts.fieldList.some((item: { value: string }) => item.value == "password");
+    let flag = formOpts.fieldList.some((item: { value?: string }) => item.value == "password");
     let obj = { label: "登录密码", value: "password", type: "input", comp: "el-input", bind: { "show-password": true } };
     let rulesPassword = [{ required: true, message: "请输入登录密码", trigger: "blur" }];
     if (!flag) {
