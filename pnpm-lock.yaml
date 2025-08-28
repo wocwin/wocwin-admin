@@ -21,8 +21,8 @@ importers:
         specifier: ^5.1.12
         version: 5.1.12(@wangeditor/editor@5.1.23)(vue@3.2.47)
       '@wocwin/t-ui-plus':
-        specifier: ^2.0.2
-        version: 2.0.2(element-plus@2.7.8(vue@3.2.47))(vue@3.2.47)
+        specifier: ^2.0.3
+        version: 2.0.3(element-plus@2.7.8(vue@3.2.47))(vue@3.2.47)
       ant-design-vue:
         specifier: 4.x
         version: 4.2.5(vue@3.2.47)
@@ -1080,8 +1080,8 @@ packages:
       slate: ^0.72.0
       snabbdom: ^3.1.0
 
-  '@wocwin/t-ui-plus@2.0.2':
-    resolution: {integrity: sha512-nV0eo9vQsOPABp1tfjYyAcK+oaGNRyFI4wKU1/foQoUk5ulvceTH9qS9ZBj8/w0Pgea+79i3zhYQ9EByY6R72g==}
+  '@wocwin/t-ui-plus@2.0.3':
+    resolution: {integrity: sha512-lt7twvK2BUF5tuUlWSTlubvudSX14ukSlg9R0CQ7aRMbRQnN8GUdyuGJc/ytebs8YIqPUulVNUFm3QchuJ4EHg==}
     peerDependencies:
       element-plus: ^2.7.8
       vue: ^3.2.0
@@ -5031,7 +5031,7 @@ snapshots:
       slate: 0.72.8
       snabbdom: 3.5.1
 
-  '@wocwin/t-ui-plus@2.0.2(element-plus@2.7.8(vue@3.2.47))(vue@3.2.47)':
+  '@wocwin/t-ui-plus@2.0.3(element-plus@2.7.8(vue@3.2.47))(vue@3.2.47)':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.2.47)
       element-plus: 2.7.8(vue@3.2.47)
