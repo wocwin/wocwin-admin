@@ -196,6 +196,25 @@
       }
     },
     {
+      "path": "/scss",
+      "name": "scss",
+      "parentId": 0,
+      "menuId": 152,
+      "orderNum": 0,
+      "menuType": "C",
+      "isShowLink": false,
+      "component": "/scss/index",
+      "meta": {
+        "icon": "Film",
+        "title": "scss函数使用",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
+    },
+    {
       "path": "/editor",
       "name": "editor",
       "parentId": 0,
