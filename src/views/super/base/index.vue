@@ -17,7 +17,7 @@
         columnSetting
         name="baseTableDemo"
         :table="table"
-        :columns="table.columns"
+        :columns="columns"
         ref="toggleSelectionTableRef"
         @selection-change="selectionChange"
         @size-change="handlesSizeChange"
@@ -27,8 +27,10 @@
   </t-layout-page>
 </template>
 
-<script setup lang="tsx" name="superDemo">
+<script setup lang="tsx">
 import useApi from "@/hooks/useApi";
+import { useI18n } from "vue-i18n";
+const { t, locale } = useI18n();
 const { proxy } = useApi();
 const details = () => {
   console.log("点击table内详情按钮");
@@ -93,21 +95,21 @@ const state = reactive({
     date: null // 操作时间
   } as any
 });
-const opts = ref<QueryTypes.Opts>({
+const baseOptsConfig = () => ({
   systemName: {
-    label: "业务系统",
+    label: t("super.base.opts.systemName"),
     comp: "el-input"
   },
   title: {
-    label: "业务模块",
+    label: t("super.base.opts.title"),
     comp: "el-input"
   },
   operName: {
-    label: "操作人员",
+    label: t("super.base.opts.operName"),
     comp: "el-input"
   },
   businessType: {
-    label: "操作类型",
+    label: t("super.base.opts.businessType"),
     comp: "t-select",
     isSelfCom: true,
     bind: {
@@ -115,7 +117,7 @@ const opts = ref<QueryTypes.Opts>({
     }
   },
   status: {
-    label: "状态",
+    label: t("super.base.opts.status"),
     comp: "t-select",
     isSelfCom: true,
     bind: {
@@ -123,7 +125,7 @@ const opts = ref<QueryTypes.Opts>({
     }
   },
   date: {
-    label: "操作时间",
+    label: t("super.base.opts.date"),
     comp: "t-date-picker",
     span: 2,
     bind: {
@@ -132,74 +134,90 @@ const opts = ref<QueryTypes.Opts>({
     }
   }
 });
+const opts = ref<QueryTypes.Opts>(baseOptsConfig());
+watch(
+  () => locale.value,
+  () => {
+    const translated = baseOptsConfig();
+    const translatedValue = translated as Record<string, any>;
+    const optsValue = opts.value as Record<string, any>;
+    Object.keys(translated).forEach(key => {
+      if (optsValue[key]) {
+        optsValue[key] = {
+          ...optsValue[key],
+          label: translatedValue[key].label
+        };
+      }
+    });
+  }
+);
+const columns = computed(() => [
+  { prop: "systemName", label: t("super.base.table.systemName"), minWidth: 220 },
+  { prop: "title", label: t("super.base.table.title"), minWidth: 140 },
+  { prop: "methodDesc", label: t("super.base.table.methodDesc"), minWidth: 120 },
+  {
+    prop: "businessType",
+    label: t("super.base.opts.businessType"),
+    minWidth: 80,
+    render: (text: string | number) => {
+      const typeMap: TypeMap = {
+        0: { type: "info", val: "其它" },
+        1: { type: "success", val: "新增" },
+        2: { type: "warning", val: "修改" },
+        3: { type: "danger", val: "删除" }
+      };
+
+      const { type, val } = typeMap[text] || { type: "info", val: "未知" };
+
+      return <el-tag type={type}>{val}</el-tag>;
+    }
+  },
+  { prop: "requestMethod", label: "请求方式", minWidth: 120 },
+  { prop: "operName", label: "操作人员", minWidth: 120 },
+  { prop: "deptName", label: "部门名称", minWidth: 140 },
+  { prop: "operIp", label: "主机地址", minWidth: 140 },
+  {
+    prop: "status",
+    label: "操作状态",
+    minWidth: 120,
+    render: (text: string | number) => {
+      const statusMap: TypeMap = {
+        true: { type: "success", val: "正常" },
+        false: { type: "danger", val: "异常" }
+      };
+
+      const { type, val } = statusMap[text] || { type: "info", val: "未知" };
+
+      return <el-tag type={type}>{val}</el-tag>;
+    }
+  },
+
+  { prop: "operTime", label: "操作时间", minWidth: 180 },
+
+  {
+    prop: "operatorType",
+    label: "操作类别",
+    minWidth: 160,
+    render: text => {
+      const typeMap: TypeMap = {
+        0: { type: "danger", val: "其它" },
+        1: { type: "success", val: "后台用户" },
+        2: { type: "", val: "手机端用户" }
+      };
+
+      const { type, val } = typeMap[text] || { type: "info", val: "未知" };
+
+      return <el-tag type={type}>{val}</el-tag>;
+    }
+  }
+]);
 const table = ref<TableTypes.Table>({
   currentPage: 1,
   pageSize: 10,
   total: 0,
   firstColumn: { type: "selection", fixed: true },
-  // 接口返回数据
   data: [],
-  // 表头数据
-  columns: [
-    { prop: "systemName", label: "业务系统", minWidth: 220 },
-    { prop: "title", label: "业务模块", minWidth: 140 },
-    { prop: "methodDesc", label: "方法描述", minWidth: 120 },
-    {
-      prop: "businessType",
-      label: "操作类型",
-      minWidth: 80,
-      render: (text: string | number) => {
-        const typeMap: TypeMap = {
-          0: { type: "info", val: "其它" },
-          1: { type: "success", val: "新增" },
-          2: { type: "warning", val: "修改" },
-          3: { type: "danger", val: "删除" }
-        };
-
-        const { type, val } = typeMap[text] || { type: "info", val: "未知" };
-
-        return <el-tag type={type}>{val}</el-tag>;
-      }
-    },
-    { prop: "requestMethod", label: "请求方式", minWidth: 120 },
-    { prop: "operName", label: "操作人员", minWidth: 120 },
-    { prop: "deptName", label: "部门名称", minWidth: 140 },
-    { prop: "operIp", label: "主机地址", minWidth: 140 },
-    {
-      prop: "status",
-      label: "操作状态",
-      minWidth: 120,
-      render: (text: string | number) => {
-        const statusMap: TypeMap = {
-          true: { type: "success", val: "正常" },
-          false: { type: "danger", val: "异常" }
-        };
-
-        const { type, val } = statusMap[text] || { type: "info", val: "未知" };
-
-        return <el-tag type={type}>{val}</el-tag>;
-      }
-    },
-
-    { prop: "operTime", label: "操作时间", minWidth: 180 },
-
-    {
-      prop: "operatorType",
-      label: "操作类别",
-      minWidth: 160,
-      render: text => {
-        const typeMap: TypeMap = {
-          0: { type: "danger", val: "其它" },
-          1: { type: "success", val: "后台用户" },
-          2: { type: "", val: "手机端用户" }
-        };
-
-        const { type, val } = typeMap[text] || { type: "info", val: "未知" };
-
-        return <el-tag type={type}>{val}</el-tag>;
-      }
-    }
-  ],
+  columns: columns.value,
   operator: [
     {
       text: "详情",
@@ -219,7 +237,7 @@ const table = ref<TableTypes.Table>({
 // 动态新增查询条件
 const moreCheckList = computed(() => {
   return [
-    { label: "姓名", comp: "el-input", prop: "name" },
+    { label: t("super.base.opts.name"), comp: "el-input", prop: "name" },
     { label: "年龄", comp: "el-input", prop: "age" },
     {
       label: "性别",

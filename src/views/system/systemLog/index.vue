@@ -5,7 +5,6 @@
     :table="state.table"
     :columns="state.table.columns"
     isTTableSelfFilling
-    @selection-change="selectionChange"
     @size-change="handlesSizeChange"
     @page-change="handlesCurrentChange"
     :opts="opts"
@@ -22,7 +21,6 @@
 import useApi from "@/hooks/useApi";
 const { proxy } = useApi();
 const state: any = reactive({
-  ids: [],
   queryData: {
     systemName: null, // 业务系统
     title: null, // 业务模块
@@ -65,7 +63,6 @@ const state: any = reactive({
     currentPage: 1,
     pageSize: 10,
     total: 0,
-    firstColumn: { type: "selection" },
     // 接口返回数据
     data: [],
     // 表头数据
@@ -227,11 +224,6 @@ const conditionEnter = (data: any) => {
   state.queryData = data;
   console.log("最终参数", getQueryData.value);
   getData();
-};
-// 复选框选中
-const selectionChange = (data: any[]) => {
-  console.log("复选框选中", data);
-  state.ids = data.map((item: { operId: any }) => item.operId);
 };
 onMounted(() => {
   getData();

@@ -21,7 +21,7 @@ import "@/styles/theme/element-dark.scss";
 // reset style sheet
 import "@/styles/index.scss";
 // 因element-plus默认是英文，我们指定一下默认中文
-import locale from "element-plus/es/locale/lang/zh-cn";
+// import zhCn from "element-plus/es/locale/lang/zh-cn";
 // 图标并进行全局注册
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
@@ -37,6 +37,8 @@ import I18n from "@/languages/index";
 import pinia from "@/store";
 import * as echarts from "echarts";
 
+// import plusZhCn from "@wocwin/t-ui-plus/locale/zh-cn";
+// import plusEn from "@wocwin/t-ui-plus/locale/en";
 import TuiPlus from "@wocwin/t-ui-plus";
 import "@wocwin/t-ui-plus/index.css";
 // svg渲染
@@ -62,6 +64,7 @@ function render(props: any = {}) {
   instance.component("APagination", Pagination);
   // 注册全局api方法
   instance.config.globalProperties.$api = api;
+  instance.config.globalProperties.$t = I18n.global.t;
   instance.config.globalProperties.$echarts = echarts;
   // 注册所有图标
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -69,7 +72,7 @@ function render(props: any = {}) {
   }
   // 注册ElementPlus
   instance.use(ElementPlus, {
-    locale // 语言设置
+    // locale: { ...zhCn, ...plusEn } // 语言设置
     // size: Cookies.get('size') || 'medium' // 尺寸设置
   });
   // 自动注册全部本地组件

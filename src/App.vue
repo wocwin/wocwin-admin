@@ -1,11 +1,30 @@
 <template>
   <div id="app">
-    <router-view v-if="isRouterAlive" />
+    <el-config-provider :locale="language">
+      <router-view v-if="isRouterAlive" />
+    </el-config-provider>
   </div>
 </template>
 <script setup lang="ts">
 import { useTheme } from "@/hooks/useTheme";
+import { useGlobalStore } from "@/store/modules/global";
+import en from "element-plus/es/locale/lang/en";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
+import plusZhCn from "@wocwin/t-ui-plus/locale/zh-cn";
+import plusEn from "@wocwin/t-ui-plus/locale/en";
+
+const zhCnLocales = {
+  ...zhCn,
+  ...plusZhCn
+};
+const enLocales = {
+  ...en,
+  ...plusEn
+};
+
 const isRouterAlive = ref(true);
+const globalStore = useGlobalStore();
+const language = computed(() => (globalStore.language === "zh" ? zhCnLocales : enLocales));
 const reload = () => {
   isRouterAlive.value = false;
   nextTick(() => {
