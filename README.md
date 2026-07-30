@@ -133,8 +133,3 @@ Wocwin-Admin
 - `test`: 补充缺失的测试用例或者修正现有的测试用例;
 - `revert`: 回滚操作;
 
-### 微信交流（请备注wocwin-admin）
-
-|                微信二维码                 |
-| :---------------------------------------: |
-| <img src="./public/wocwin.jpg" width=170> |
